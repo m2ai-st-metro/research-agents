@@ -11,7 +11,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 
 SNOW_TOWN_ROOT = Path(os.environ.get(
     "SNOW_TOWN_ROOT",
-    str(Path.home() / "projects" / "snow-town"),
+    str(Path.home() / "projects" / "st-factory"),
 ))
 
 ULTRA_MAGNUS_DB = Path(os.environ.get(

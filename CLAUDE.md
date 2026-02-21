@@ -11,11 +11,11 @@ research-agents status
 
 ## Project Purpose
 
-Ambient research intelligence for Snow-Town's self-correcting feedback loop. Four agents scan papers, tools, adjacent domains, and synthesize findings into ideas — all writing to Snow-Town's ContractStore as `ResearchSignal` records.
+Ambient research intelligence for ST Factory's self-correcting feedback loop. Four agents scan papers, tools, adjacent domains, and synthesize findings into ideas — all writing to ST Factory's ContractStore as `ResearchSignal` records.
 
 ## Architecture
 
-- Signal producers (agents) write `ResearchSignal` to Snow-Town ContractStore
+- Signal producers (agents) write `ResearchSignal` to ST Factory ContractStore
 - Sky-Lynx reads signals via `research_reader.py` during weekly analysis
 - Idea surfacer writes directly to ultra-magnus `caught_ideas.db`
 - Claude API (Sonnet) handles relevance assessment
@@ -23,7 +23,7 @@ Ambient research intelligence for Snow-Town's self-correcting feedback loop. Fou
 ## Data Flow
 
 ```
-Agents → ResearchSignal (JSONL + SQLite in snow-town/data/)
+Agents → ResearchSignal (JSONL + SQLite in st-factory/data/)
 Sky-Lynx reads signals → includes in weekly analysis prompt
 Idea surfacer → caught_ideas.db (ultra-magnus)
 ```
@@ -37,7 +37,7 @@ Idea surfacer → caught_ideas.db (ultra-magnus)
 
 ## Dependencies
 
-- Snow-Town contracts (via sys.path, not pip)
+- ST Factory contracts (via sys.path, not pip)
 - Ultra-Magnus caught_ideas.db (direct SQLite for idea surfacer)
 - Anthropic API for relevance assessment
 

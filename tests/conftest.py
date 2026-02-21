@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-# Ensure Snow-Town contracts are importable in tests
-SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "snow-town"
+# Ensure ST Factory contracts are importable in tests
+SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-factory"
 if str(SNOW_TOWN_ROOT) not in sys.path:
     sys.path.insert(0, str(SNOW_TOWN_ROOT))
 
