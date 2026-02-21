@@ -1,0 +1,11 @@
+# Research Agents cron schedule
+# Install: sudo cp cron/research-agents /etc/cron.d/
+
+# Daily at 5 AM UTC: arxiv + tool-monitor
+0 5 * * * ubuntu /home/ubuntu/projects/research-agents/run-agents.sh arxiv tool-monitor >> /var/log/research-agents/pipeline.log 2>&1
+
+# Every 3 days at 5 AM UTC: domain-watch
+0 5 */3 * * ubuntu /home/ubuntu/projects/research-agents/run-agents.sh domain-watch >> /var/log/research-agents/pipeline.log 2>&1
+
+# Saturday 11 PM UTC: idea-surfacer (before Sunday 2 AM Snow-Town loop)
+0 23 * * 6 ubuntu /home/ubuntu/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1

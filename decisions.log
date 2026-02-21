@@ -1,0 +1,30 @@
+# decisions.log - Research Agents
+
+## 2026-02-21: Standalone project vs Snow-Town module
+
+**Decision**: Create standalone `~/projects/research-agents/` project.
+
+**Context**: Research agents could live inside Snow-Town or as a separate project.
+
+**Rationale**: Follows the IdeaForge pattern — signal producers are separate projects that write to Snow-Town contracts. This keeps Snow-Town focused on contract definitions and the store, while agents are independently deployable and testable.
+
+**Trade-offs**:
+- Pro: Clean separation of concerns, independent venvs, no Snow-Town bloat
+- Pro: Can run/test agents without Snow-Town running
+- Con: sys.path import of contracts (not a real package dependency)
+
+## 2026-02-21: Claude Sonnet for relevance assessment
+
+**Decision**: Use claude-sonnet-4-5 for all relevance assessments.
+
+**Context**: Could use Opus for higher quality or Haiku for lower cost.
+
+**Rationale**: Sonnet is the cost/quality sweet spot for classification tasks. These agents run daily with 10-30 signals each — Sonnet keeps costs under $1/day while maintaining good classification quality. Can upgrade individual agents to Opus if quality issues emerge.
+
+## 2026-02-21: arXiv API over HuggingFace MCP tools
+
+**Decision**: Use arXiv API directly (via httpx) instead of HuggingFace paper_search MCP tool.
+
+**Context**: HF MCP tools are available in Claude Code but not directly callable from Python scripts.
+
+**Rationale**: Direct arXiv API is simpler, well-documented, and doesn't require MCP runtime. HF paper_search returns HF-indexed papers which is a subset. arXiv API gives access to the full paper corpus.
