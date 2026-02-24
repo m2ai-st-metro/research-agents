@@ -17,7 +17,7 @@ Ambient research intelligence for ST Factory's self-correcting feedback loop. Fo
 
 - Signal producers (agents) write `ResearchSignal` to ST Factory ContractStore
 - Sky-Lynx reads signals via `research_reader.py` during weekly analysis
-- Idea surfacer writes directly to ultra-magnus `caught_ideas.db`
+- Idea surfacer writes to IdeaForge `ideaforge.db` (status='unscored')
 - Claude API (Sonnet) handles relevance assessment
 
 ## Data Flow
@@ -25,7 +25,8 @@ Ambient research intelligence for ST Factory's self-correcting feedback loop. Fo
 ```
 Agents → ResearchSignal (JSONL + SQLite in st-factory/data/)
 Sky-Lynx reads signals → includes in weekly analysis prompt
-Idea surfacer → caught_ideas.db (ultra-magnus)
+Idea surfacer → ideaforge.db (IdeaForge, status='unscored')
+IdeaForge scores + classifies → Metroplex triages
 ```
 
 ## Key Patterns
@@ -38,7 +39,7 @@ Idea surfacer → caught_ideas.db (ultra-magnus)
 ## Dependencies
 
 - ST Factory contracts (via sys.path, not pip)
-- Ultra-Magnus caught_ideas.db (direct SQLite for idea surfacer)
+- IdeaForge ideaforge.db (direct SQLite for idea surfacer, config: IDEAFORGE_DB)
 - Anthropic API for relevance assessment
 
 ## Cron Schedule

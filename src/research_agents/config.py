@@ -19,6 +19,11 @@ ULTRA_MAGNUS_DB = Path(os.environ.get(
     str(Path.home() / "projects" / "ultra-magnus" / "idea-catcher" / "data" / "caught_ideas.db"),
 ))
 
+IDEAFORGE_DB = Path(os.environ.get(
+    "IDEAFORGE_DB",
+    str(Path.home() / "projects" / "ideaforge" / "data" / "ideaforge.db"),
+))
+
 
 def get_snow_town_db() -> Path:
     """Return path to Snow-Town persona_metrics.db."""

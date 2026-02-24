@@ -1,50 +1,25 @@
 """Idea Surfacer Agent (Machine Idea Catcher).
 
 Synthesizes research signals into actionable project ideas and writes
-them directly to Ultra-Magnus's caught_ideas.db.
+them to IdeaForge's ideas table (status='unscored') for downstream
+scoring, classification, and Metroplex triage.
 """
 
 from __future__ import annotations
 
 import json
 import logging
-import os
-import sqlite3
 from datetime import datetime, timedelta
-from pathlib import Path
 
 from ..claude_client import get_client
-from ..config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL, ULTRA_MAGNUS_DB
+from ..config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL
 from ..signal_writer import get_store
+from .ideaforge_writer import write_idea_to_ideaforge
 
 from contracts.research_signal import ResearchSignal  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
-# Schema for caught_ideas table (bootstrapped if needed)
-CAUGHT_IDEAS_SCHEMA = """
-CREATE TABLE IF NOT EXISTS caught_ideas (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    raw_content TEXT NOT NULL,
-    tags TEXT DEFAULT '[]',
-    source_context TEXT,
-    caught_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'processed', 'failed')),
-    processed_at TIMESTAMP,
-    factory_id TEXT,
-    error_message TEXT,
-    retry_count INTEGER DEFAULT 0
-);
-"""
-
-
-def _get_um_db_path() -> Path:
-    """Get Ultra-Magnus caught_ideas.db path."""
-    env_path = os.environ.get("IDEA_CATCHER_DB")
-    if env_path:
-        return Path(env_path)
-    return ULTRA_MAGNUS_DB
 
 
 def _get_recent_signals(days: int = 7) -> list[ResearchSignal]:
@@ -135,42 +110,6 @@ Rules:
         return []
 
 
-def _write_idea_to_um(
-    title: str,
-    description: str,
-    tags: list[str],
-    db_path: Path | None = None,
-) -> int:
-    """Write an idea directly to Ultra-Magnus's caught_ideas.db.
-
-    Returns the inserted idea ID.
-    """
-    path = db_path or _get_um_db_path()
-    path.parent.mkdir(parents=True, exist_ok=True)
-
-    conn = sqlite3.connect(str(path))
-    try:
-        # Ensure table exists
-        conn.executescript(CAUGHT_IDEAS_SCHEMA)
-
-        # Add machine-surfaced tag
-        all_tags = list(set(tags + ["machine-surfaced"]))
-
-        cursor = conn.execute(
-            "INSERT INTO caught_ideas (title, raw_content, tags, source_context) VALUES (?, ?, ?, ?)",
-            (
-                title,
-                description,
-                json.dumps(all_tags),
-                "research-agents:idea-surfacer",
-            ),
-        )
-        conn.commit()
-        return cursor.lastrowid or 0
-    finally:
-        conn.close()
-
-
 def _mark_signals_consumed(signal_ids: list[str]) -> None:
     """Mark signals as consumed by the idea surfacer."""
     store = get_store()
@@ -186,7 +125,7 @@ def run_agent(dry_run: bool = False) -> str:
 
     1. Load recent research signals (past week, relevance >= medium)
     2. Synthesize into 0-3 actionable project ideas via Claude
-    3. Write ideas to caught_ideas.db
+    3. Write ideas to IdeaForge (status='unscored')
     4. Mark consumed signals in ContractStore
 
     Returns summary string.
@@ -210,12 +149,13 @@ def run_agent(dry_run: bool = False) -> str:
     consumed_signal_ids: list[str] = []
 
     for idea in ideas:
-        um_id = _write_idea_to_um(
+        idea_id = write_idea_to_ideaforge(
             title=idea["title"],
             description=idea["description"],
             tags=idea.get("tags", []),
+            source_signal_ids=idea.get("source_signal_ids", []),
         )
-        logger.info(f"Wrote idea #{um_id}: {idea['title']}")
+        logger.info(f"Wrote idea #{idea_id} to IdeaForge: {idea['title']}")
         written += 1
 
         # Track which signals were consumed
