@@ -23,6 +23,7 @@ AGENTS: dict[str, str] = {
     "tool-monitor": "research_agents.agents.tool_monitor",
     "domain-watch": "research_agents.agents.domain_watcher",
     "idea-surfacer": "research_agents.agents.idea_surfacer",
+    "youtube": "research_agents.agents.youtube_scanner",
 }
 
 
@@ -37,7 +38,7 @@ def _setup_logging(verbose: bool = False) -> None:
 
 @app.command()
 def run(
-    agent: str = typer.Argument(..., help="Agent to run: arxiv, tool-monitor, domain-watch, idea-surfacer"),
+    agent: str = typer.Argument(..., help="Agent to run: arxiv, tool-monitor, domain-watch, idea-surfacer, youtube"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Preview without API calls or writes"),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose logging"),
 ) -> None:

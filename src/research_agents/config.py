@@ -68,12 +68,32 @@ DOMAIN_WATCH_QUERIES: list[str] = [
 ]
 DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 
+# --- YouTube Trending Scanner ---
+YOUTUBE_SEARCH_QUERIES: list[str] = [
+    "AI agents autonomous coding",
+    "supply chain AI automation",
+    "MCP model context protocol",
+    "LLM tool use function calling",
+    "AI developer tools 2026",
+    "healthcare AI technology",
+    "agentic workflows AI",
+]
+YOUTUBE_MAX_RESULTS_PER_QUERY = 5
+YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
+YOUTUBE_TRANSCRIPT_MAX_CHARS = 15000  # Truncate transcripts for summarization
+YOUTUBE_API_KEY_ENV = "YOUTUBE_API_KEY"  # env var name for YouTube Data API v3 key
+
+# Haiku model for cost-efficient transcript summarization
+YOUTUBE_SUMMARIZER_MODEL = "claude-haiku-4-5-20250929"
+YOUTUBE_SUMMARIZER_MAX_TOKENS = 4096
+
 # --- Cadences ---
 CADENCE = {
     "arxiv": "daily",
     "tool_monitor": "daily",
     "domain_watch": "every_3_days",
     "idea_surfacer": "weekly",
+    "youtube": "daily",
 }
 
 # --- Persona IDs (for tool_monitor tagging) ---
