@@ -2,6 +2,9 @@
 
 Monitors healthcare AI, solo dev tools, and workflow automation trends.
 Uses a higher relevance bar (HIGH only) since these are adjacent domains.
+
+Assess-then-enrich: runs cheap metadata-based relevance first, then spends
+a Firecrawl credit to scrape the full article only for signals that pass.
 """
 
 from __future__ import annotations
@@ -13,7 +16,13 @@ import time
 import httpx
 
 from ..claude_client import assess_relevance, get_client
-from ..config import DOMAIN_MIN_RELEVANCE, DOMAIN_WATCH_QUERIES
+from ..config import (
+    DOMAIN_MIN_RELEVANCE,
+    DOMAIN_WATCH_QUERIES,
+    FIRECRAWL_ENRICH_MAX_CHARS,
+    FIRECRAWL_ENRICH_MAX_PER_QUERY,
+)
+from ..firecrawl_client import is_enrichment_available, scrape_url
 from ..signal_writer import get_store, signal_exists, write_signal
 
 from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
@@ -66,13 +75,24 @@ def _search_hn(query: str, max_results: int = 10) -> list[dict]:
     return stories
 
 
+def _enrich_summary(story: dict, scraped_content: str) -> str:
+    """Build an enriched summary from metadata + scraped content."""
+    meta = f"{story['points']} points, {story['num_comments']} comments on HN"
+    # Take first ~2000 chars of scraped content as context
+    excerpt = scraped_content[:2000].strip()
+    if excerpt:
+        return f"{meta}\n\nArticle excerpt:\n{excerpt}"
+    return meta
+
+
 def run_agent(dry_run: bool = False) -> str:
     """Run the adjacent domain watcher agent.
 
     1. Search HN for each configured domain query
     2. Deduplicate against existing signals
-    3. Assess relevance via Claude API (structural parallel focus)
-    4. Only write HIGH relevance signals (higher bar for adjacent domains)
+    3. Assess relevance via Claude API (metadata-only first pass)
+    4. Enrich with Firecrawl scrape for signals that pass relevance bar
+    5. Only write HIGH relevance signals (higher bar for adjacent domains)
 
     Returns summary string.
     """
@@ -83,12 +103,14 @@ def run_agent(dry_run: bool = False) -> str:
     total_new = 0
     total_written = 0
     skipped_below_bar = 0
+    total_enriched = 0
 
     try:
         for query in DOMAIN_WATCH_QUERIES:
             logger.info(f"Searching HN for domain: '{query}'")
             stories = _search_hn(query, max_results=10)
             total_found += len(stories)
+            enriched_this_query = 0
 
             for story in stories:
                 signal_id = _make_signal_id(f"hn-{story['objectID']}")
@@ -102,7 +124,7 @@ def run_agent(dry_run: bool = False) -> str:
                     logger.info(f"  [DRY RUN] Would assess: {story['title'][:80]}")
                     continue
 
-                # Claude relevance assessment with structural parallel focus
+                # First pass: cheap metadata-based relevance assessment
                 assessment = assess_relevance(
                     title=story["title"],
                     summary=f"HN story with {story['points']} points, {story['num_comments']} comments",
@@ -117,14 +139,34 @@ def run_agent(dry_run: bool = False) -> str:
                     logger.debug(f"  Skipped (below bar): {story['title'][:60]}")
                     continue
 
+                # Enrichment: scrape full article for signals that passed
+                summary = f"{story['points']} points, {story['num_comments']} comments on HN"
+                enriched = False
+
+                if (
+                    enriched_this_query < FIRECRAWL_ENRICH_MAX_PER_QUERY
+                    and is_enrichment_available()
+                    and not story["url"].startswith("https://news.ycombinator.com")
+                ):
+                    scraped = scrape_url(
+                        story["url"], max_chars=FIRECRAWL_ENRICH_MAX_CHARS
+                    )
+                    if scraped:
+                        summary = _enrich_summary(story, scraped)
+                        enriched_this_query += 1
+                        total_enriched += 1
+                        enriched = True
+                        logger.info(f"  Enriched via Firecrawl: {story['title'][:60]}")
+
                 tags = assessment.get("tags", [])
                 for persona in assessment.get("persona_tags", []):
                     tags.append(f"persona:{persona}")
+                if enriched:
+                    tags.append("firecrawl-enriched")
 
                 # Extract domain from the query category
                 domain = assessment.get("domain")
                 if not domain:
-                    # Infer from query
                     if "healthcare" in query.lower() or "hipaa" in query.lower() or "clinical" in query.lower():
                         domain = "healthcare-ai"
                     elif "solo" in query.lower() or "developer" in query.lower():
@@ -136,7 +178,7 @@ def run_agent(dry_run: bool = False) -> str:
                     signal_id=signal_id,
                     source=SignalSource.DOMAIN_WATCH,
                     title=story["title"],
-                    summary=f"{story['points']} points, {story['num_comments']} comments on HN",
+                    summary=summary,
                     url=story["url"],
                     relevance=SignalRelevance(relevance),
                     relevance_rationale=assessment.get("relevance_rationale", ""),
@@ -148,6 +190,7 @@ def run_agent(dry_run: bool = False) -> str:
                         "num_comments": story["num_comments"],
                         "author": story["author"],
                         "created_at": story["created_at"],
+                        "firecrawl_enriched": enriched,
                     },
                     store=store,
                 )
@@ -162,5 +205,6 @@ def run_agent(dry_run: bool = False) -> str:
 
     return (
         f"Found {total_found} stories, {total_new} new, "
-        f"{total_written} written, {skipped_below_bar} skipped (below relevance bar)"
+        f"{total_written} written ({total_enriched} enriched), "
+        f"{skipped_below_bar} skipped (below relevance bar)"
     )

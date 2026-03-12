@@ -1,7 +1,7 @@
 """YouTube Trending Scanner Agent.
 
 Scans YouTube for trending/popular videos in AI, tech, and supply chain topics.
-Extracts transcripts, summarizes via Claude Haiku, generates Mermaid diagrams
+Extracts transcripts, summarizes via Gemini Flash, generates Mermaid diagrams
 of key concepts, and writes ResearchSignal records to ST Factory ContractStore.
 """
 
@@ -14,18 +14,19 @@ import subprocess
 import time
 
 import httpx
-from anthropic import Anthropic
 
 from ..claude_client import assess_relevance, get_client
 from ..config import (
     YOUTUBE_API_KEY_ENV,
+    YOUTUBE_CHANNEL_MAX_VIDEOS,
+    YOUTUBE_CHANNELS,
     YOUTUBE_MAX_RESULTS_PER_QUERY,
     YOUTUBE_MIN_RELEVANCE,
     YOUTUBE_SEARCH_QUERIES,
-    YOUTUBE_SUMMARIZER_MAX_TOKENS,
     YOUTUBE_SUMMARIZER_MODEL,
     YOUTUBE_TRANSCRIPT_MAX_CHARS,
 )
+from ..gemini_client import summarize_transcript as gemini_summarize_transcript
 from ..signal_writer import get_store, signal_exists, write_signal
 
 # Re-import after sys.path setup in signal_writer
@@ -222,6 +223,161 @@ def search_youtube(query: str, max_results: int = 5) -> list[dict]:
         return _search_youtube_fallback(query, max_results)
 
 
+def _fetch_channel_videos_api(
+    handle: str, api_key: str, max_results: int = 5
+) -> list[dict]:
+    """Fetch recent uploads from a YouTube channel via the Data API v3.
+
+    Uses the search endpoint filtered by channelId or handle, ordered by date.
+    """
+    # First resolve handle to channel ID
+    try:
+        ch_resp = httpx.get(
+            f"{YOUTUBE_API_BASE}/channels",
+            params={"part": "contentDetails", "forHandle": handle.lstrip("@"), "key": api_key},
+            timeout=15.0,
+        )
+        ch_resp.raise_for_status()
+        ch_data = ch_resp.json()
+        items = ch_data.get("items", [])
+        if not items:
+            logger.warning(f"Could not resolve channel for handle '{handle}'")
+            return []
+        channel_id = items[0]["id"]
+    except httpx.HTTPError as e:
+        logger.warning(f"YouTube API channel lookup failed for '{handle}': {e}")
+        return []
+
+    # Search recent uploads for that channel
+    search_params = {
+        "part": "snippet",
+        "channelId": channel_id,
+        "type": "video",
+        "order": "date",
+        "maxResults": min(max_results, 50),
+        "key": api_key,
+    }
+
+    try:
+        resp = httpx.get(
+            f"{YOUTUBE_API_BASE}/search",
+            params=search_params,
+            timeout=30.0,
+        )
+        resp.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.warning(f"YouTube API channel search failed for '{handle}': {e}")
+        return []
+
+    data = resp.json()
+    video_ids = []
+    snippets: dict[str, dict] = {}
+
+    for item in data.get("items", []):
+        vid_id = item.get("id", {}).get("videoId")
+        if not vid_id:
+            continue
+        video_ids.append(vid_id)
+        snippet = item.get("snippet", {})
+        snippets[vid_id] = {
+            "title": snippet.get("title", ""),
+            "description": (snippet.get("description") or "")[:500],
+            "channel_title": snippet.get("channelTitle", ""),
+            "published_at": snippet.get("publishedAt", ""),
+            "thumbnail_url": (
+                snippet.get("thumbnails", {}).get("high", {}).get("url", "")
+            ),
+        }
+
+    # Fetch stats
+    stats = _get_video_stats(video_ids, api_key) if video_ids else {}
+
+    videos = []
+    for vid_id in video_ids:
+        info = snippets[vid_id]
+        info["video_id"] = vid_id
+        info["url"] = f"https://www.youtube.com/watch?v={vid_id}"
+        info["view_count"] = stats.get(vid_id, {}).get("view_count", 0)
+        info["like_count"] = stats.get(vid_id, {}).get("like_count", 0)
+        info["duration"] = stats.get(vid_id, {}).get("duration", "")
+        videos.append(info)
+
+    return videos
+
+
+def _fetch_channel_videos_fallback(
+    handle: str, max_results: int = 5
+) -> list[dict]:
+    """Fetch recent uploads from a YouTube channel via yt-dlp (no API key needed)."""
+    channel_url = f"https://www.youtube.com/{handle}/videos"
+
+    try:
+        result = subprocess.run(
+            [
+                "yt-dlp",
+                "--dump-json",
+                "--flat-playlist",
+                "--no-warnings",
+                f"--playlist-items=1-{max_results}",
+                channel_url,
+            ],
+            capture_output=True,
+            text=True,
+            timeout=90,
+        )
+    except FileNotFoundError:
+        logger.warning("yt-dlp not installed. Cannot fetch channel videos.")
+        return []
+    except subprocess.TimeoutExpired:
+        logger.warning(f"yt-dlp channel fetch timed out for '{handle}'")
+        return []
+
+    if result.returncode != 0:
+        logger.warning(f"yt-dlp channel fetch failed for '{handle}': {result.stderr[:200]}")
+        return []
+
+    videos = []
+    for line in result.stdout.strip().split("\n"):
+        if not line.strip():
+            continue
+        try:
+            entry = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+
+        vid_id = entry.get("id", "")
+        if not vid_id:
+            continue
+
+        videos.append({
+            "video_id": vid_id,
+            "title": entry.get("title", ""),
+            "description": (entry.get("description") or "")[:500],
+            "channel_title": entry.get("channel", entry.get("uploader", "")),
+            "published_at": entry.get("upload_date", ""),
+            "thumbnail_url": entry.get("thumbnail", ""),
+            "url": entry.get("url", f"https://www.youtube.com/watch?v={vid_id}"),
+            "view_count": entry.get("view_count", 0) or 0,
+            "like_count": entry.get("like_count", 0) or 0,
+            "duration": entry.get("duration_string", ""),
+        })
+
+    return videos
+
+
+def fetch_channel_videos(
+    handle: str, max_results: int = 5
+) -> list[dict]:
+    """Fetch recent uploads from a channel. Uses API if available, else yt-dlp."""
+    api_key = _get_youtube_api_key()
+    if api_key:
+        logger.info(f"Fetching channel videos via API: '{handle}'")
+        return _fetch_channel_videos_api(handle, api_key, max_results)
+    else:
+        logger.info(f"Fetching channel videos via yt-dlp: '{handle}'")
+        return _fetch_channel_videos_fallback(handle, max_results)
+
+
 def get_transcript(video_id: str) -> str | None:
     """Extract transcript from a YouTube video.
 
@@ -312,10 +468,14 @@ def _get_transcript_ytdlp(video_id: str) -> str | None:
 def summarize_transcript(
     title: str,
     transcript: str,
-    client: Anthropic | None = None,
+    client: object | None = None,
     model: str = YOUTUBE_SUMMARIZER_MODEL,
 ) -> dict:
-    """Summarize a YouTube video transcript using Claude Haiku.
+    """Summarize a YouTube video transcript using Gemini.
+
+    Delegates to gemini_client.summarize_transcript(). The ``client`` param
+    is accepted for call-site compatibility but ignored -- a Gemini client
+    is created internally.
 
     Returns dict with:
         summary: str - 2-3 paragraph summary of key points
@@ -323,67 +483,23 @@ def summarize_transcript(
         mermaid_diagram: str - Mermaid diagram of architecture/concepts
         tags: list[str] - relevant tags for categorization
     """
-    if client is None:
-        client = get_client()
-
-    prompt = f"""Analyze this YouTube video transcript and provide a structured summary.
-
-Video Title: {title}
-
-Transcript (may be auto-generated, ignore minor transcription errors):
-{transcript[:YOUTUBE_TRANSCRIPT_MAX_CHARS]}
-
-Respond with JSON only:
-{{
-    "summary": "2-3 paragraph summary of key points and takeaways",
-    "key_concepts": ["concept1", "concept2", "concept3"],
-    "mermaid_diagram": "Mermaid graph TD showing key concepts. Valid syntax.",
-    "tags": ["tag1", "tag2", "tag3"]
-}}
-
-For the Mermaid diagram:
-- Use `graph TD` for top-down concept maps
-- Show relationships between the key technologies/concepts discussed
-- Keep it to 5-10 nodes maximum
-- Use descriptive edge labels
-
-If the transcript is too short or unclear to generate meaningful output,
-still provide your best summary based on the title and available content."""
-
-    response = client.messages.create(
+    return gemini_summarize_transcript(
+        title=title,
+        transcript=transcript,
         model=model,
-        max_tokens=YOUTUBE_SUMMARIZER_MAX_TOKENS,
-        messages=[{"role": "user", "content": prompt}],
     )
-
-    text = response.content[0].text.strip()
-    # Handle markdown code blocks
-    if text.startswith("```"):
-        text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-
-    try:
-        result = json.loads(text)
-    except json.JSONDecodeError:
-        logger.warning(f"Failed to parse summarization response: {text[:200]}")
-        result = {
-            "summary": f"Video: {title}. Transcript available but summarization failed.",
-            "key_concepts": [],
-            "mermaid_diagram": "",
-            "tags": [],
-        }
-
-    return result
 
 
 def run_agent(dry_run: bool = False) -> str:
     """Run the YouTube trending scanner agent.
 
-    1. Search YouTube for each configured query
-    2. Extract transcripts from discovered videos
-    3. Summarize transcripts using Claude Haiku
-    4. Assess relevance via Claude API
-    5. Generate Mermaid diagrams of key concepts
-    6. Write signals that pass the relevance threshold
+    1. Fetch recent uploads from monitored channels (YOUTUBE_CHANNELS)
+    2. Search YouTube for each configured query
+    3. Extract transcripts from discovered videos
+    4. Summarize transcripts using Gemini Flash
+    5. Assess relevance via Claude API
+    6. Generate Mermaid diagrams of key concepts
+    7. Write signals that pass the relevance threshold
 
     Returns summary string.
     """
@@ -396,11 +512,34 @@ def run_agent(dry_run: bool = False) -> str:
     total_transcripts = 0
     skipped_low = 0
     skipped_no_transcript = 0
+    channel_found = 0
 
+    # Collect all video batches: (label, videos_list) tuples
+    video_batches: list[tuple[str, list[dict]]] = []
+
+    # Phase 1: Monitored channels -- always fetch latest uploads
+    for channel in YOUTUBE_CHANNELS:
+        handle = channel.get("handle", "")
+        name = channel.get("name", handle)
+        if not handle:
+            continue
+        logger.info(f"Fetching channel: {name} ({handle})")
+        ch_videos = fetch_channel_videos(
+            handle, max_results=YOUTUBE_CHANNEL_MAX_VIDEOS
+        )
+        channel_found += len(ch_videos)
+        video_batches.append((f"channel:{name}", ch_videos))
+        time.sleep(1.0)  # Rate limit between channel fetches
+
+    # Phase 2: Topic search queries
+    for query in YOUTUBE_SEARCH_QUERIES:
+        logger.info(f"Searching YouTube: '{query}'")
+        videos = search_youtube(query, max_results=YOUTUBE_MAX_RESULTS_PER_QUERY)
+        video_batches.append((f"search:{query}", videos))
+
+    # Process all batches through the same pipeline
     try:
-        for query in YOUTUBE_SEARCH_QUERIES:
-            logger.info(f"Searching YouTube: '{query}'")
-            videos = search_youtube(query, max_results=YOUTUBE_MAX_RESULTS_PER_QUERY)
+        for batch_label, videos in video_batches:
             total_found += len(videos)
 
             for video in videos:
@@ -430,7 +569,7 @@ def run_agent(dry_run: bool = False) -> str:
                 if transcript:
                     total_transcripts += 1
 
-                # Summarize transcript with Haiku (if transcript available)
+                # Summarize transcript with Gemini (if transcript available)
                 summary_data: dict = {}
                 if transcript:
                     summary_data = summarize_transcript(
@@ -514,7 +653,8 @@ def run_agent(dry_run: bool = False) -> str:
         store.close()
 
     return (
-        f"Found {total_found} videos, {total_new} new, "
+        f"Found {total_found} videos ({channel_found} from channels), "
+        f"{total_new} new, "
         f"{total_transcripts} transcripts extracted, "
         f"{total_written} written, {skipped_low} skipped (low relevance), "
         f"{skipped_no_transcript} no transcript"

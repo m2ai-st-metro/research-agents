@@ -6,3 +6,4 @@ dist/
 build/
 .env
 *.lock
+data/firecrawl_usage.jsonl

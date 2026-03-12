@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import logging
 import sys
-from pathlib import Path
-from typing import Optional
 
 import typer
 from rich.console import Console
@@ -24,6 +22,11 @@ AGENTS: dict[str, str] = {
     "domain-watch": "research_agents.agents.domain_watcher",
     "idea-surfacer": "research_agents.agents.idea_surfacer",
     "youtube": "research_agents.agents.youtube_scanner",
+    "rss": "research_agents.agents.rss_scanner",
+    "trend-analyzer": "research_agents.agents.trend_analyzer",
+    "perplexity": "research_agents.agents.perplexity_agent",
+    "chatgpt": "research_agents.agents.chatgpt_agent",
+    "gemini-research": "research_agents.agents.gemini_research_agent",
 }
 
 
@@ -38,7 +41,9 @@ def _setup_logging(verbose: bool = False) -> None:
 
 @app.command()
 def run(
-    agent: str = typer.Argument(..., help="Agent to run: arxiv, tool-monitor, domain-watch, idea-surfacer, youtube"),
+    agent: str = typer.Argument(
+        ..., help="Agent to run (see AGENTS registry)",
+    ),
     dry_run: bool = typer.Option(False, "--dry-run", help="Preview without API calls or writes"),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose logging"),
 ) -> None:
@@ -79,7 +84,7 @@ def run_all(
             result = run_fn(dry_run=dry_run)
             console.print(f"[green]  {result}[/green]")
         except (ImportError, AttributeError):
-            console.print(f"[yellow]  Skipping (not yet implemented)[/yellow]")
+            console.print("[yellow]  Skipping (not yet implemented)[/yellow]")
         except Exception as e:
             console.print(f"[red]  Error: {e}[/red]")
 
@@ -128,6 +133,22 @@ def status() -> None:
             store.close()
     except Exception as e:
         console.print(f"[yellow]Could not load signals: {e}[/yellow]")
+
+
+@app.command()
+def ingest(
+    url_or_topic: str = typer.Argument(
+        ..., help="URL or topic to ingest as a manual signal",
+    ),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without API calls or writes"),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose logging"),
+) -> None:
+    """Ingest a URL or topic description as a manual research signal."""
+    _setup_logging(verbose)
+
+    from .agents.manual_signal_writer import ingest_signal
+    result = ingest_signal(url_or_topic, dry_run=dry_run)
+    console.print(result)
 
 
 if __name__ == "__main__":

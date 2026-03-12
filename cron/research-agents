@@ -1,11 +1,26 @@
 # Research Agents cron schedule
 # Install: sudo cp cron/research-agents /etc/cron.d/
 
-# Daily at 5 AM UTC: arxiv + tool-monitor
-0 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh arxiv tool-monitor >> /var/log/research-agents/pipeline.log 2>&1
+# Daily at 5 AM UTC: arxiv + tool-monitor + rss
+0 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh arxiv tool-monitor rss >> /var/log/research-agents/pipeline.log 2>&1
 
 # Every 3 days at 5:30 AM UTC: domain-watch (staggered to avoid lock race with daily agents)
 30 5 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh domain-watch >> /var/log/research-agents/pipeline.log 2>&1
 
-# Saturday 11 PM UTC: idea-surfacer (before Sunday 2 AM Snow-Town loop)
-0 23 * * 6 apexaipc /home/apexaipc/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1
+# Every 3 days at 10 PM UTC: trend-analyzer (runs before idea-surfacer so trend signal is available)
+0 22 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh trend-analyzer >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 5:15 AM UTC: youtube scanner (staggered after main daily batch)
+15 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh youtube >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 6 AM UTC: perplexity (web-grounded research, staggered after other daily agents)
+0 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh perplexity >> /var/log/research-agents/pipeline.log 2>&1
+
+# Every 3 days at 6:30 AM UTC: chatgpt (strategic market analysis, staggered after domain-watch)
+30 6 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh chatgpt >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 6:15 AM UTC: gemini-research (Google Search grounded, staggered after perplexity)
+15 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh gemini-research >> /var/log/research-agents/pipeline.log 2>&1
+
+# Every 3 days at 11 PM UTC: idea-surfacer (synthesize signals into IdeaForge ideas)
+0 23 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1

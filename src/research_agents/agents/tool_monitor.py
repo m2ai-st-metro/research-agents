@@ -2,6 +2,9 @@
 
 Searches for new MCP servers, framework releases, and AI tooling updates.
 Assesses relevance with persona-awareness tagging.
+
+Assess-then-enrich: runs cheap metadata-based relevance first, then spends
+a Firecrawl credit to scrape the repo README only for signals that pass.
 """
 
 from __future__ import annotations
@@ -13,7 +16,14 @@ import time
 import httpx
 
 from ..claude_client import assess_relevance, get_client
-from ..config import PERSONA_IDS, TOOL_MAX_RESULTS_PER_QUERY, TOOL_SEARCH_QUERIES
+from ..config import (
+    FIRECRAWL_ENRICH_MAX_CHARS,
+    FIRECRAWL_ENRICH_MAX_PER_QUERY,
+    PERSONA_IDS,
+    TOOL_MAX_RESULTS_PER_QUERY,
+    TOOL_SEARCH_QUERIES,
+)
+from ..firecrawl_client import is_enrichment_available, scrape_url
 from ..signal_writer import get_store, signal_exists, write_signal
 
 from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
@@ -68,13 +78,23 @@ def _search_github_repos(query: str, max_results: int = 10) -> list[dict]:
     return repos
 
 
+def _enrich_summary(repo: dict, scraped_content: str) -> str:
+    """Build an enriched summary from metadata + scraped README content."""
+    meta = repo["description"] or repo["full_name"]
+    excerpt = scraped_content[:2000].strip()
+    if excerpt:
+        return f"{meta}\n\nREADME excerpt:\n{excerpt}"
+    return meta
+
+
 def run_agent(dry_run: bool = False) -> str:
     """Run the tool/library monitor agent.
 
     1. Search GitHub for each configured query
     2. Deduplicate against existing signals
-    3. Assess relevance via Claude API with persona-awareness
-    4. Write signals that pass the relevance threshold
+    3. Assess relevance via Claude API with persona-awareness (metadata first)
+    4. Enrich with Firecrawl scrape for signals that pass relevance filter
+    5. Write signals that pass the relevance threshold
 
     Returns summary string.
     """
@@ -85,12 +105,14 @@ def run_agent(dry_run: bool = False) -> str:
     total_new = 0
     total_written = 0
     skipped_low = 0
+    total_enriched = 0
 
     try:
         for query in TOOL_SEARCH_QUERIES:
             logger.info(f"Searching GitHub: '{query}'")
             repos = _search_github_repos(query, max_results=TOOL_MAX_RESULTS_PER_QUERY)
             total_found += len(repos)
+            enriched_this_query = 0
 
             for repo in repos:
                 signal_id = _make_signal_id(repo["full_name"])
@@ -104,7 +126,7 @@ def run_agent(dry_run: bool = False) -> str:
                     logger.info(f"  [DRY RUN] Would assess: {repo['full_name']}")
                     continue
 
-                # Claude relevance assessment
+                # First pass: cheap metadata-based relevance assessment
                 assessment = assess_relevance(
                     title=repo["full_name"],
                     summary=repo["description"],
@@ -118,15 +140,35 @@ def run_agent(dry_run: bool = False) -> str:
                     logger.debug(f"  Skipped (low relevance): {repo['full_name']}")
                     continue
 
+                # Enrichment: scrape repo page for README content
+                summary = repo["description"] or repo["full_name"]
+                enriched = False
+
+                if (
+                    enriched_this_query < FIRECRAWL_ENRICH_MAX_PER_QUERY
+                    and is_enrichment_available()
+                ):
+                    scraped = scrape_url(
+                        repo["url"], max_chars=FIRECRAWL_ENRICH_MAX_CHARS
+                    )
+                    if scraped:
+                        summary = _enrich_summary(repo, scraped)
+                        enriched_this_query += 1
+                        total_enriched += 1
+                        enriched = True
+                        logger.info(f"  Enriched via Firecrawl: {repo['full_name']}")
+
                 tags = assessment.get("tags", [])
                 for persona in assessment.get("persona_tags", []):
                     tags.append(f"persona:{persona}")
+                if enriched:
+                    tags.append("firecrawl-enriched")
 
                 write_signal(
                     signal_id=signal_id,
                     source=SignalSource.TOOL_MONITOR,
                     title=repo["full_name"],
-                    summary=repo["description"],
+                    summary=summary,
                     url=repo["url"],
                     relevance=SignalRelevance(relevance),
                     relevance_rationale=assessment.get("relevance_rationale", ""),
@@ -137,6 +179,7 @@ def run_agent(dry_run: bool = False) -> str:
                         "language": repo["language"],
                         "pushed_at": repo["pushed_at"],
                         "topics": repo.get("topics", []),
+                        "firecrawl_enriched": enriched,
                     },
                     store=store,
                 )
@@ -151,5 +194,6 @@ def run_agent(dry_run: bool = False) -> str:
 
     return (
         f"Found {total_found} repos, {total_new} new, "
-        f"{total_written} written, {skipped_low} skipped (low relevance)"
+        f"{total_written} written ({total_enriched} enriched), "
+        f"{skipped_low} skipped (low relevance)"
     )

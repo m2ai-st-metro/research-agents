@@ -83,17 +83,30 @@ YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
 YOUTUBE_TRANSCRIPT_MAX_CHARS = 15000  # Truncate transcripts for summarization
 YOUTUBE_API_KEY_ENV = "YOUTUBE_API_KEY"  # env var name for YouTube Data API v3 key
 
-# Haiku model for cost-efficient transcript summarization
-YOUTUBE_SUMMARIZER_MODEL = "claude-haiku-4-5-20250929"
+# Channels to always monitor (fetches latest uploads regardless of search queries).
+# Supports both channel IDs (UC...) and handles (@name).
+YOUTUBE_CHANNELS: list[dict[str, str]] = [
+    {"name": "Nate B Jones", "handle": "@natebjones"},
+]
+YOUTUBE_CHANNEL_MAX_VIDEOS = 5  # Recent uploads to check per channel per run
+
+# Gemini model for cost-efficient transcript summarization (swapped from Haiku)
+YOUTUBE_SUMMARIZER_MODEL = "gemini-3.1-flash-lite-preview"
 YOUTUBE_SUMMARIZER_MAX_TOKENS = 4096
+GEMINI_API_KEY_ENV = "GEMINI_API_KEY"  # env var name for Gemini API key
 
 # --- Cadences ---
 CADENCE = {
     "arxiv": "daily",
     "tool_monitor": "daily",
     "domain_watch": "every_3_days",
-    "idea_surfacer": "weekly",
+    "idea_surfacer": "every_3_days",
     "youtube": "daily",
+    "rss": "daily",
+    "trend_analyzer": "weekly",
+    "perplexity": "daily",
+    "chatgpt": "every_3_days",
+    "gemini_research": "daily",
 }
 
 # --- Persona IDs (for tool_monitor tagging) ---
@@ -105,3 +118,73 @@ PERSONA_IDS: list[str] = [
     "knuth",
     "hamilton",
 ]
+
+# --- RSS/Newsletter Scanner ---
+RSS_FEEDS: list[dict[str, str]] = [
+    {"name": "Import AI", "url": "https://jack-clark.net/feed/", "parser": "feedparser"},
+    {"name": "TLDR AI", "url": "https://tldr.tech/ai/rss", "parser": "feedparser"},
+    {"name": "Latent Space", "url": "https://www.latent.space/feed", "parser": "feedparser"},
+    {
+        "name": "Simon Willison",
+        "url": "https://simonwillison.net/atom/everything/",
+        "parser": "feedparser",
+    },
+    {"name": "The Batch", "url": "https://www.deeplearning.ai/the-batch/", "parser": "firecrawl"},
+]
+RSS_MIN_RELEVANCE = "medium"
+RSS_LOOKBACK_DAYS = 3  # Ignore articles older than this
+
+# --- Trend Analyzer ---
+TREND_LOOKBACK_DAYS = 14  # Window of signals to analyze
+TREND_REPORT_DIR = DATA_DIR / "trend_reports"
+TREND_MIN_SIGNALS_FOR_ANALYSIS = 5  # Skip if fewer signals in window
+TREND_SUMMARIZER_MODEL = "claude-haiku-4-5-20250929"
+TREND_SUMMARIZER_MAX_TOKENS = 8192
+
+# --- Firecrawl Enrichment (Test Phase) ---
+FIRECRAWL_API_KEY_ENV = "FIRECRAWL_API_KEY"
+FIRECRAWL_ENRICHMENT_ENABLED = True  # Toggle to disable all enrichment scrapes
+FIRECRAWL_CREDIT_FLOOR = 20  # Stop enriching if credits drop below this
+FIRECRAWL_ENRICH_MAX_PER_QUERY = 2  # Max scrapes per search query per run
+FIRECRAWL_ENRICH_MAX_CHARS = 3000  # Truncate scraped content for relevance re-assessment
+
+# --- Manual Signal Ingest ---
+MANUAL_MIN_RELEVANCE = "low"  # Accept anything -- Matthew curated it
+
+# --- Perplexity Research Agent ---
+PERPLEXITY_API_KEY_ENV = "PERPLEXITY_API_KEY"
+PERPLEXITY_MODEL = "sonar-pro"
+PERPLEXITY_MAX_TOKENS = 4096
+PERPLEXITY_RESEARCH_QUERIES: list[str] = [
+    "What are the biggest emerging pain points for solo AI developers this week?",
+    "What new AI agent frameworks or MCP servers launched recently?",
+    "What healthcare AI regulatory changes or HIPAA-compliant tools appeared this week?",
+    "What are the latest trends in autonomous coding agents and AI-assisted software engineering?",
+    "What workflow automation tools are gaining traction among small teams?",
+]
+PERPLEXITY_MIN_RELEVANCE = "medium"
+
+# --- ChatGPT Research Agent ---
+OPENAI_API_KEY_ENV = "OPENAI_API_KEY"
+CHATGPT_MODEL = "gpt-5.4"
+CHATGPT_MAX_TOKENS = 4096
+CHATGPT_RESEARCH_QUERIES: list[str] = [
+    "Analyze current market gaps in AI developer tooling for solo practitioners and small consultancies.",
+    "What underserved niches exist at the intersection of healthcare AI and home health services?",
+    "What are the most promising business models for AI-powered SaaS products targeting developers?",
+    "Identify emerging competitive dynamics in the autonomous coding agent space.",
+    "What infrastructure or platform plays are emerging around MCP and tool-augmented LLMs?",
+]
+CHATGPT_MIN_RELEVANCE = "medium"
+
+# --- Gemini Research Agent ---
+GEMINI_RESEARCH_MODEL = "gemini-3.1-pro-preview"
+GEMINI_RESEARCH_MAX_TOKENS = 4096
+GEMINI_RESEARCH_QUERIES: list[str] = [
+    "Search for recent announcements about AI agent frameworks, MCP servers, or tool-use APIs.",
+    "Search for emerging healthcare AI startups or products focused on home health and HIPAA compliance.",
+    "Search for new developer productivity tools powered by AI that launched in the past week.",
+    "Search for recent funding rounds or acquisitions in the AI developer tools space.",
+    "Search for open-source AI projects gaining traction on GitHub related to autonomous coding.",
+]
+GEMINI_RESEARCH_MIN_RELEVANCE = "medium"

@@ -266,20 +266,19 @@ class TestGetTranscriptApi:
 
 
 class TestSummarizeTranscript:
+    """Tests for YouTube transcript summarization via Gemini."""
 
-    def test_summarize_success(self):
+    @patch("research_agents.gemini_client.get_gemini_client")
+    def test_summarize_success(self, mock_get_client):
         mock_client = MagicMock()
         mock_response = MagicMock()
-        mock_response.content = [
-            MagicMock(text=json.dumps(SAMPLE_SUMMARY_RESPONSE))
-        ]
-        mock_client.messages.create.return_value = mock_response
+        mock_response.text = json.dumps(SAMPLE_SUMMARY_RESPONSE)
+        mock_client.models.generate_content.return_value = mock_response
+        mock_get_client.return_value = mock_client
 
         result = summarize_transcript(
             title="AI Agents with MCP",
             transcript="Sample transcript about AI agents and MCP...",
-            client=mock_client,
-            model="claude-haiku-4-5-20250929",
         )
 
         assert "summary" in result
@@ -288,32 +287,34 @@ class TestSummarizeTranscript:
         assert "MCP" in result["key_concepts"]
         assert "graph TD" in result["mermaid_diagram"]
 
-    def test_summarize_handles_json_error(self):
+    @patch("research_agents.gemini_client.get_gemini_client")
+    def test_summarize_handles_json_error(self, mock_get_client):
         mock_client = MagicMock()
         mock_response = MagicMock()
-        mock_response.content = [MagicMock(text="not valid json")]
-        mock_client.messages.create.return_value = mock_response
+        mock_response.text = "not valid json"
+        mock_client.models.generate_content.return_value = mock_response
+        mock_get_client.return_value = mock_client
 
         result = summarize_transcript(
             title="Test Video",
             transcript="Test transcript",
-            client=mock_client,
         )
 
         assert "summary" in result
         assert "Test Video" in result["summary"]
 
-    def test_summarize_handles_markdown_wrapped_json(self):
+    @patch("research_agents.gemini_client.get_gemini_client")
+    def test_summarize_handles_markdown_wrapped_json(self, mock_get_client):
         mock_client = MagicMock()
         wrapped = f"```json\n{json.dumps(SAMPLE_SUMMARY_RESPONSE)}\n```"
         mock_response = MagicMock()
-        mock_response.content = [MagicMock(text=wrapped)]
-        mock_client.messages.create.return_value = mock_response
+        mock_response.text = wrapped
+        mock_client.models.generate_content.return_value = mock_response
+        mock_get_client.return_value = mock_client
 
         result = summarize_transcript(
             title="Test",
             transcript="Test transcript",
-            client=mock_client,
         )
 
         assert "MCP" in result["key_concepts"]
@@ -521,7 +522,8 @@ class TestRunAgent:
 class TestMermaidDiagram:
     """Tests to verify Mermaid diagram generation and storage."""
 
-    def test_mermaid_in_summary_response(self):
+    @patch("research_agents.gemini_client.get_gemini_client")
+    def test_mermaid_in_summary_response(self, mock_get_client):
         """Verify that summarize_transcript correctly parses Mermaid diagrams."""
         mock_client = MagicMock()
         response_with_mermaid = {
@@ -538,13 +540,13 @@ class TestMermaidDiagram:
             "tags": ["architecture", "ai"],
         }
         mock_response = MagicMock()
-        mock_response.content = [MagicMock(text=json.dumps(response_with_mermaid))]
-        mock_client.messages.create.return_value = mock_response
+        mock_response.text = json.dumps(response_with_mermaid)
+        mock_client.models.generate_content.return_value = mock_response
+        mock_get_client.return_value = mock_client
 
         result = summarize_transcript(
             title="AI Architecture",
             transcript="Sample transcript",
-            client=mock_client,
         )
 
         assert "graph TD" in result["mermaid_diagram"]
