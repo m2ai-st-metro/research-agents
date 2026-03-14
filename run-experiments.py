@@ -44,6 +44,7 @@ def main():
     )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--agents", type=str, default=None, help="Comma-separated agents")
+    parser.add_argument("--rounds", type=int, default=1, help="Number of experiment rounds (default: 1)")
     parser.add_argument("--verbose", "-v", action="store_true")
     parser.add_argument("--status", action="store_true", help="Show experiment summary")
     parser.add_argument("--validate", action="store_true", help="Validate winners with Claude")
@@ -124,7 +125,7 @@ def main():
     # Default: run experiments
     from auto_research.runner import run_experiments
     agents = args.agents.split(",") if args.agents else None
-    run_experiments(agents=agents, dry_run=args.dry_run, verbose=args.verbose)
+    run_experiments(agents=agents, dry_run=args.dry_run, verbose=args.verbose, rounds=args.rounds)
 
 
 if __name__ == "__main__":
