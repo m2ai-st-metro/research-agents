@@ -30,9 +30,16 @@ def get_snow_town_db() -> Path:
     return SNOW_TOWN_ROOT / "data" / "persona_metrics.db"
 
 
-# --- Claude API ---
+# --- Claude API (used only for idea synthesis) ---
 CLAUDE_MODEL = "claude-sonnet-4-5-20250929"
 CLAUDE_MAX_TOKENS = 4096
+
+# --- Ollama (local LLM for relevance assessment + trend reports) ---
+# Default: ProBook localhost (qwen2.5:7b-instruct, CPU, always available)
+# Override via env for AlienPC: OLLAMA_BASE_URL=http://10.0.0.35:11434 OLLAMA_MODEL=qwen2.5:14b
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
+OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "180"))  # Higher for CPU inference
 
 # --- ArXiv / Paper Scanner ---
 ARXIV_SEARCH_QUERIES: list[str] = [

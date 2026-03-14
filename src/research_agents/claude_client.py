@@ -1,20 +1,28 @@
-"""Shared Claude API wrapper for relevance assessment."""
+"""Shared API wrappers for research-agents pipeline.
+
+- Relevance assessment: Ollama (local, no API cost)
+- Idea synthesis: Anthropic Claude (kept on Sonnet for quality)
+"""
 
 from __future__ import annotations
 
-import json
 import logging
 import os
 
 from anthropic import Anthropic
 
 from .config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL
+from .ollama_client import assess_relevance_ollama
 
 logger = logging.getLogger(__name__)
 
 
 def get_client() -> Anthropic:
-    """Create an Anthropic client from environment."""
+    """Create an Anthropic client from environment.
+
+    Used only by idea_surfacer for synthesis (the one task
+    where frontier model quality matters).
+    """
     return Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
 
@@ -22,65 +30,24 @@ def assess_relevance(
     title: str,
     summary: str,
     source_context: str,
-    client: Anthropic | None = None,
+    client=None,
     model: str = CLAUDE_MODEL,
 ) -> dict:
-    """Assess the relevance of a research signal to the Snow-Town ecosystem.
+    """Assess the relevance of a research signal.
+
+    Routes to local Ollama instead of Anthropic API.
+    The client and model params are kept for interface compatibility
+    but are ignored — Ollama handles everything.
 
     Returns dict with:
         relevance: "high" | "medium" | "low"
         relevance_rationale: str
         tags: list[str]
         domain: str | None
-        persona_tags: list[str]  (persona IDs this is relevant to)
+        persona_tags: list[str]
     """
-    if client is None:
-        client = get_client()
-
-    prompt = f"""Assess the relevance of this research signal to a solo AI developer's ecosystem.
-
-The developer builds:
-- Claude-powered MCP servers and tool-augmented agents
-- An autonomous idea-to-product pipeline (Ultra Magnus)
-- A self-improving feedback loop (Snow-Town: UM -> Sky-Lynx -> Academy)
-- Healthcare AI projects (HIPAA-compliant, home health focus)
-- Developer productivity tools
-
-Signal:
-- Title: {title}
-- Summary: {summary}
-- Source context: {source_context}
-
-Respond with JSON only:
-{{
-    "relevance": "high" | "medium" | "low",
-    "relevance_rationale": "Why this is/isn't relevant (1-2 sentences)",
-    "tags": ["tag1", "tag2"],
-    "domain": "primary domain (e.g. ai-agents, healthcare-ai, developer-tools, etc.) or null",
-    "persona_tags": ["persona_id1"] // from: carmack, hopper, christensen, porter, knuth, hamilton — only if directly relevant
-}}"""
-
-    response = client.messages.create(
-        model=model,
-        max_tokens=CLAUDE_MAX_TOKENS,
-        messages=[{"role": "user", "content": prompt}],
+    return assess_relevance_ollama(
+        title=title,
+        summary=summary,
+        source_context=source_context,
     )
-
-    text = response.content[0].text.strip()
-    # Handle markdown code blocks
-    if text.startswith("```"):
-        text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-
-    try:
-        result = json.loads(text)
-    except json.JSONDecodeError:
-        logger.warning(f"Failed to parse relevance response: {text[:200]}")
-        result = {
-            "relevance": "low",
-            "relevance_rationale": "Failed to parse assessment",
-            "tags": [],
-            "domain": None,
-            "persona_tags": [],
-        }
-
-    return result

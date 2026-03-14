@@ -15,13 +15,11 @@ from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from ..claude_client import get_client
+from ..ollama_client import get_ollama_client
 from ..config import (
     TREND_LOOKBACK_DAYS,
     TREND_MIN_SIGNALS_FOR_ANALYSIS,
     TREND_REPORT_DIR,
-    TREND_SUMMARIZER_MAX_TOKENS,
-    TREND_SUMMARIZER_MODEL,
 )
 from ..signal_writer import get_store, signal_exists, write_signal
 
@@ -180,13 +178,11 @@ Write a concise markdown trend report with these sections:
 
 Keep it punchy. This is for a practitioner who ships, not a researcher who reads. No fluff."""
 
-    client = get_client()
-    response = client.messages.create(
-        model=TREND_SUMMARIZER_MODEL,
-        max_tokens=TREND_SUMMARIZER_MAX_TOKENS,
-        messages=[{"role": "user", "content": prompt}],
+    client = get_ollama_client()
+    return client.generate(
+        prompt=prompt,
+        system="You are a research trend analyst. Write concise, actionable markdown reports.",
     )
-    return response.content[0].text.strip()  # type: ignore[union-attr]
 
 
 def _write_markdown_report(content: str, date_str: str) -> Path:
