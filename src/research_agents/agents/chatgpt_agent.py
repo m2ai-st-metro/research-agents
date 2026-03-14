@@ -84,7 +84,7 @@ def _call_openai(query: str, api_key: str) -> dict[str, Any]:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": query},
         ],
-        "max_tokens": CHATGPT_MAX_TOKENS,
+        "max_completion_tokens": CHATGPT_MAX_TOKENS,
         "response_format": {"type": "json_object"},
     }
 

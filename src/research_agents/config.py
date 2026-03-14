@@ -138,7 +138,7 @@ RSS_LOOKBACK_DAYS = 3  # Ignore articles older than this
 TREND_LOOKBACK_DAYS = 14  # Window of signals to analyze
 TREND_REPORT_DIR = DATA_DIR / "trend_reports"
 TREND_MIN_SIGNALS_FOR_ANALYSIS = 5  # Skip if fewer signals in window
-TREND_SUMMARIZER_MODEL = "claude-haiku-4-5-20250929"
+TREND_SUMMARIZER_MODEL = "claude-haiku-4-5-20251001"
 TREND_SUMMARIZER_MAX_TOKENS = 8192
 
 # --- Firecrawl Enrichment (Test Phase) ---
