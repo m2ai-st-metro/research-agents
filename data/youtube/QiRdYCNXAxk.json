@@ -1,0 +1,18 @@
+{
+  "signal_id": "yt-QiRdYCNXAxk",
+  "source": "youtube",
+  "title": "How LLM Tool Calling Works",
+  "summary": "In this video, I explain how tool calling works with LLMs. Tool Calling is a fundamental concept for understanding AI Agents.",
+  "url": "https://www.youtube.com/watch?v=QiRdYCNXAxk",
+  "channel": "Tommy Eberle",
+  "query": "LLM tool use function calling",
+  "collected_at": "2026-03-14T05:20:41.872105+00:00",
+  "raw_data": {
+    "video_id": "QiRdYCNXAxk",
+    "channel": "Tommy Eberle",
+    "channel_url": "https://www.youtube.com/channel/UCiPVXcvPFjFgRNQ1hamAXkA",
+    "duration": 961,
+    "views": 4764,
+    "uploaded_date": ""
+  }
+}

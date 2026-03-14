@@ -68,11 +68,24 @@ DOMAIN_WATCH_QUERIES: list[str] = [
 ]
 DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 
+# --- YouTube Watcher ---
+YOUTUBE_SEARCH_QUERIES: list[str] = [
+    "MCP model context protocol",
+    "Claude AI coding agent",
+    "AI agent framework tutorial",
+    "LLM tool use function calling",
+    "autonomous coding workflow",
+    "solo developer AI productivity",
+]
+YOUTUBE_MAX_RESULTS_PER_QUERY = 10
+YOUTUBE_MIN_RELEVANCE = "medium"
+
 # --- Cadences ---
 CADENCE = {
     "arxiv": "daily",
     "tool_monitor": "daily",
     "domain_watch": "every_3_days",
+    "youtube": "daily",
     "idea_surfacer": "weekly",
 }
 

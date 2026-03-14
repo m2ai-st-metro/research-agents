@@ -1,0 +1,18 @@
+{
+  "signal_id": "yt-Qor2VZoBib0",
+  "source": "youtube",
+  "title": "How does OpenAI Function Calling work?",
+  "summary": "In this video, we're going to dig into OpenAI function calling. We'll explore what's happening under the hood before working\u00a0...",
+  "url": "https://www.youtube.com/watch?v=Qor2VZoBib0",
+  "channel": "Learn Data with Mark",
+  "query": "LLM tool use function calling",
+  "collected_at": "2026-03-14T05:20:41.871973+00:00",
+  "raw_data": {
+    "video_id": "Qor2VZoBib0",
+    "channel": "Learn Data with Mark",
+    "channel_url": "https://www.youtube.com/channel/UCKEk670ECmteGBehmDjVSSg",
+    "duration": 321,
+    "views": 48519,
+    "uploaded_date": ""
+  }
+}
