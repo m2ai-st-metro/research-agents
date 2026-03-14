@@ -1,0 +1,18 @@
+{
+  "signal_id": "yt-IdPdwQdM9lA",
+  "source": "youtube",
+  "title": "How does function calling with tools really work?",
+  "summary": "A few months ago, I made a video about how function calling works in OpenAI and then how the corresponding feature works in\u00a0...",
+  "url": "https://www.youtube.com/watch?v=IdPdwQdM9lA",
+  "channel": "Matt Williams",
+  "query": "LLM tool use function calling",
+  "collected_at": "2026-03-14T05:20:41.871835+00:00",
+  "raw_data": {
+    "video_id": "IdPdwQdM9lA",
+    "channel": "Matt Williams",
+    "channel_url": "https://www.youtube.com/channel/UCHaF9kM2wn8C3CLRwLkC2GQ",
+    "duration": 609,
+    "views": 22546,
+    "uploaded_date": ""
+  }
+}

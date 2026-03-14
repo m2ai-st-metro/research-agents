@@ -22,6 +22,7 @@ AGENTS: dict[str, str] = {
     "arxiv": "research_agents.agents.arxiv_scanner",
     "tool-monitor": "research_agents.agents.tool_monitor",
     "domain-watch": "research_agents.agents.domain_watcher",
+    "youtube": "research_agents.agents.youtube_watcher",
     "idea-surfacer": "research_agents.agents.idea_surfacer",
 }
 

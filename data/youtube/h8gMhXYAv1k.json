@@ -1,0 +1,18 @@
+{
+  "signal_id": "yt-h8gMhXYAv1k",
+  "source": "youtube",
+  "title": "What is Tool Calling? Connecting LLMs to Your Data",
+  "summary": "Download the AI model guide to learn more \u2192 https://ibm.biz/BdGide Learn more about Tool Calling \u2192 https://ibm.biz/BdGidb\u00a0...",
+  "url": "https://www.youtube.com/watch?v=h8gMhXYAv1k",
+  "channel": "IBM Technology",
+  "query": "LLM tool use function calling",
+  "collected_at": "2026-03-14T05:20:41.871148+00:00",
+  "raw_data": {
+    "video_id": "h8gMhXYAv1k",
+    "channel": "IBM Technology",
+    "channel_url": "https://www.youtube.com/channel/UCKWaEZ-_VweaEx1j62do_vQ",
+    "duration": 297,
+    "views": 34763,
+    "uploaded_date": ""
+  }
+}

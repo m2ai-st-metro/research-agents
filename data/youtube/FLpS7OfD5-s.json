@@ -1,0 +1,18 @@
+{
+  "signal_id": "yt-FLpS7OfD5-s",
+  "source": "youtube",
+  "title": "Why MCP really is a big deal | Model Context Protocol with Tim Berglund",
+  "summary": "Blog: https://www.confluent.io/blog/ai-agents-using-anthropic-mcp | Tim Berglund is back at the lightboard with *MCP* (Model\u00a0...",
+  "url": "https://www.youtube.com/watch?v=FLpS7OfD5-s",
+  "channel": "Confluent Developer",
+  "query": "MCP model context protocol",
+  "collected_at": "2026-03-14T05:20:34.763315+00:00",
+  "raw_data": {
+    "video_id": "FLpS7OfD5-s",
+    "channel": "Confluent Developer",
+    "channel_url": "https://www.youtube.com/channel/UCmTK4CrCaDXpuZ-Evl5-b5Q",
+    "duration": 669,
+    "views": 686267,
+    "uploaded_date": ""
+  }
+}
