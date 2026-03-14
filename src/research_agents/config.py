@@ -68,11 +68,27 @@ DOMAIN_WATCH_QUERIES: list[str] = [
 ]
 DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 
+# --- Perplexity Web Research ---
+PERPLEXITY_API_URL = "https://api.perplexity.ai/chat/completions"
+PERPLEXITY_MODEL = "sonar"
+PERPLEXITY_SEARCH_QUERIES: list[str] = [
+    "latest MCP model context protocol servers and tooling 2026",
+    "Claude API new features and capabilities 2026",
+    "AI coding agent benchmarks and evaluations",
+    "autonomous software development pipelines",
+    "LLM self-improvement and meta-learning research",
+    "healthcare AI home health regulatory updates",
+    "solo developer AI-augmented workflows",
+]
+PERPLEXITY_MAX_RESULTS_PER_QUERY = 5
+PERPLEXITY_MIN_RELEVANCE = "medium"
+
 # --- Cadences ---
 CADENCE = {
     "arxiv": "daily",
     "tool_monitor": "daily",
     "domain_watch": "every_3_days",
+    "perplexity": "daily",
     "idea_surfacer": "weekly",
 }
 
