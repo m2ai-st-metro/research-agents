@@ -79,7 +79,7 @@ def _replace_query_in_config(
 def _git_commit_and_push(message: str) -> str | None:
     """Git add, commit, and push config.py. Returns commit SHA or None."""
     try:
-        repo_root = CONFIG_PATH.parent.parent.parent.parent
+        repo_root = CONFIG_PATH.parent.parent.parent  # research-agents/
         subprocess.run(
             ["git", "add", str(CONFIG_PATH)],
             cwd=str(repo_root),

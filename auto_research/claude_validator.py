@@ -173,13 +173,13 @@ def validate_winner(
         len(raw_signals),
     )
 
-    # Use Claude relevance as a proxy for validation
-    # If Claude marks more signals as relevant than baseline, it's validated
-    mark_validated(conn, experiment_id, claude_ndr=claude_relevance_rate)
-
     # Consider validated if Claude relevance rate > 30%
     # (meaning the variant query produces genuinely relevant signals)
     validated = claude_relevance_rate > 0.3
+
+    # Only mark as validated in the ledger if Claude actually approves
+    if validated:
+        mark_validated(conn, experiment_id, claude_ndr=claude_relevance_rate)
     if validated:
         logger.info("Claude validated: variant produces relevant signals")
     else:
