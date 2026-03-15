@@ -394,7 +394,10 @@ def get_transcript(video_id: str) -> str | None:
 
 
 def _get_transcript_api(video_id: str) -> str | None:
-    """Extract transcript using youtube-transcript-api."""
+    """Extract transcript using youtube-transcript-api.
+
+    Supports both v0.x (class-level get_transcript) and v1.2.x+ (instance fetch).
+    """
     try:
         from youtube_transcript_api import YouTubeTranscriptApi
     except ImportError:
@@ -402,12 +405,30 @@ def _get_transcript_api(video_id: str) -> str | None:
         return None
 
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+        # v1.2.x+: instance method .fetch()
+        api = YouTubeTranscriptApi()
+        transcript_entries = api.fetch(video_id)
+        parts = []
+        for entry in transcript_entries:
+            text = getattr(entry, "text", None) or entry.get("text", "") if isinstance(entry, dict) else str(entry)
+            if text:
+                parts.append(text)
+        full_text = " ".join(parts)
+        return full_text[:YOUTUBE_TRANSCRIPT_MAX_CHARS] if full_text.strip() else None
+    except AttributeError:
+        pass  # Fall through to legacy API
+    except Exception as e:
+        logger.debug(f"youtube-transcript-api (v1.2+) failed for {video_id}: {e}")
+        return None
+
+    # Legacy v0.x: class-level static method
+    try:
+        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)  # type: ignore[attr-defined]
         parts = [entry["text"] for entry in transcript_list]
         full_text = " ".join(parts)
         return full_text[:YOUTUBE_TRANSCRIPT_MAX_CHARS]
     except Exception as e:
-        logger.debug(f"youtube-transcript-api failed for {video_id}: {e}")
+        logger.debug(f"youtube-transcript-api (legacy) failed for {video_id}: {e}")
         return None
 
 

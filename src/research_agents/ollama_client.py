@@ -190,9 +190,13 @@ Respond with JSON only:
         )
     except (ValueError, httpx.HTTPError) as e:
         logger.warning("Ollama relevance assessment failed: %s", e)
+        # Connection failures (Ollama unreachable) shouldn't suppress all signals.
+        # Videos found via targeted queries likely deserve at least medium relevance.
+        is_connection_error = isinstance(e, (httpx.ConnectError, httpx.ConnectTimeout, OSError))
+        fallback_relevance = "medium" if is_connection_error else "low"
         result = {
-            "relevance": "low",
-            "relevance_rationale": "Failed to parse assessment",
+            "relevance": fallback_relevance,
+            "relevance_rationale": f"Ollama unavailable ({e}); defaulting to {fallback_relevance}",
             "tags": [],
             "domain": None,
             "persona_tags": [],
