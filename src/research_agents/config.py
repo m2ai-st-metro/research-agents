@@ -46,7 +46,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "MCP model context protocol",
     "autonomous code synthesis",
     "prompt engineering techniques",
-    "tool-augmented LLM",
+    "LLM integrated tools",
     "AI code generation evaluation",
     "LLM self-improvement",
     "agentic workflow orchestration",
