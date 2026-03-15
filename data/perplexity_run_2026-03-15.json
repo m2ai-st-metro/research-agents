@@ -1,0 +1,19 @@
+{
+  "agent": "perplexity",
+  "run_date": "2026-03-15T06:00:00Z",
+  "status": "skipped",
+  "reason": "missing env var PERPLEXITY_API_KEY",
+  "model": "sonar-pro",
+  "queries_configured": 5,
+  "signals_produced": 0,
+  "signals_written": 0,
+  "dry_run": false,
+  "queries": [
+    "What are the biggest emerging pain points for solo AI developers this week?",
+    "What new AI agent frameworks or MCP servers launched recently?",
+    "What healthcare AI regulatory changes or HIPAA-compliant tools appeared this week?",
+    "What are the latest trends in autonomous coding agents and AI-assisted software engineering?",
+    "What workflow automation tools are gaining traction among small teams?"
+  ],
+  "notes": "Agent ran but skipped all queries — PERPLEXITY_API_KEY not set in environment. The SignalSource.PERPLEXITY enum was also missing from st-factory contracts and was added locally to unblock future runs."
+}
