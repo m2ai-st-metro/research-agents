@@ -15,6 +15,7 @@ import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 
+import feedparser  # type: ignore[import-untyped]
 import httpx
 
 from .config import (
@@ -175,13 +176,138 @@ def search_hn(query: str, max_results: int = 10) -> list[dict]:
     return stories
 
 
+def search_youtube(query: str, max_results: int = 10) -> list[dict]:
+    """Search YouTube by scraping public search results (no API key needed).
+
+    Parses ytInitialData from the search results HTML to extract video metadata.
+    """
+    import json as _json
+    import re as _re
+
+    try:
+        resp = httpx.get(
+            "https://www.youtube.com/results",
+            params={"search_query": query},
+            timeout=15.0,
+            headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64)"},
+            follow_redirects=True,
+        )
+        resp.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.warning("YouTube search failed for '%s': %s", query, e)
+        return []
+
+    match = _re.search(r"var ytInitialData = ({.*?});</script>", resp.text)
+    if not match:
+        logger.warning("Could not extract ytInitialData for '%s'", query)
+        return []
+
+    try:
+        data = _json.loads(match.group(1))
+        contents = (
+            data["contents"]["twoColumnSearchResultsRenderer"]
+            ["primaryContents"]["sectionListRenderer"]["contents"][0]
+            ["itemSectionRenderer"]["contents"]
+        )
+    except (KeyError, IndexError, _json.JSONDecodeError) as e:
+        logger.warning("Failed to parse YouTube search data: %s", e)
+        return []
+
+    videos = []
+    for item in contents:
+        vid = item.get("videoRenderer")
+        if not vid:
+            continue
+        video_id = vid.get("videoId", "")
+        title = vid.get("title", {}).get("runs", [{}])[0].get("text", "")
+        desc = ""
+        if "detailedMetadataSnippets" in vid:
+            desc = "".join(
+                r.get("text", "") for r in
+                vid["detailedMetadataSnippets"][0].get("snippetText", {}).get("runs", [])
+            )
+        elif "descriptionSnippet" in vid:
+            desc = "".join(
+                r.get("text", "") for r in vid["descriptionSnippet"].get("runs", [])
+            )
+        videos.append({
+            "signal_id": f"youtube-{video_id}",
+            "title": title,
+            "summary": (desc or title)[:500],
+            "url": f"https://www.youtube.com/watch?v={video_id}",
+            "source": "youtube",
+        })
+        if len(videos) >= max_results:
+            break
+
+    return videos
+
+
+def search_rss(query: str, max_results: int = 10) -> list[dict]:
+    """Search across configured RSS feeds, filtering entries by query relevance.
+
+    Fetches all feeds from the production config, then filters entries
+    whose title or summary contains query terms (case-insensitive).
+    """
+    import sys
+    from pathlib import Path
+
+    # Load production RSS_FEEDS config
+    config_path = Path(__file__).resolve().parent.parent / "src" / "research_agents"
+    if str(config_path.parent) not in sys.path:
+        sys.path.insert(0, str(config_path.parent))
+
+    try:
+        import importlib
+        import research_agents.config as ra_config
+        importlib.reload(ra_config)
+        feeds = getattr(ra_config, "RSS_FEEDS", [])
+    except ImportError:
+        logger.warning("Cannot import RSS_FEEDS from research_agents.config")
+        return []
+
+    # Tokenize query for matching
+    query_terms = query.lower().split()
+    articles = []
+
+    for feed_cfg in feeds:
+        if feed_cfg.get("parser") != "feedparser":
+            continue  # Skip firecrawl-only feeds in experiments
+        try:
+            result = feedparser.parse(feed_cfg["url"])
+        except Exception as e:
+            logger.debug("Feed %s failed: %s", feed_cfg["name"], e)
+            continue
+
+        for entry in result.entries:
+            title = entry.get("title", "")
+            summary = str(entry.get("summary", entry.get("description", "")))[:500]
+            text = f"{title} {summary}".lower()
+
+            # Match if any query term appears in title/summary
+            if any(term in text for term in query_terms):
+                url = entry.get("link", "")
+                articles.append({
+                    "signal_id": f"rss-{hashlib.sha256(url.encode()).hexdigest()[:12]}",
+                    "title": title,
+                    "summary": summary,
+                    "url": url,
+                    "source": f"rss-{feed_cfg['name']}",
+                })
+
+        if len(articles) >= max_results:
+            break
+
+    return articles[:max_results]
+
+
 # Maps agent name to search function
 AGENT_SEARCHERS: dict[str, callable] = {
     "arxiv": search_arxiv,
     "tool_monitor": search_github,
     "domain_watch": search_hn,
-    "youtube": None,  # YouTube requires API key, skip in mini-pipeline
-    "rss": None,  # RSS requires feedparser, skip in mini-pipeline
+    "youtube": search_youtube,
+    "rss": search_rss,
 }
 
 
@@ -381,7 +507,7 @@ def run_experiment(
     agent: str,
     client: OllamaClient,
     max_results: int = 10,
-    min_relevance: str = "medium",
+    min_relevance: str = "low",
 ) -> ExperimentResult:
     """Run the full mini-pipeline for a single query.
 
