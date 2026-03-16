@@ -146,6 +146,64 @@ def get_ollama_client() -> OllamaClient:
     return _client
 
 
+# Keywords for keyword-based fallback relevance scoring
+_HIGH_KEYWORDS = {
+    "mcp", "model context protocol", "claude", "anthropic", "tool use",
+    "function calling", "ai agent", "autonomous coding", "hipaa",
+    "home health", "agentic workflow", "mcp server",
+}
+_MEDIUM_KEYWORDS = {
+    "llm", "ai coding", "developer tool", "prompt engineering",
+    "healthcare ai", "supply chain", "ai automation", "code generation",
+    "ai framework", "open source ai", "rag", "retrieval augmented",
+    "agent framework", "langchain", "langgraph", "crewai",
+}
+
+
+def _keyword_relevance(title: str, summary: str) -> dict:
+    """Simple keyword-based relevance fallback when Ollama is unavailable."""
+    text = f"{title} {summary}".lower()
+    high_hits = [kw for kw in _HIGH_KEYWORDS if kw in text]
+    med_hits = [kw for kw in _MEDIUM_KEYWORDS if kw in text]
+
+    if high_hits:
+        relevance = "high"
+        rationale = f"Matches high-priority keywords: {', '.join(high_hits[:3])}"
+    elif med_hits:
+        relevance = "medium"
+        rationale = f"Matches medium-priority keywords: {', '.join(med_hits[:3])}"
+    else:
+        relevance = "low"
+        rationale = "No strong keyword matches for the developer ecosystem"
+
+    # Derive domain from matches
+    domain = None
+    all_hits = high_hits + med_hits
+    for kw in all_hits:
+        if kw in {"mcp", "model context protocol", "mcp server", "claude", "anthropic"}:
+            domain = "ai-agents"
+            break
+        if kw in {"hipaa", "home health", "healthcare ai"}:
+            domain = "healthcare-ai"
+            break
+        if kw in {"developer tool", "ai coding", "code generation"}:
+            domain = "developer-tools"
+            break
+        if kw in {"supply chain"}:
+            domain = "supply-chain"
+            break
+    if not domain and all_hits:
+        domain = "ai-general"
+
+    return {
+        "relevance": relevance,
+        "relevance_rationale": rationale,
+        "tags": list(set(high_hits + med_hits))[:5],
+        "domain": domain,
+        "persona_tags": [],
+    }
+
+
 def assess_relevance_ollama(
     title: str,
     summary: str,
@@ -155,10 +213,16 @@ def assess_relevance_ollama(
     """Assess signal relevance using local Ollama.
 
     Drop-in replacement for claude_client.assess_relevance.
+    Falls back to keyword-based scoring when Ollama is unavailable.
     Returns same dict structure: relevance, relevance_rationale, tags, domain, persona_tags.
     """
     if client is None:
         client = get_ollama_client()
+
+    # Check if Ollama is actually reachable before making the call
+    if not client.is_available():
+        logger.info("Ollama unavailable, using keyword-based relevance fallback")
+        return _keyword_relevance(title, summary)
 
     prompt = f"""Assess the relevance of this research signal to a solo AI developer's ecosystem.
 
@@ -189,13 +253,7 @@ Respond with JSON only:
             prompt=prompt,
         )
     except (ValueError, httpx.HTTPError) as e:
-        logger.warning("Ollama relevance assessment failed: %s", e)
-        result = {
-            "relevance": "low",
-            "relevance_rationale": "Failed to parse assessment",
-            "tags": [],
-            "domain": None,
-            "persona_tags": [],
-        }
+        logger.warning("Ollama relevance assessment failed: %s — falling back to keywords", e)
+        return _keyword_relevance(title, summary)
 
     return result
