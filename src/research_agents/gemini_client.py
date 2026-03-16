@@ -50,7 +50,19 @@ def summarize_transcript(
         tags: list[str] - relevant tags for categorization
     """
     if client is None:
-        client = get_gemini_client()
+        try:
+            client = get_gemini_client()
+        except RuntimeError:
+            logger.warning("Gemini API key not configured — using basic transcript extraction")
+            # Return a basic extraction without LLM summarization
+            words = transcript.split()
+            truncated = " ".join(words[:200]) + ("..." if len(words) > 200 else "")
+            return {
+                "summary": f"Video: {title}. Transcript excerpt: {truncated}",
+                "key_concepts": [],
+                "mermaid_diagram": "",
+                "tags": [],
+            }
 
     prompt = f"""Analyze this YouTube video transcript and provide a structured summary.
 
