@@ -1,0 +1,21 @@
+{
+  "agent": "chatgpt",
+  "model": "gpt-5.4",
+  "run_date": "2026-03-16T06:32:41Z",
+  "mode": "dry-run",
+  "status": "completed",
+  "queries_processed": 5,
+  "queries": [
+    "Analyze current market gaps in AI developer tooling for solo practitioners and small consultancies.",
+    "What underserved niches exist at the intersection of healthcare AI and home health services?",
+    "What are the most promising business models for AI-powered SaaS products targeting developers?",
+    "Identify emerging competitive dynamics in the autonomous coding agent space.",
+    "What infrastructure or platform plays are emerging around MCP and tool-augmented LLMs?"
+  ],
+  "signals_generated": 0,
+  "signals_new": 0,
+  "signals_written": 0,
+  "signals_skipped_below_bar": 0,
+  "min_relevance": "medium",
+  "note": "Dry-run execution: no API calls made. OPENAI_API_KEY required for live signal generation."
+}
