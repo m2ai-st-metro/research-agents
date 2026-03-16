@@ -21,7 +21,8 @@ EXPERIMENT_AGENTS: list[str] = [
     "tool_monitor",
     "domain_watch",
     "youtube",
-    "rss",
+    # "rss" excluded — RSS_FEEDS is a list of {name, url, parser} dicts,
+    # not search queries. Mutations change feed names, not search behavior.
 ]
 
 # Agents that cost money to query (excluded from default experiments)

@@ -93,11 +93,12 @@ def compare(
     else:
         improvement = 0.0  # Both zero
 
-    # Check guardrail: avg score shouldn't drop significantly
+    # Check guardrail: avg score must not drop at all.
+    # Even small dips indicate the variant surfaces lower-quality signals,
+    # which NDR improvement alone doesn't justify.
     score_dropped = False
     if baseline.avg_weighted_score > 0 and variant.avg_weighted_score > 0:
-        score_change = (variant.avg_weighted_score - baseline.avg_weighted_score) / baseline.avg_weighted_score
-        if score_change < -0.10:  # Score dropped more than 10%
+        if variant.avg_weighted_score < baseline.avg_weighted_score:
             score_dropped = True
 
     is_winner = improvement >= threshold and not score_dropped
