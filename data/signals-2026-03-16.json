@@ -1,0 +1,2165 @@
+[
+  {
+    "signal_id": "rss-8e2f60890354",
+    "source": "rss_scanner",
+    "title": "Quoting Craig Mod",
+    "summary": "<blockquote cite=\"https://craigmod.com/essays/software_bonkers/\"><p>Simply put: It\u2019s a big mess, and no off-the-shelf accounting software does what I need. So after years of pain, I finally sat down last week and started to build my own. It took me about five days. I am now using the best piece of accounting software I\u2019ve ever used. It\u2019s blazing fast. Entirely local. Handles multiple currencies and pulls daily (historical) conversion rates. It\u2019s able to ingest any CSV I throw at it and represent",
+    "url": "https://simonwillison.net/2026/Mar/13/craig-mod/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Quoting Craig Mod",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "feed_name": "Simon Willison"
+    }
+  },
+  {
+    "signal_id": "rss-b44975ba0c8f",
+    "source": "rss_scanner",
+    "title": "1M context is now generally available for Opus 4.6 and Sonnet 4.6",
+    "summary": "<p><strong><a href=\"https://claude.com/blog/1m-context-ga\">1M context is now generally available for Opus 4.6 and Sonnet 4.6</a></strong></p>\nHere's what surprised me:</p>\n<blockquote>\n<p>Standard pricing now applies across the full 1M window for both models, with no long-context premium.</p>\n</blockquote>\n<p>OpenAI and Gemini both <a href=\"https://www.llm-prices.com/#sel=gemini-3-1-pro-preview-200k%2Cgpt-5.4-272k%2Cgemini-3-1-pro-preview%2Cgpt-5.4\">charge more</a> for prompts where the token co",
+    "url": "https://simonwillison.net/2026/Mar/13/1m-context/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: 1M context is now generally available for Opus 4.6 and Sonnet 4.6",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "feed_name": "Simon Willison"
+    }
+  },
+  {
+    "signal_id": "rss-9df8827db37d",
+    "source": "rss_scanner",
+    "title": "My fireside chat about agentic engineering at the Pragmatic Summit",
+    "summary": "<p>I was a speaker last month at the <a href=\"https://www.pragmaticsummit.com/\">Pragmatic Summit</a> in San Francisco, where I participated in a fireside chat session about <a href=\"https://simonwillison.net/guides/agentic-engineering-patterns/\">Agentic Engineering</a> hosted by Eric Lui from Statsig.</p>\n\n<p>The video is <a href=\"https://www.youtube.com/watch?v=owmJyKVu5f8\">available on YouTube</a>. Here are my highlights from the conversation.</p>\n\n \n\n<h4 id=\"stages-of-ai-adoption\">Stages of A",
+    "url": "https://simonwillison.net/2026/Mar/14/pragmatic-summit/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: My fireside chat about agentic engineering at the Pragmatic Summit",
+    "tags": [
+      "ai-agents"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "feed_name": "Simon Willison"
+    }
+  },
+  {
+    "signal_id": "rss-70d3044e5dbb",
+    "source": "rss_scanner",
+    "title": "[AINews] Context Drought",
+    "summary": "a quiet day lets us reflect on Anthropic's belated GA of 1M context windows after Gemini and OpenAI.",
+    "url": "https://www.latent.space/p/ainews-context-drought",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: [AINews] Context Drought",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "feed_name": "Latent Space"
+    }
+  },
+  {
+    "signal_id": "tool-871d4870b488",
+    "source": "tool_monitor",
+    "title": "iddokip/Talent-Acquisition-Agent",
+    "summary": "\ud83e\udd16 Streamline recruitment with an AI-driven system that simplifies CV parsing, ranking, and candidate management using modern technologies.",
+    "url": "https://github.com/iddokip/Talent-Acquisition-Agent",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: iddokip/Talent-Acquisition-Agent",
+    "tags": [
+      "ai-agents",
+      "persona:knuth"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "stars": 0,
+      "language": null,
+      "pushed_at": "2026-03-16T03:38:29Z",
+      "topics": [
+        "agentic-ai",
+        "ai",
+        "data-visualization",
+        "density-based-clustering",
+        "extract-data",
+        "fastapi",
+        "hr",
+        "hr-agent",
+        "langchain",
+        "langgraph",
+        "memory-management",
+        "principal-component-analysis",
+        "pydantic-ai",
+        "python",
+        "recruiter-agent",
+        "streamlit",
+        "talent-acquisition-agent",
+        "typescript"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-039df4f53276",
+    "source": "tool_monitor",
+    "title": "alexinaldojunior/mcp-rag-agent",
+    "summary": "\ud83d\udd0d Build a production-ready RAG system that combines LangGraph and MCP integration for precise, context-aware AI-driven question answering.",
+    "url": "https://github.com/alexinaldojunior/mcp-rag-agent",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: alexinaldojunior/mcp-rag-agent",
+    "tags": [
+      "mcp",
+      "ai-agents",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 1,
+      "language": "Python",
+      "pushed_at": "2026-03-16T03:44:54Z",
+      "topics": [
+        "agentic-ai",
+        "agentic-rag",
+        "ai-agents",
+        "aws",
+        "claude",
+        "deepseek",
+        "function-calling",
+        "lmstudio",
+        "local-llm",
+        "model-context-protocol",
+        "moonshot",
+        "multi-agent",
+        "multimodal",
+        "ollama",
+        "openai",
+        "qwen3",
+        "semantic-search",
+        "web-scraping"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-578836250a19",
+    "source": "tool_monitor",
+    "title": "omarmedaoui-pixel/autonomous-web3-ai-agent",
+    "summary": "\ud83e\udd16 Automate smart contract creation with an AI-driven multi-agent system for efficient Web3 development and deployment.",
+    "url": "https://github.com/omarmedaoui-pixel/autonomous-web3-ai-agent",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: omarmedaoui-pixel/autonomous-web3-ai-agent",
+    "tags": [
+      "ai-agents",
+      "autonomous-agents",
+      "persona:carmack"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "stars": 0,
+      "language": "JavaScript",
+      "pushed_at": "2026-03-16T04:20:58Z",
+      "topics": [
+        "agentic-ai",
+        "ai",
+        "blockchain",
+        "distillation-model",
+        "grok4",
+        "inference",
+        "llm",
+        "lora",
+        "mlx",
+        "nextjs",
+        "smart-contracts",
+        "solana",
+        "solana-memecoin-ai-trader",
+        "synthetic-dataset-generation",
+        "uniswap-v4",
+        "vercel"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-876066ed632a",
+    "source": "tool_monitor",
+    "title": "mikejtoolen/Custos_AI",
+    "summary": "\ud83e\udd16 Analyze customer churn risk, assess financial exposure, and automate business decisions using an AI-driven agentic system with LangChain.",
+    "url": "https://github.com/mikejtoolen/Custos_AI",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: mikejtoolen/Custos_AI",
+    "tags": [
+      "developer-tools"
+    ],
+    "domain": "developer-tools",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T04:21:17Z",
+      "topics": [
+        "airavata",
+        "apache",
+        "authentication",
+        "authorization",
+        "oauth2",
+        "openidconnect",
+        "security"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-c7c5f0a7bbf3",
+    "source": "tool_monitor",
+    "title": "sidiishan/soul.py",
+    "summary": "Build intelligent agents using soul.py, a Python framework that simplifies creating adaptable and autonomous AI-driven systems.",
+    "url": "https://github.com/sidiishan/soul.py",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: sidiishan/soul.py",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T04:33:22Z",
+      "topics": [
+        "amazon-web-services",
+        "aws-lambda",
+        "backend",
+        "game-transactions",
+        "music",
+        "nicotine-plus",
+        "p2p",
+        "python",
+        "serverless",
+        "slsk",
+        "soulseek"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-268e49696e74",
+    "source": "tool_monitor",
+    "title": "Whitedevill0/agentscope",
+    "summary": "Build and test intelligent agents with a flexible framework designed for research, development, and deployment of AI-driven decision systems.",
+    "url": "https://github.com/Whitedevill0/agentscope",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Whitedevill0/agentscope",
+    "tags": [
+      "ai-agents",
+      "persona:knuth"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T04:34:58Z",
+      "topics": [
+        "a2a",
+        "agentic",
+        "agentic-ai",
+        "agentscope",
+        "cursor",
+        "kubernetes",
+        "langgraph",
+        "llm",
+        "mcp",
+        "modelstudio",
+        "multi-agent",
+        "multi-modal",
+        "opentelemetry",
+        "react-agent",
+        "runtime",
+        "search",
+        "skills"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-bc456104f057",
+    "source": "tool_monitor",
+    "title": "bipin-01/ai-driven-systems-security-roadmap",
+    "summary": "Python-driven Linux, networking, process, and service automation roadmap for ai-agent for cybersecurity learning building the foundation",
+    "url": "https://github.com/bipin-01/ai-driven-systems-security-roadmap",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: bipin-01/ai-driven-systems-security-roadmap",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": null,
+      "pushed_at": "2026-03-16T05:00:35Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-bb859a3adc9d",
+    "source": "tool_monitor",
+    "title": "conradbez/prompt-build-tool-for-LLMs",
+    "summary": "dbt style prompt management ",
+    "url": "https://github.com/conradbez/prompt-build-tool-for-LLMs",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: conradbez/prompt-build-tool-for-LLMs",
+    "tags": [
+      "llm",
+      "developer-tools",
+      "prompt-engineering"
+    ],
+    "domain": "llm",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-14T06:23:23Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-2e3764f368ed",
+    "source": "tool_monitor",
+    "title": "legeling/PromptHub",
+    "summary": "\u4e00\u6b3e\u5f00\u6e90\u3001\u7eaf\u672c\u5730 Prompt \uff0cSkill \u7ba1\u7406\u5de5\u5177\uff0c\u5e2e\u52a9\u4f60\u9ad8\u6548\u7ba1\u7406\u3001\u7248\u672c\u63a7\u5236\u548c\u590d\u7528 Prompt\uff0c\u5e76\u4e00\u952e\u5206\u53d1skill | An open-source, local-first AI prompt management tool that helps you efficiently manage, version-control, and reuse your prompts",
+    "url": "https://github.com/legeling/PromptHub",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: legeling/PromptHub",
+    "tags": [
+      "prompt-engineering",
+      "persona:knuth",
+      "persona:hopper"
+    ],
+    "domain": "prompt-engineering",
+    "raw_data": {
+      "stars": 615,
+      "language": "TypeScript",
+      "pushed_at": "2026-03-14T09:38:30Z",
+      "topics": [
+        "ai",
+        "electron",
+        "llm",
+        "prompt",
+        "prompt-toolkit",
+        "react"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-4664d6202fe3",
+    "source": "tool_monitor",
+    "title": "Collins76/prompt-genius",
+    "summary": "AI-powered prompt optimization, evaluation, and management tool built with Next.js, Tailwind CSS, and Supabase",
+    "url": "https://github.com/Collins76/prompt-genius",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Collins76/prompt-genius",
+    "tags": [
+      "prompt-engineering",
+      "persona:hopper",
+      "persona:carmack"
+    ],
+    "domain": "prompt-engineering",
+    "raw_data": {
+      "stars": 0,
+      "language": "TypeScript",
+      "pushed_at": "2026-03-14T10:49:48Z",
+      "topics": [
+        "ai",
+        "nextjs",
+        "prompt-engineering",
+        "react",
+        "supabase",
+        "tailwindcss",
+        "typescript"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-3a6dea049d83",
+    "source": "tool_monitor",
+    "title": "orchestra-mcp/plugin-tools-prompts",
+    "summary": "Startup prompts and quick actions management plugin for Orchestra MCP",
+    "url": "https://github.com/orchestra-mcp/plugin-tools-prompts",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: orchestra-mcp/plugin-tools-prompts",
+    "tags": [
+      "mcp",
+      "developer-tools",
+      "prompt-engineering",
+      "persona:carmack"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 0,
+      "language": "Go",
+      "pushed_at": "2026-03-15T20:36:05Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-51b9ae11fd64",
+    "source": "tool_monitor",
+    "title": "coxthulhu/Cthulhu-Prompt",
+    "summary": "A prompt authoring and management tool designed for software developers.",
+    "url": "https://github.com/coxthulhu/Cthulhu-Prompt",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: coxthulhu/Cthulhu-Prompt",
+    "tags": [
+      "prompt-engineering",
+      "persona:carmack",
+      "persona:hopper"
+    ],
+    "domain": "prompt-engineering",
+    "raw_data": {
+      "stars": 1,
+      "language": "TypeScript",
+      "pushed_at": "2026-03-16T01:11:48Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-94ceb7b347f8",
+    "source": "tool_monitor",
+    "title": "cerredz/HarnessHub",
+    "summary": "Agent Harness Hub \u2014 Primitive building blocks and reference harnesses for wrapping LLMs (Claude, GPT, etc.) with custom control layers. Designed for developers who want to own the full stack around the model: tool injection, context management, output shaping, and execution flow \u2014 not just prompt in",
+    "url": "https://github.com/cerredz/HarnessHub",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: cerredz/HarnessHub",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T03:57:14Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-ddfb44e98431",
+    "source": "tool_monitor",
+    "title": "Arturistcool/spec",
+    "summary": "\ud83d\uddc2\ufe0f Store, version, and share prompts with PromptG, a standardized JSON format designed for flexible and tool-agnostic prompt management.",
+    "url": "https://github.com/Arturistcool/spec",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Arturistcool/spec",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "JavaScript",
+      "pushed_at": "2026-03-16T04:06:24Z",
+      "topics": [
+        "amqp",
+        "apis",
+        "asyncapi",
+        "containers",
+        "context-engineering",
+        "development",
+        "docker",
+        "engineering",
+        "estree",
+        "mspec",
+        "oci",
+        "openapi",
+        "react",
+        "reactive",
+        "sdd",
+        "spec-driven-development",
+        "specification",
+        "test-suite",
+        "webapi"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-fab9c248e327",
+    "source": "tool_monitor",
+    "title": "MohammadAboulEla/ComfyUI-iTools",
+    "summary": "A powerful node suite for ComfyUI that streamlines your workflow. It offers smart prompt management, image metadata analysis, visual comparison tools, customizable templates, history tracking, and enhanced previews to make your creative process faster and more efficient.",
+    "url": "https://github.com/MohammadAboulEla/ComfyUI-iTools",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: MohammadAboulEla/ComfyUI-iTools",
+    "tags": [
+      "developer-tools",
+      "persona:hopper"
+    ],
+    "domain": "developer-tools",
+    "raw_data": {
+      "stars": 214,
+      "language": "JavaScript",
+      "pushed_at": "2026-03-16T04:25:04Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-03c66928f062",
+    "source": "tool_monitor",
+    "title": "ayybee1/product-manager-skills",
+    "summary": "Enable AI tools to perform product management tasks like critiquing PRDs, analyzing SaaS metrics, and planning roadmaps using pure Markdown prompts.",
+    "url": "https://github.com/ayybee1/product-manager-skills",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: ayybee1/product-manager-skills",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": null,
+      "pushed_at": "2026-03-16T04:34:51Z",
+      "topics": [
+        "ai",
+        "ai-agent",
+        "ai-agent-skill",
+        "ai-tools",
+        "business-analysis",
+        "career-coaching",
+        "claude-ai",
+        "claude-code",
+        "claude-skills",
+        "claudeskills",
+        "discovery",
+        "jtbd",
+        "open-source",
+        "openclaw-skill",
+        "pm-tools",
+        "prd",
+        "product-manager",
+        "roadmap",
+        "saas-metrics",
+        "user-stories"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-6edab68590dd",
+    "source": "tool_monitor",
+    "title": "stareing/AegisAgent",
+    "summary": "Aegis Agent Framework is an engineering-grade AI agent runtime built on Python 3.11+ and pydantic v2. Designed with an \"offline-first\" and secure-isolation philosophy, it features rigorous architectural boundaries and a 5-slot context engineering model. With out-of-the-box support for 11 model adapt",
+    "url": "https://github.com/stareing/AegisAgent",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: stareing/AegisAgent",
+    "tags": [
+      "ai-agents",
+      "persona:hopper"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "stars": 1,
+      "language": "Python",
+      "pushed_at": "2026-03-16T04:55:19Z",
+      "topics": [
+        "a2a-protocol",
+        "agent-framework",
+        "ai-agent",
+        "llm",
+        "mcp",
+        "multi-agent",
+        "offline-first",
+        "pydantic",
+        "python",
+        "react-agent"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-e2e009ddef1e",
+    "source": "tool_monitor",
+    "title": "Raheel-baksh/Glint",
+    "summary": "Glint is a Rust framework designed for creating stateful, graph-based AI systems, enabling efficient multi-step workflows. With features like LLM integration and a graph-based architecture, Glint helps developers build powerful AI solutions with ease. \ud83d\udc19\u2728",
+    "url": "https://github.com/Raheel-baksh/Glint",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Raheel-baksh/Glint",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 2,
+      "language": "Rust",
+      "pushed_at": "2026-03-16T04:56:29Z",
+      "topics": [
+        "commitlint",
+        "face-recognition",
+        "facenet",
+        "git",
+        "go",
+        "hacktoberfest",
+        "lfw-dataset",
+        "multi-gpu",
+        "opengl",
+        "pretrained-model",
+        "pytorch",
+        "storybook",
+        "styled-components",
+        "triplet-loss",
+        "vggface2-dataset",
+        "webpack4"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-81dd623fe748",
+    "source": "tool_monitor",
+    "title": "beeracs/Llama",
+    "summary": "Run Llama models in your web browser using JavaScript and WebAssembly. Explore light and dark modes easily. \ud83c\udf10\ud83d\udc31\ud83d\udc64",
+    "url": "https://github.com/beeracs/Llama",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: beeracs/Llama",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "HTML",
+      "pushed_at": "2026-03-16T04:58:53Z",
+      "topics": [
+        "ai",
+        "data",
+        "fine-tuning",
+        "framework",
+        "gpt",
+        "langchain",
+        "large-language-models",
+        "llama3",
+        "llamaindex",
+        "llm",
+        "lora",
+        "machine-learning",
+        "nlp",
+        "peft",
+        "qlora",
+        "qwen",
+        "rlhf",
+        "vllm"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-d24031e485ba",
+    "source": "tool_monitor",
+    "title": "UntitledPhases/gLLove",
+    "summary": "Open-source framework for accelerating LLM personalization through structured user profiling. Ingests personal data exports (Google Takeout, Meta, Apple Privacy) and synthesizes model-agnostic calibration profiles \u2014 replacing months of passive adaptation with a single onboarding pipeline. (Descripti",
+    "url": "https://github.com/UntitledPhases/gLLove",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: UntitledPhases/gLLove",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": null,
+      "pushed_at": "2026-03-16T04:59:47Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-de7dbb9489a0",
+    "source": "tool_monitor",
+    "title": "nijaru/canto",
+    "summary": "Composable Go framework for building LLM agents and agent swarms",
+    "url": "https://github.com/nijaru/canto",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: nijaru/canto",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "Go",
+      "pushed_at": "2026-03-16T05:01:05Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-b293ec49495d",
+    "source": "tool_monitor",
+    "title": "nerve-eigenspectrum/nerve-eigenspectrum.github.io",
+    "summary": "NerVE framework for analyzing eigenspectral dynamics in LLMs (ICLR 2026)",
+    "url": "https://github.com/nerve-eigenspectrum/nerve-eigenspectrum.github.io",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: nerve-eigenspectrum/nerve-eigenspectrum.github.io",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "JavaScript",
+      "pushed_at": "2026-03-16T05:01:17Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-214c24649d97",
+    "source": "tool_monitor",
+    "title": "tomicechen/GUI-Projects",
+    "summary": "\ud83d\udda5\ufe0f Discover and build GUI applications with Python using frameworks like PySide6, Tkinter, and PyQt in this collection of innovative projects.",
+    "url": "https://github.com/tomicechen/GUI-Projects",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: tomicechen/GUI-Projects",
+    "tags": [
+      "ai-research",
+      "persona:hopper",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "HTML",
+      "pushed_at": "2026-03-16T05:02:39Z",
+      "topics": [
+        "ai",
+        "awt-graphics",
+        "backend",
+        "datascience",
+        "gfw",
+        "guide",
+        "hacktoberfest",
+        "hacktoberfest-accepted",
+        "linux",
+        "llm",
+        "lvgl",
+        "machine-learning",
+        "python",
+        "rest-api",
+        "shadowsocks",
+        "ssr",
+        "v2ray",
+        "vue"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-9fe64298f113",
+    "source": "tool_monitor",
+    "title": "WenyuChiou/WAGF",
+    "summary": "The Water Agent Governance Framework addresses the fundamental Logic-Action Gap in Large Language Model (LLM) agents",
+    "url": "https://github.com/WenyuChiou/WAGF",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: WenyuChiou/WAGF",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T05:03:22Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-5961c06b5b59",
+    "source": "tool_monitor",
+    "title": "marhsjbdn/opencode",
+    "summary": "\ud83d\udc19 AI coding assistant for the terminal. Open-source CLI tool that guides coding with a chat-style agent, helping developers write and debug code faster today.",
+    "url": "https://github.com/marhsjbdn/opencode",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: marhsjbdn/opencode",
+    "tags": [
+      "code-generation",
+      "persona:hopper"
+    ],
+    "domain": "code-generation",
+    "raw_data": {
+      "stars": 7,
+      "language": "Go",
+      "pushed_at": "2026-03-16T04:59:33Z",
+      "topics": [
+        "ai",
+        "ai-tui",
+        "aider",
+        "chatgpt",
+        "cli",
+        "code",
+        "codex",
+        "dsa-algorithm",
+        "hacktoberfest",
+        "html",
+        "javascript",
+        "open-source",
+        "openai",
+        "opencode",
+        "opencode21",
+        "opencode23",
+        "vibe-coding",
+        "webdevelopment"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-7e7cda43e0da",
+    "source": "tool_monitor",
+    "title": "VyshnaviMaredugonda/AI-ASSISTANT-CODING",
+    "summary": "VyshnaviMaredugonda/AI-ASSISTANT-CODING",
+    "url": "https://github.com/VyshnaviMaredugonda/AI-ASSISTANT-CODING",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: VyshnaviMaredugonda/AI-ASSISTANT-CODING",
+    "tags": [
+      "ai-research",
+      "persona:hopper",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "Jupyter Notebook",
+      "pushed_at": "2026-03-16T05:00:28Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-a58799b884f4",
+    "source": "tool_monitor",
+    "title": "2303A51967/Ai_Assistant-coding-B-27-1967-",
+    "summary": "2303A51967/Ai_Assistant-coding-B-27-1967-",
+    "url": "https://github.com/2303A51967/Ai_Assistant-coding-B-27-1967-",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: 2303A51967/Ai_Assistant-coding-B-27-1967-",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": null,
+      "pushed_at": "2026-03-16T05:02:15Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-bbdda87e1a15",
+    "source": "tool_monitor",
+    "title": "tddworks/ClaudeBar",
+    "summary": "A macOS menu bar application that monitors AI coding assistant usage quotas. Keep track of your Claude, Codex, Antigravity ,and Gemini usage at a glance.",
+    "url": "https://github.com/tddworks/ClaudeBar",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: tddworks/ClaudeBar",
+    "tags": [
+      "ai-research",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 796,
+      "language": "Swift",
+      "pushed_at": "2026-03-16T05:02:27Z",
+      "topics": [
+        "antigravity",
+        "claude",
+        "claude-code",
+        "codex",
+        "gemini",
+        "githubcopilot",
+        "glm5",
+        "kimi"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-54355e80733e",
+    "source": "tool_monitor",
+    "title": "GovardhanRajulapati073/AI-ASSISTANT-CODING-LAB-ASSIGNMENTS-",
+    "summary": "GovardhanRajulapati073/AI-ASSISTANT-CODING-LAB-ASSIGNMENTS-",
+    "url": "https://github.com/GovardhanRajulapati073/AI-ASSISTANT-CODING-LAB-ASSIGNMENTS-",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: GovardhanRajulapati073/AI-ASSISTANT-CODING-LAB-ASSIGNMENTS-",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T05:02:36Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-bd2bcff519dd",
+    "source": "tool_monitor",
+    "title": "Sgon4arov/plato",
+    "summary": "\ud83e\udd16 Enhance coding with Plato, a CLI-compatible AI assistant that streamlines coding tasks while integrating seamlessly with GitHub Copilot.",
+    "url": "https://github.com/Sgon4arov/plato",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Sgon4arov/plato",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "TypeScript",
+      "pushed_at": "2026-03-16T05:03:44Z",
+      "topics": [
+        "assembly",
+        "autonomous-vehicles",
+        "bacteria",
+        "control-systems",
+        "conversational-ai",
+        "conversational-ui",
+        "deep-learning",
+        "dialogue-systems",
+        "functional-programming",
+        "kobo",
+        "lateral-controller",
+        "machine-learning",
+        "ngs",
+        "pdf",
+        "platooning",
+        "privacy-preserving",
+        "timeline",
+        "wgs"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-f459e373a9c1",
+    "source": "tool_monitor",
+    "title": "thecoolman87/IntelliJ-AI-Prompt-Generator",
+    "summary": "\ud83d\udee0\ufe0f Build context-rich AI prompts in IntelliJ IDEA, easily incorporating your project's code for smoother interaction with AI assistants.",
+    "url": "https://github.com/thecoolman87/IntelliJ-AI-Prompt-Generator",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: thecoolman87/IntelliJ-AI-Prompt-Generator",
+    "tags": [
+      "prompt-engineering"
+    ],
+    "domain": "prompt-engineering",
+    "raw_data": {
+      "stars": 1,
+      "language": "Java",
+      "pushed_at": "2026-03-16T05:04:07Z",
+      "topics": [
+        "ai",
+        "chatgpt",
+        "claude",
+        "context",
+        "gpt",
+        "intellij-plugin",
+        "llm",
+        "openai",
+        "prompt"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-91d6e5432a39",
+    "source": "tool_monitor",
+    "title": "ALTIbaba/claude-code-openai-wrapper",
+    "summary": "OpenAI API-compatible wrapper for Claude Code. Use it with any OpenAI client library for fast, seamless integration. \ud83d\ude80\ud83c\udf1f",
+    "url": "https://github.com/ALTIbaba/claude-code-openai-wrapper",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: ALTIbaba/claude-code-openai-wrapper",
+    "tags": [
+      "code-generation",
+      "persona:carmack"
+    ],
+    "domain": "code-generation",
+    "raw_data": {
+      "stars": 27,
+      "language": "Python",
+      "pushed_at": "2026-03-16T04:58:47Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-9777efd2e03c",
+    "source": "tool_monitor",
+    "title": "ponytech-dev/ponymemory",
+    "summary": "Persistent cross-session memory for Claude Code \u2014 Qdrant semantic search + Neo4j knowledge graph + local embeddings. Zero API keys, fully local, one-command install.",
+    "url": "https://github.com/ponytech-dev/ponymemory",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: ponytech-dev/ponymemory",
+    "tags": [
+      "ai-research",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "HTML",
+      "pushed_at": "2026-03-16T04:59:00Z",
+      "topics": [
+        "ai-memory",
+        "claude",
+        "claude-code",
+        "embeddings",
+        "knowledge-graph",
+        "mcp",
+        "memory",
+        "model-context-protocol",
+        "neo4j",
+        "qdrant"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-49eda0f1edae",
+    "source": "tool_monitor",
+    "title": "flairziv/qt-llm-chat",
+    "summary": "A Qt-based desktop LLM chat client supporting Claude & OpenAI APIs, with streaming responses, multi-session management, and live2D-style character expression system.",
+    "url": "https://github.com/flairziv/qt-llm-chat",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: flairziv/qt-llm-chat",
+    "tags": [
+      "llm"
+    ],
+    "domain": "llm",
+    "raw_data": {
+      "stars": 2,
+      "language": "C++",
+      "pushed_at": "2026-03-16T04:59:45Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-8bf5b2e68bcc",
+    "source": "tool_monitor",
+    "title": "Paja73/claude-auto-api",
+    "summary": "Claude Code settings.json auto-config tool to quickly switch API_KEY, AUTH_TOKEN, and model configs across multi-model setups. Secure backup and desensitized previews. \ud83d\udc19",
+    "url": "https://github.com/Paja73/claude-auto-api",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Paja73/claude-auto-api",
+    "tags": [
+      "api-tools",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "api-tools",
+    "raw_data": {
+      "stars": 6,
+      "language": "JavaScript",
+      "pushed_at": "2026-03-16T05:00:13Z",
+      "topics": [
+        "ai",
+        "assistant",
+        "auto-fix",
+        "chatbot",
+        "claude-ai",
+        "claude-code",
+        "claude3",
+        "cost-reduction",
+        "cursor-editor",
+        "documented",
+        "free",
+        "github-copilot",
+        "large-file-upload",
+        "long-text",
+        "python",
+        "scraper",
+        "selenium",
+        "summarizer"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-4c3f750f1bd6",
+    "source": "tool_monitor",
+    "title": "solaranamnesis/claude-francois-menestrier",
+    "summary": "Public Domain Works of Claude-Franc\u0327ois Menestrier (1631-1705).",
+    "url": "https://github.com/solaranamnesis/claude-francois-menestrier",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: solaranamnesis/claude-francois-menestrier",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 1,
+      "language": "TeX",
+      "pushed_at": "2026-03-16T05:00:36Z",
+      "topics": [
+        "api",
+        "apum",
+        "artemis",
+        "asiaminor",
+        "bee",
+        "diana",
+        "ephesus",
+        "greek",
+        "history",
+        "honeybee",
+        "latex",
+        "latex-document",
+        "latin"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-71e041ee87b8",
+    "source": "tool_monitor",
+    "title": "namjoo2006/Langchain-fundamental-in-model-component-access-data-using-api-keys",
+    "summary": "LangChain fundamentals for model components: learn to access language and embedding models with API keys (OpenAI, Claude, Gemini) and secure LLM integration. \ud83d\udc19",
+    "url": "https://github.com/namjoo2006/Langchain-fundamental-in-model-component-access-data-using-api-keys",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: namjoo2006/Langchain-fundamental-in-model-component-access-data-using-api-keys",
+    "tags": [
+      "api-tools",
+      "persona:hopper"
+    ],
+    "domain": "api-tools",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T05:01:00Z",
+      "topics": [
+        "claude",
+        "closed-source",
+        "components",
+        "gemini-api",
+        "generative-ai",
+        "langchain",
+        "llm",
+        "models",
+        "open-source",
+        "openai",
+        "perspective",
+        "python",
+        "transformers",
+        "user-builder"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-76354e87be31",
+    "source": "tool_monitor",
+    "title": "seikaikyo/ai-english-tutor",
+    "summary": "Voice-first English speaking practice with AI-powered grammar correction. Built with Vue 3 + FastAPI + Claude API.",
+    "url": "https://github.com/seikaikyo/ai-english-tutor",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: seikaikyo/ai-english-tutor",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "stars": 0,
+      "language": "TypeScript",
+      "pushed_at": "2026-03-16T05:02:27Z",
+      "topics": [
+        "claude-api",
+        "english-learning",
+        "fastapi",
+        "speech-recognition",
+        "typescript",
+        "vue3"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-6ad6acc26d9b",
+    "source": "tool_monitor",
+    "title": "raineislam/mcp-framework",
+    "summary": "\ud83d\udee0\ufe0f Build elegant MCP servers in TypeScript with automatic tool discovery and full type safety for streamlined development.",
+    "url": "https://github.com/raineislam/mcp-framework",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: raineislam/mcp-framework",
+    "tags": [
+      "mcp",
+      "ai-frameworks"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T05:02:23Z",
+      "topics": [
+        "agent-framework",
+        "ai",
+        "ai-native",
+        "anthropic",
+        "chat",
+        "chatgpt",
+        "claude",
+        "editor",
+        "electron",
+        "gpt",
+        "ide",
+        "ide-framework",
+        "model-context-protocol",
+        "rag",
+        "reliability",
+        "swarm",
+        "typescript",
+        "webide"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-21bd752f2ac9",
+    "source": "tool_monitor",
+    "title": "hunterkevv/iphone-mcp",
+    "summary": "\ud83d\udcf1 Automate iPhone tasks with an MCP server for Appium, enabling app control, UI interactions, and screenshot capture via streamable HTTP.",
+    "url": "https://github.com/hunterkevv/iphone-mcp",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: hunterkevv/iphone-mcp",
+    "tags": [
+      "mcp",
+      "persona:carmack"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 0,
+      "language": "Python",
+      "pushed_at": "2026-03-16T05:02:53Z",
+      "topics": [
+        "api-integration",
+        "debugging",
+        "ios-app",
+        "iphone",
+        "mcp",
+        "mobile-development",
+        "open-source",
+        "programming",
+        "source-code",
+        "swift",
+        "testing",
+        "tutorials",
+        "ui-design",
+        "user-interface",
+        "xcode"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-87cd1231f7c5",
+    "source": "tool_monitor",
+    "title": "ermermermermidk/mcp-ai-memory",
+    "summary": "\ud83e\udde0 Manage AI context seamlessly with the MCP server for storing and retrieving semantic memory across sessions. Enhance your AI's knowledge retention.",
+    "url": "https://github.com/ermermermermidk/mcp-ai-memory",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: ermermermermidk/mcp-ai-memory",
+    "tags": [
+      "mcp",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 0,
+      "language": "TypeScript",
+      "pushed_at": "2026-03-16T05:02:53Z",
+      "topics": [
+        "a2a",
+        "ai-agents",
+        "ai-assistant",
+        "application",
+        "chatgpt",
+        "claude-desktop",
+        "cursor",
+        "dapr-pub-sub",
+        "dapr-sidecar",
+        "kubernetes",
+        "langmem",
+        "llm",
+        "long-term-memory",
+        "mcp-server",
+        "memory-management",
+        "python",
+        "state-management",
+        "vector-database"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-4743aed8e541",
+    "source": "tool_monitor",
+    "title": "terminalcraft/moltbook-mcp",
+    "summary": "MCP server for Moltbook \u2014 the social network for AI agents",
+    "url": "https://github.com/terminalcraft/moltbook-mcp",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: terminalcraft/moltbook-mcp",
+    "tags": [
+      "mcp",
+      "persona:carmack",
+      "persona:knuth"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 8,
+      "language": "JavaScript",
+      "pushed_at": "2026-03-16T05:03:36Z",
+      "topics": [],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-4920795bbc03",
+    "source": "tool_monitor",
+    "title": "mo-mostafa-123/fastestmcp",
+    "summary": "\ud83d\ude80 Generate production-ready MCP servers and clients in seconds with FastestMCP, ensuring efficiency and speed for your projects.",
+    "url": "https://github.com/mo-mostafa-123/fastestmcp",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: mo-mostafa-123/fastestmcp",
+    "tags": [
+      "mcp"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 2,
+      "language": "Python",
+      "pushed_at": "2026-03-16T05:03:44Z",
+      "topics": [
+        "ai",
+        "automation",
+        "cli",
+        "client",
+        "fastmcp",
+        "generator",
+        "llm",
+        "mcp",
+        "model-context-protocol",
+        "python",
+        "server",
+        "templates"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "tool-90baa3d65283",
+    "source": "tool_monitor",
+    "title": "RavenQueen03/btp-sap-odata-to-mcp-server",
+    "summary": "\ud83c\udf10 Expose SAP OData services as dynamic MCP tools, enabling natural language interactions with your ERP data for enhanced conversational AI capabilities.",
+    "url": "https://github.com/RavenQueen03/btp-sap-odata-to-mcp-server",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: RavenQueen03/btp-sap-odata-to-mcp-server",
+    "tags": [
+      "mcp",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "mcp",
+    "raw_data": {
+      "stars": 2,
+      "language": null,
+      "pushed_at": "2026-03-16T05:03:46Z",
+      "topics": [
+        "api",
+        "btp",
+        "cloud",
+        "data-modeling",
+        "enterprise-integration",
+        "integration",
+        "java",
+        "mcp-server",
+        "microservices",
+        "nodejs",
+        "odata",
+        "real-time-data",
+        "rest-api",
+        "sap",
+        "web-services"
+      ],
+      "firecrawl_enriched": false
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13133v1",
+    "source": "arxiv_hf",
+    "title": "DecoVLN: Decoupling Observation, Reasoning, and Correction for Vision-and-Language Navigation",
+    "summary": "Vision-and-Language Navigation (VLN) requires agents to follow long-horizon instructions and navigate complex 3D environments. However, existing approaches face two major challenges: constructing an effective long-term memory bank and overcoming the compounding errors problem. To address these issues, we propose DecoVLN, an effective framework designed for robust streaming perception and closed-loop control in long-horizon navigation. First, we formulate long-term memory construction as an optim",
+    "url": "https://arxiv.org/pdf/2603.13133v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: DecoVLN: Decoupling Observation, Reasoning, and Correction for Vision-and-Langua",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13133v1",
+      "authors": [
+        "Zihao Xin",
+        "Wentong Li",
+        "Yixuan Jiang",
+        "Bin Wang",
+        "Runming Cong"
+      ],
+      "published": "2026-03-13T16:24:37Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13151v1",
+    "source": "arxiv_hf",
+    "title": "Defensible Design for OpenClaw: Securing Autonomous Tool-Invoking Agents",
+    "summary": "OpenClaw-like agents offer substantial productivity benefits, yet they are insecure by default because they combine untrusted inputs, autonomous action, extensibility, and privileged system access within a single execution loop. We use OpenClaw as an exemplar of a broader class of agents that interact with interfaces, manipulate files, invoke tools, and install extensions in real operating environments. Consequently, their security should be treated as a software engineering problem rather than ",
+    "url": "https://arxiv.org/pdf/2603.13151v1",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Defensible Design for OpenClaw: Securing Autonomous Tool-Invoking Agents",
+    "tags": [
+      "ai-agents",
+      "developer-tools",
+      "autonomous-agents"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "arxiv_id": "2603.13151v1",
+      "authors": [
+        "Zongwei Li",
+        "Wenkai Li",
+        "Xiaoqi Li"
+      ],
+      "published": "2026-03-13T16:41:11Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13110v1",
+    "source": "arxiv_hf",
+    "title": "AgentRM: An OS-Inspired Resource Manager for LLM Agent Systems",
+    "summary": "Large Language Model (LLM) agent systems have experienced rapid adoption across diverse domains, yet they suffer from critical user experience problems that limit their practical deployment. Through an empirical analysis of over 40,000 GitHub issues from six major agent frameworks (OpenClaw, AutoGen, CrewAI, LangGraph, Codex, Claude Code), we identify two fundamental resource management challenges: (1) scheduling failures leading to system unresponsiveness due to blocking, zombie processes, and ",
+    "url": "https://arxiv.org/pdf/2603.13110v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: AgentRM: An OS-Inspired Resource Manager for LLM Agent Systems",
+    "tags": [
+      "ai-agents",
+      "llm",
+      "persona:hopper"
+    ],
+    "domain": "ai-agents",
+    "raw_data": {
+      "arxiv_id": "2603.13110v1",
+      "authors": [
+        "Jianshu She"
+      ],
+      "published": "2026-03-13T16:07:20Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13126v1",
+    "source": "arxiv_hf",
+    "title": "Developing the PsyCogMetrics AI Lab to Evaluate Large Language Models and Advance Cognitive Science -- A Three-Cycle Action Design Science Study",
+    "summary": "This study presents the development of the PsyCogMetrics AI Lab (psycogmetrics.ai), an integrated, cloud-based platform that operationalizes psychometric and cognitive-science methodologies for Large Language Model (LLM) evaluation. Framed as a three-cycle Action Design Science study, the Relevance Cycle identifies key limitations in current evaluation methods and unfulfilled stakeholder needs. The Rigor Cycle draws on kernel theories such as Popperian falsifiability, Classical Test Theory, and ",
+    "url": "https://arxiv.org/pdf/2603.13126v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Developing the PsyCogMetrics AI Lab to Evaluate Large Language Models and Advanc",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13126v1",
+      "authors": [
+        "Zhiye Jin",
+        "Yibai Li",
+        "K. D. Joshi",
+        " Xuefei",
+        " Deng"
+      ],
+      "published": "2026-03-13T16:17:45Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13131v1",
+    "source": "arxiv_hf",
+    "title": "Steve-Evolving: Open-World Embodied Self-Evolution via Fine-Grained Diagnosis and Dual-Track Knowledge Distillation",
+    "summary": "Open-world embodied agents must solve long-horizon tasks where the main bottleneck is not single-step planning quality but how interaction experience is organized and evolved. To this end, we present Steve-Evolving, a non-parametric self-evolving framework that tightly couples fine-grained execution diagnosis with dual-track knowledge distillation in a closed loop. The method follows three phases: Experience Anchoring, Experience Distillation, and Knowledge-Driven Closed-Loop Control. In detail,",
+    "url": "https://arxiv.org/pdf/2603.13131v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Steve-Evolving: Open-World Embodied Self-Evolution via Fine-Grained Diagnosis an",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13131v1",
+      "authors": [
+        "Zhengwei Xie",
+        "Zhisheng Chen",
+        "Ziyan Weng",
+        "Tingyu Wu",
+        "Chenglong Li"
+      ],
+      "published": "2026-03-13T16:23:34Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13154v1",
+    "source": "arxiv_hf",
+    "title": "ESG-Bench: Benchmarking Long-Context ESG Reports for Hallucination Mitigation",
+    "summary": "As corporate responsibility increasingly incorporates environmental, social, and governance (ESG) criteria, ESG reporting is becoming a legal requirement in many regions and a key channel for documenting sustainability practices and assessing firms' long-term and ethical performance. However, the length and complexity of ESG disclosures make them difficult to interpret and automate the analysis reliably. To support scalable and trustworthy analysis, this paper introduces ESG-Bench, a benchmark d",
+    "url": "https://arxiv.org/pdf/2603.13154v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: ESG-Bench: Benchmarking Long-Context ESG Reports for Hallucination Mitigation",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13154v1",
+      "authors": [
+        "Siqi Sun",
+        "Ben Peng Wu",
+        "Mali Jin",
+        "Peizhen Bai",
+        "Hanpei Zhang"
+      ],
+      "published": "2026-03-13T16:48:05Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13214v1",
+    "source": "arxiv_hf",
+    "title": "Investigating mixed-integer programming approaches for the $p$-$\u03b1$-closest-center problem",
+    "summary": "In this work, we introduce and study the $p$-$\u03b1$-closest-center problem ($p\u03b1$CCP), which generalizes the $p$-second-center problem, a recently emerged variant of the classical $p$-center problem. In the $p\u03b1$CCP, we are given sets of customers and potential facility locations, distances between each customer and potential facility location as well as two integers $p$ and $\u03b1$. The goal is to open facilities at $p$ of the potential facility locations, such that the maximum $\u03b1$-distance between each",
+    "url": "https://arxiv.org/pdf/2603.13214v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Investigating mixed-integer programming approaches for the $p$-$\u03b1$-closest-cente",
+    "tags": [
+      "ai-research",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13214v1",
+      "authors": [
+        "Elisabeth Gaar",
+        "Sara Joosten",
+        "Markus Sinnl"
+      ],
+      "published": "2026-03-13T17:50:20Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13215v1",
+    "source": "arxiv_hf",
+    "title": "Out of Sight, Out of Mind? Evaluating State Evolution in Video World Models",
+    "summary": "Evolutions in the world, such as water pouring or ice melting, happen regardless of being observed. Video world models generate \"worlds\" via 2D frame observations. Can these generated \"worlds\" evolve regardless of observation? To probe this question, we design a benchmark to evaluate whether video world models can decouple state evolution from observation. Our benchmark, STEVO-Bench, applies observation control to evolving processes via instructions of occluder insertion, turning off the light, ",
+    "url": "https://arxiv.org/pdf/2603.13215v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Out of Sight, Out of Mind? Evaluating State Evolution in Video World Models",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13215v1",
+      "authors": [
+        "Ziqi Ma",
+        "Mengzhan Liufu",
+        "Georgia Gkioxari"
+      ],
+      "published": "2026-03-13T17:51:14Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13200v1",
+    "source": "arxiv_hf",
+    "title": "Navig-AI-tion: Navigation by Contextual AI and Spatial Audio",
+    "summary": "Audio-only walking navigation can leave users disoriented, relying on vague cardinal directions and lacking real-time environmental context, leading to frequent errors. To address this, we present a novel system that integrates a Vision Language Model (VLM) with a spatial audio cue. Our system extracts environmental landmarks to anchor navigation instructions and, crucially, provides a directional spatial audio signal when the user faces the wrong direction, indicating the precise turn direction",
+    "url": "https://arxiv.org/pdf/2603.13200v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Navig-AI-tion: Navigation by Contextual AI and Spatial Audio",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13200v1",
+      "authors": [
+        "Mathias N. Lystb\u00e6k",
+        "Haley Adams",
+        "Ranjith Kagathi Ananda",
+        "Eric J Gonzalez",
+        "Luca Ballan"
+      ],
+      "published": "2026-03-13T17:38:10Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13201v1",
+    "source": "arxiv_hf",
+    "title": "Neuron-Aware Data Selection In Instruction Tuning For Large Language Models",
+    "summary": "Instruction Tuning (IT) has been proven to be an effective approach to unlock the powerful capabilities of large language models (LLMs). Recent studies indicate that excessive IT data can degrade LLMs performance, while carefully selecting a small subset of high-quality IT data can significantly enhance their capabilities. Therefore, identifying the most efficient subset data from the IT dataset to effectively develop either specific or general abilities in LLMs has become a critical challenge. ",
+    "url": "https://arxiv.org/pdf/2603.13201v1",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Neuron-Aware Data Selection In Instruction Tuning For Large Language Models",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13201v1",
+      "authors": [
+        "Xin Chen",
+        "Junchao Wu",
+        "Shu Yang",
+        "Runzhe Zhan",
+        "Zeyu Wu"
+      ],
+      "published": "2026-03-13T17:39:03Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13203v1",
+    "source": "arxiv_hf",
+    "title": "$\u03c0$, K, and p production in high-multiplicity pp collisions at $\\sqrt{s} = 13$ TeV",
+    "summary": "This paper presents the measurement of $\u03c0^{\\pm}$, K$^{\\pm}$, and p($\\bar{\\text{p}}$) production in high-multiplicity proton-proton collisions at $\\sqrt{s} = 13$ TeV at midrapidity ($|y| < 0.5$) using the ALICE detector at the LHC. The transverse-momentum ($p_{\\rm T}$) spectra of these particles are reported for three high-multiplicity classes. The results show a mass- and multiplicity-dependent hardening of the $p_{\\rm T}$ spectra and an enhancement of the p/$\u03c0$ ratio at intermediate $p_{\\rm T}$",
+    "url": "https://arxiv.org/pdf/2603.13203v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: $\u03c0$, K, and p production in high-multiplicity pp collisions at $\\sqrt{s} = 13$ T",
+    "tags": [
+      "ai-research",
+      "persona:carmack",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13203v1",
+      "authors": [
+        " ALICE Collaboration"
+      ],
+      "published": "2026-03-13T17:39:58Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13228v1",
+    "source": "arxiv_hf",
+    "title": "PhysMoDPO: Physically-Plausible Humanoid Motion with Preference Optimization",
+    "summary": "Recent progress in text-conditioned human motion generation has been largely driven by diffusion models trained on large-scale human motion data. Building on this progress, recent methods attempt to transfer such models for character animation and real robot control by applying a Whole-Body Controller (WBC) that converts diffusion-generated motions into executable trajectories. While WBC trajectories become compliant with physics, they may expose substantial deviations from original motion. To a",
+    "url": "https://arxiv.org/pdf/2603.13228v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: PhysMoDPO: Physically-Plausible Humanoid Motion with Preference Optimization",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13228v1",
+      "authors": [
+        "Yangsong Zhang",
+        "Anujith Muraleedharan",
+        "Rikhat Akizhanov",
+        "Abdul Ahad Butt",
+        "G\u00fcl Varol"
+      ],
+      "published": "2026-03-13T17:59:59Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13162v1",
+    "source": "arxiv_hf",
+    "title": "DiT-IC: Aligned Diffusion Transformer for Efficient Image Compression",
+    "summary": "Diffusion-based image compression has recently shown outstanding perceptual fidelity, yet its practicality is hindered by prohibitive sampling overhead and high memory usage. Most existing diffusion codecs employ U-Net architectures, where hierarchical downsampling forces diffusion to operate in shallow latent spaces (typically with only 8x spatial downscaling), resulting in excessive computation. In contrast, conventional VAE-based codecs work in much deeper latent domains (16x - 64x downscaled",
+    "url": "https://arxiv.org/pdf/2603.13162v1",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: DiT-IC: Aligned Diffusion Transformer for Efficient Image Compression",
+    "tags": [
+      "ai-research",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13162v1",
+      "authors": [
+        "Junqi Shi",
+        "Ming Lu",
+        "Xingchen Li",
+        "Anle Ke",
+        "Ruiqi Zhang"
+      ],
+      "published": "2026-03-13T16:56:00Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13177v1",
+    "source": "arxiv_hf",
+    "title": "Clustering Astronomical Orbital Synthetic Data Using Advanced Feature Extraction and Dimensionality Reduction Techniques",
+    "summary": "The dynamics of Saturn's satellite system offer a rich framework for studying orbital stability and resonance interactions. Traditional methods for analysing such systems, including Fourier analysis and stability metrics, struggle with the scale and complexity of modern datasets. This study introduces a machine learning-based pipeline for clustering approximately 22,300 simulated satellite orbits, addressing these challenges with advanced feature extraction and dimensionality reduction technique",
+    "url": "https://arxiv.org/pdf/2603.13177v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Clustering Astronomical Orbital Synthetic Data Using Advanced Feature Extraction",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13177v1",
+      "authors": [
+        "Eraldo Pereira Marinho",
+        "Nelson Callegari Junior",
+        "Fabricio Aparecido Breve",
+        "Caetano Mazzoni Ranieri"
+      ],
+      "published": "2026-03-13T17:11:52Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13182v1",
+    "source": "arxiv_hf",
+    "title": "Diffusion-Based Feature Denoising and Using NNMF for Robust Brain Tumor Classification",
+    "summary": "Brain tumor classification from magnetic resonance imaging, which is also known as MRI, plays a sensitive role in computer-assisted diagnosis systems. In recent years, deep learning models have achieved high classification accuracy. However, their sensitivity to adversarial perturbations has become an important reliability concern in medical applications. This study suggests a robust brain tumor classification framework that combines Non-Negative Matrix Factorization (NNMF or NMF), lightweight c",
+    "url": "https://arxiv.org/pdf/2603.13182v1",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Diffusion-Based Feature Denoising and Using NNMF for Robust Brain Tumor Classifi",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13182v1",
+      "authors": [
+        "Hiba Adil Al-kharsan",
+        "R\u00f3bert Rajk\u00f3"
+      ],
+      "published": "2026-03-13T17:15:46Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13190v1",
+    "source": "arxiv_hf",
+    "title": "Lattice Discrete Particle Model (LDPM): Comparison of Various Time Integration Solvers and Implementations",
+    "summary": "This article presents a comparison of various implementations of the Lattice Discrete Particle Model (LDPM) for the numerical simulation of concrete and other heterogeneous quasibrittle materials. The comparison involves the use of transient implicit and explicit solvers and steady-state (static) solvers and implementations for Central Processing Unit (CPU) as well as Graphics Processing Unit (GPU). The various implementations are compared on the basis of a set of benchmarks tests describing beh",
+    "url": "https://arxiv.org/pdf/2603.13190v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Lattice Discrete Particle Model (LDPM): Comparison of Various Time Integration S",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13190v1",
+      "authors": [
+        "Erol Lale",
+        "Jan Eli\u00e1\u0161",
+        "Ke Yu",
+        "Matthew Troemner",
+        "Monika St\u0159edulov\u00e1"
+      ],
+      "published": "2026-03-13T17:24:51Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13194v1",
+    "source": "arxiv_hf",
+    "title": "Axion search with telescope for radio astronomy (ASTRA): forecast for observations between 0.5 and 4~GHz",
+    "summary": "Axion dark matter (DM) is predicted to convert into radio waves in neutron star magnetospheres. We assess the detectability of this signal using a 5 m radio telescope to be installed at the Fan Mountain Observatory, operating in the UHF, L- and S-bands from 0.5 to 4~GHz. We demonstrate that such a telescope can search new parameter space for axion-like particles over a broad range from $2\\,\u03bc\\text{eV}<m_a<17\\,\u03bc\\text{eV}$ for axion-photon couplings $g_{a\u03b3\u03b3} \\gtrsim 2\\times 10^{-12}\\text{ GeV}^{-1}",
+    "url": "https://arxiv.org/pdf/2603.13194v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Axion search with telescope for radio astronomy (ASTRA): forecast for observatio",
+    "tags": [
+      "ai-research",
+      "persona:knuth",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13194v1",
+      "authors": [
+        "Utkarsh Bhura",
+        "David J. E. Marsh",
+        "Bradley R. Johnson",
+        "Karl van Bibber",
+        "Mallory Helfenbein"
+      ],
+      "published": "2026-03-13T17:31:56Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13204v1",
+    "source": "arxiv_hf",
+    "title": "Bounds on Agreement between Subjective and Objective Measurements",
+    "summary": "Objective estimators of multimedia quality are often judged by comparing estimates with subjective \"truth data,\" most often via Pearson correlation coefficient (PCC) or mean-squared error (MSE). But subjective test results contain noise, so striving for a PCC of 1.0 or an MSE of 0.0 is neither realistic nor repeatable. Numerous efforts have been made to acknowledge and appropriately accommodate subjective test noise in objective-subjective comparisons, typically resulting in new analysis framewo",
+    "url": "https://arxiv.org/pdf/2603.13204v1",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Bounds on Agreement between Subjective and Objective Measurements",
+    "tags": [
+      "ai-research",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13204v1",
+      "authors": [
+        "Jaden Pieper",
+        "Stephen D. Voran"
+      ],
+      "published": "2026-03-13T17:41:09Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13211v1",
+    "source": "arxiv_hf",
+    "title": "A Conceptual Shift In Our Understanding of Degenerate Radical Spin Systems: Spin-Rotation Coupling Turned On Its Head",
+    "summary": "For most chemists, Kramers' degeneracy refers to the fact that for any radical system, every potential energy surface is at least doubly degenerate (with spin up and spin down, time-reversed solutions) for all nuclear positions $\\mathbf{X}$. That being said, as is well-known to the community of spin chemists, one can experimentally detect a splitting of almost every rotational energy level for a doublet system -- highlighting the fact that nuclear motion breaks the spin degeneracy of such BO ele",
+    "url": "https://arxiv.org/pdf/2603.13211v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: A Conceptual Shift In Our Understanding of Degenerate Radical Spin Systems: Spin",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13211v1",
+      "authors": [
+        "Linqing Peng",
+        "Titouan Duston",
+        "Nadine Bradbury",
+        "Mansi Bhati",
+        "Xuecheng Tao"
+      ],
+      "published": "2026-03-13T17:48:14Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13212v1",
+    "source": "arxiv_hf",
+    "title": "Robust symmetry breaking in gapless quantum magnets",
+    "summary": "We prove the existence of spontaneous symmetry breaking in suitably low-energy eigenstates of certain gapless and frustrated many-body quantum systems, namely symmetric quantum perturbations to classical models which exhibit spontaneous symmetry breaking of a finite group at some positive temperature. Additionally, the classical model need not be local in space, as long as it satisfies a quantum analogue of the Peierls condition. As an example of our technique, we establish robust ferromagnetism",
+    "url": "https://arxiv.org/pdf/2603.13212v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Robust symmetry breaking in gapless quantum magnets",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13212v1",
+      "authors": [
+        "Chao Yin",
+        "Andrew Lucas"
+      ],
+      "published": "2026-03-13T17:48:27Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13191v1",
+    "source": "arxiv_hf",
+    "title": "From Experiments to Expertise: Scientific Knowledge Consolidation for AI-Driven Computational Research",
+    "summary": "While large language models (LLMs) have transformed AI agents into proficient executors of computational materials science, performing a hundred simulations does not make a researcher. What distinguishes research from routine execution is the progressive accumulation of knowledge -- learning which approaches fail, recognizing patterns across systems, and applying understanding to new problems. However, the prevailing paradigm in AI-driven computational science treats each execution in isolation,",
+    "url": "https://arxiv.org/pdf/2603.13191v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: From Experiments to Expertise: Scientific Knowledge Consolidation for AI-Driven ",
+    "tags": [
+      "ai-research",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13191v1",
+      "authors": [
+        "Haonan Huang"
+      ],
+      "published": "2026-03-13T17:25:47Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13193v1",
+    "source": "arxiv_hf",
+    "title": "Rigorous foundations of adaptive mode tracking in single-parametric Hermitian eigenvalue problems: existence theorems, error indicators, and application to SAFE dispersion analysis",
+    "summary": "The Semi-Analytical Finite Element (SAFE) method is widely used for computing guided wave dispersion curves in waveguides of arbitrary cross-section. Accurate mode tracking across consecutive wavenumber steps remains challenging, particularly in mode veering regions where eigenvalues become nearly degenerate and eigenvectors vary rapidly. This work establishes a rigorous theoretical framework for mode tracking in single-parameter Hermitian eigenvalue problems arising from SAFE formulations. We d",
+    "url": "https://arxiv.org/pdf/2603.13193v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Rigorous foundations of adaptive mode tracking in single-parametric Hermitian ei",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13193v1",
+      "authors": [
+        "Dong Xiao",
+        "Zahra Sharif-Khodaei",
+        "M. H. Aliabadi"
+      ],
+      "published": "2026-03-13T17:31:09Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13213v1",
+    "source": "arxiv_hf",
+    "title": "MoEKD: Mixture-of-Experts Knowledge Distillation for Robust and High-Performing Compressed Code Models",
+    "summary": "Large language models for code have achieved strong performance across diverse software analytics tasks, yet their real-world adoption remains limited by high computational demands, slow inference speeds, significant energy consumption, and environmental impact. Knowledge distillation (KD) offers a practical solution by transferring knowledge from a large model to a smaller and more efficient model. Despite its effectiveness, recent studies show that models distilled from a single source often e",
+    "url": "https://arxiv.org/pdf/2603.13213v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: MoEKD: Mixture-of-Experts Knowledge Distillation for Robust and High-Performing ",
+    "tags": [
+      "code-generation"
+    ],
+    "domain": "code-generation",
+    "raw_data": {
+      "arxiv_id": "2603.13213v1",
+      "authors": [
+        "Md. Abdul Awal",
+        "Mrigank Rochan",
+        "Chanchal K. Roy"
+      ],
+      "published": "2026-03-13T17:49:01Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13217v1",
+    "source": "arxiv_hf",
+    "title": "Measurement of correlations between elliptic flow and mean transverse momentum in pp, p-Pb, and Pb-Pb collisions at the LHC",
+    "summary": "Measurements of the event-by-event correlation between elliptic flow ($v_2$) and the mean transverse momentum ($[p_{\\rm T}]$) using the modified Pearson correlation coefficient $\u03c1(v_2^2,[p_{\\rm T}])$ are reported in pp collisions at $\\sqrt{s} = 13$ TeV, and in p-Pb and Pb-Pb collisions at a center-of-mass energy per nucleon pair $\\sqrt{s_{\\rm NN}} = 5.02$ TeV. This analysis is based on the full LHC Run 2 dataset recorded by ALICE and is performed for the first time in small collision systems wit",
+    "url": "https://arxiv.org/pdf/2603.13217v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Measurement of correlations between elliptic flow and mean transverse momentum i",
+    "tags": [
+      "ai-research",
+      "persona:hopper",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13217v1",
+      "authors": [
+        " ALICE Collaboration"
+      ],
+      "published": "2026-03-13T17:53:26Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13218v1",
+    "source": "arxiv_hf",
+    "title": "Comparison of Cross-Correlation Methods for Line Intensity Mapping",
+    "summary": "Line intensity mapping (LIM) is a technique for producing 3D maps of the Universe by scanning the sky with a spectrometer sensitive to a range of wavelengths corresponding to the redshifted spectral lines of atoms or molecules, such as hydrogen or carbon, commonly found in galaxies and the diffuse media around them. While LIM experiments have successfully detected the 21 cm line of neutral hydrogen, other lines that reveal large-scale structure or astrophysical processes remain undetected. Many ",
+    "url": "https://arxiv.org/pdf/2603.13218v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Comparison of Cross-Correlation Methods for Line Intensity Mapping",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13218v1",
+      "authors": [
+        "Samuel H. Kramer",
+        "Patrick C. Breysse",
+        "Anthony R. Pullen",
+        "Faizah K. Siddique",
+        "Eric R. Switzer"
+      ],
+      "published": "2026-03-13T17:54:09Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13219v1",
+    "source": "arxiv_hf",
+    "title": "First-principles predictions of band alignment in strained Si/Si1-xGex and Ge/Si1-xGex heterostructures",
+    "summary": "Accurate band offsets are essential for predictive continuum modeling of nanostructures such as quantum wells and quantum dots formed in strained Si/Si1-xGex and Ge/Si1-xGex heterostructures. Experimental offset data for these systems remain sparse away from endpoint compositions, making composition-dependent design difficult. We use atomistic first-principles density functional theory to compute valence- and conduction-band offsets across the full range 0 <= x <= 1. Random alloying is treated w",
+    "url": "https://arxiv.org/pdf/2603.13219v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: First-principles predictions of band alignment in strained Si/Si1-xGex and Ge/Si",
+    "tags": [
+      "ai-research",
+      "persona:knuth"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13219v1",
+      "authors": [
+        "Nathaniel M. Vegh",
+        "Pericles Philippopoulos",
+        "Rapha\u00ebl J. Prentki",
+        "Wanting Zhang",
+        "Yu Zhu"
+      ],
+      "published": "2026-03-13T17:55:48Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13220v1",
+    "source": "arxiv_hf",
+    "title": "A Generative Model of Conspicuous Consumption and Status Signaling",
+    "summary": "Status signaling drives human behavior and the allocation of scarce resources such as mating opportunities, yet the generative mechanisms governing how specific goods, signals, or behaviors acquire prestige remain a puzzle. Classical frameworks, such as Costly Signaling Theory, treat preferences as fixed and struggle to explain how semiotic meaning changes based on context or drifts dynamically over time, occasionally reaching tipping points. In this work, we propose a computational theory of st",
+    "url": "https://arxiv.org/pdf/2603.13220v1",
+    "relevance": "high",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: A Generative Model of Conspicuous Consumption and Status Signaling",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13220v1",
+      "authors": [
+        "Logan Cross",
+        "Jordi Grau-Moya",
+        "William A. Cunningham",
+        "Alexander Sasha Vezhnevets",
+        "Joel Z. Leibo"
+      ],
+      "published": "2026-03-13T17:56:28Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13223v1",
+    "source": "arxiv_hf",
+    "title": "First measurement of time-dependent $CP$ violation in the decay flavor-changing neutral-current decay $B^{0}\\rightarrow K_{S}^{0}\u03bc^{+}\u03bc^{-}$",
+    "summary": "A flavor-tagged time-dependent analysis of $B^{0}\\rightarrow K_{S}^{0}\u03bc^{+}\u03bc^{-}$ decays is performed across the full dimuon mass range excluding the $J/\u03c8$ and $\u03c8(2S)$ resonance regions. The analysis uses proton-proton collision data collected by the LHCb experiment in 2011--2018 at center-of-mass energies of 7, 8 and 13TeV, corresponding to an integrated luminosity of 9$fb^{-1}$. The CP violation parameters are determined to be $C=-0.13 \\pm 0.32 \\pm 0.04$ and $S= +0.82\\pm 0.29 \\pm 0.05$, where ",
+    "url": "https://arxiv.org/pdf/2603.13223v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: First measurement of time-dependent $CP$ violation in the decay flavor-changing ",
+    "tags": [
+      "ai-research",
+      "persona:hopper",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13223v1",
+      "authors": [
+        " LHCb collaboration",
+        "R. Aaij",
+        "A. S. W. Abdelmotteleb",
+        "C. Abellan Beteta",
+        "F. Abudin\u00e9n"
+      ],
+      "published": "2026-03-13T17:57:11Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13224v1",
+    "source": "arxiv_hf",
+    "title": "Visual-ERM: Reward Modeling for Visual Equivalence",
+    "summary": "Vision-to-code tasks require models to reconstruct structured visual inputs, such as charts, tables, and SVGs, into executable or structured representations with high visual fidelity. While recent Large Vision Language Models (LVLMs) achieve strong results via supervised fine-tuning, reinforcement learning remains challenging due to misaligned reward signals. Existing rewards either rely on textual rules or coarse visual embedding similarity, both of which fail to capture fine-grained visual dis",
+    "url": "https://arxiv.org/pdf/2603.13224v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Visual-ERM: Reward Modeling for Visual Equivalence",
+    "tags": [
+      "ai-research",
+      "persona:hopper",
+      "persona:carmack"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13224v1",
+      "authors": [
+        "Ziyu Liu",
+        "Shengyuan Ding",
+        "Xinyu Fang",
+        "Xuanlang Dai",
+        "Penghui Yang"
+      ],
+      "published": "2026-03-13T17:58:14Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13226v1",
+    "source": "arxiv_hf",
+    "title": "A 2% determination of $N_{\\rm eff}$ from primordial element abundance, cosmic microwave background, and baryon acoustic oscillation measurements",
+    "summary": "We present a new constraint on the effective number of relativistic species in the early universe, $N_{\\rm eff}$, by combining recent primordial helium abundance measurements from the Large Binocular Telescope $Y_p$ Project with primordial deuterium abundance data, cosmic microwave background (CMB) observations from $\\it{Planck}$, the Atacama Cosmology Telescope, and the South Pole Telescope, and baryon acoustic oscillation (BAO) data from the Dark Energy Spectroscopic Instrument, yielding $N_{\\",
+    "url": "https://arxiv.org/pdf/2603.13226v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: A 2% determination of $N_{\\rm eff}$ from primordial element abundance, cosmic mi",
+    "tags": [
+      "ai-research",
+      "persona:hopper"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13226v1",
+      "authors": [
+        "Samuel Goldstein",
+        "J. Colin Hill"
+      ],
+      "published": "2026-03-13T17:59:30Z"
+    }
+  },
+  {
+    "signal_id": "arxiv-2603.13227v1",
+    "source": "arxiv_hf",
+    "title": "Representation Learning for Spatiotemporal Physical Systems",
+    "summary": "Machine learning approaches to spatiotemporal physical systems have primarily focused on next-frame prediction, with the goal of learning an accurate emulator for the system's evolution in time. However, these emulators are computationally expensive to train and are subject to performance pitfalls, such as compounding errors during autoregressive rollout. In this work, we take a different perspective and look at scientific tasks further downstream of predicting the next frame, such as estimation",
+    "url": "https://arxiv.org/pdf/2603.13227v1",
+    "relevance": "medium",
+    "relevance_rationale": "Signal relates to AI/developer ecosystem: Representation Learning for Spatiotemporal Physical Systems",
+    "tags": [
+      "ai-research"
+    ],
+    "domain": "ai-research",
+    "raw_data": {
+      "arxiv_id": "2603.13227v1",
+      "authors": [
+        "Helen Qu",
+        "Rudy Morel",
+        "Michael McCabe",
+        "Alberto Bietti",
+        "Fran\u00e7ois Lanusse"
+      ],
+      "published": "2026-03-13T17:59:51Z"
+    }
+  }
+]
