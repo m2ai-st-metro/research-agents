@@ -59,7 +59,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "MCP microservice",
     "Claude API",
     "AI coding assistant",
-    "LLM framework",
+    "large language model infrastructure",
     "prompt management tool",
     "AI-driven agent system",
 ]
