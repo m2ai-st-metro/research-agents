@@ -189,13 +189,88 @@ Respond with JSON only:
             prompt=prompt,
         )
     except (ValueError, httpx.HTTPError) as e:
-        logger.warning("Ollama relevance assessment failed: %s", e)
-        result = {
-            "relevance": "low",
-            "relevance_rationale": "Failed to parse assessment",
-            "tags": [],
-            "domain": None,
+        logger.warning("Ollama relevance assessment failed, using keyword fallback: %s", e)
+        result = _keyword_relevance_fallback(title, summary)
+
+    return result
+
+
+# --- Keyword-based relevance fallback when Ollama is unavailable ---
+
+_HIGH_KEYWORDS = [
+    "mcp", "model context protocol", "claude", "anthropic",
+    "autonomous coding", "ai agent framework", "tool-augmented",
+    "snow-town", "ultra magnus", "sky-lynx",
+    "hipaa", "home health ai",
+]
+
+_MEDIUM_KEYWORDS = [
+    "ai agent", "coding agent", "llm tool", "function calling",
+    "developer tool", "ai coding", "prompt engineering",
+    "healthcare ai", "supply chain ai", "agentic workflow",
+    "autonomous", "self-improving", "ai automation",
+    "mcp server", "context protocol", "ai framework",
+    "rag", "retrieval augmented", "vector database",
+]
+
+
+def _keyword_relevance_fallback(title: str, summary: str) -> dict:
+    """Simple keyword-based relevance when Ollama is unavailable.
+
+    Prevents all signals from being dropped as 'low' when no LLM is
+    reachable for assessment.
+    """
+    text = f"{title} {summary}".lower()
+
+    matched_tags: list[str] = []
+    domain: str | None = None
+
+    # Check high-relevance keywords first
+    for kw in _HIGH_KEYWORDS:
+        if kw in text:
+            matched_tags.append(kw.replace(" ", "-"))
+
+    if matched_tags:
+        if any(k in text for k in ["hipaa", "health", "clinical"]):
+            domain = "healthcare-ai"
+        elif any(k in text for k in ["mcp", "claude", "anthropic"]):
+            domain = "ai-agents"
+        else:
+            domain = "developer-tools"
+        return {
+            "relevance": "high",
+            "relevance_rationale": f"Keyword match (high): {', '.join(matched_tags[:3])}",
+            "tags": matched_tags[:5],
+            "domain": domain,
             "persona_tags": [],
         }
 
-    return result
+    # Check medium-relevance keywords
+    for kw in _MEDIUM_KEYWORDS:
+        if kw in text:
+            matched_tags.append(kw.replace(" ", "-"))
+
+    if matched_tags:
+        if any(k in text for k in ["healthcare", "health", "clinical", "hipaa"]):
+            domain = "healthcare-ai"
+        elif any(k in text for k in ["supply chain", "logistics"]):
+            domain = "supply-chain"
+        elif any(k in text for k in ["agent", "autonomous", "agentic"]):
+            domain = "ai-agents"
+        else:
+            domain = "developer-tools"
+        return {
+            "relevance": "medium",
+            "relevance_rationale": f"Keyword match (medium): {', '.join(matched_tags[:3])}",
+            "tags": matched_tags[:5],
+            "domain": domain,
+            "persona_tags": [],
+        }
+
+    return {
+        "relevance": "low",
+        "relevance_rationale": "No relevant keywords matched (Ollama unavailable)",
+        "tags": [],
+        "domain": None,
+        "persona_tags": [],
+    }
