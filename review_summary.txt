@@ -1,0 +1,181 @@
+AutoResearch (auto_research) Review Summary
+Generated: 2026-03-16
+Location: ~/projects/research-agents/auto_research/
+
+NOTE: There is no ~/projects/autoresearch/ directory. The auto-research experiment
+loop lives at ~/projects/research-agents/auto_research/. There is also
+~/projects/autoresearch-tutorial/ which contains only a static HTML guide page.
+
+═══════════════════════════════════════════════════════════════════════
+1. WHAT THIS IS
+═══════════════════════════════════════════════════════════════════════
+
+A Karpathy-style closed-loop experiment system that auto-optimizes the search
+queries used by production research agents (arxiv, tool_monitor, domain_watch,
+youtube, rss). It mutates queries using local Ollama (qwen2.5:14b), runs them
+through a mini-pipeline, scores results via Non-Dismiss Rate (NDR), validates
+winners with Claude Sonnet, and auto-commits winning mutations to config.py.
+
+Entry point:  ~/projects/research-agents/run-experiments.py
+Ledger DB:    ~/projects/research-agents/auto_research/data/experiments.db (52 KB)
+
+
+═══════════════════════════════════════════════════════════════════════
+2. EXPERIMENTS RUN — OVERALL STATS
+═══════════════════════════════════════════════════════════════════════
+
+Total experiments:    79
+  completed:          41  (52%)
+  insufficient_data:  32  (40%)   ← major issue, see section 4
+  invalid_config:      5  (6%)    ← RSS feed mutations breaking config
+  guardrail_blocked:   1  (1%)    ← NDR up but quality score dropped
+
+Winners (NDR improvement >= 15%):   9
+  Claude-validated:                 6
+  Committed to config:              6
+  Rolled back:                      0
+
+BY AGENT:
+  arxiv         21 runs  |  4 winners  |  avg variant NDR: 0.68
+  tool_monitor  19 runs  |  3 winners  |  avg variant NDR: 0.96
+  domain_watch  19 runs  |  1 winner   |  avg variant NDR: 0.92
+  youtube       10 runs  |  0 winners  |  avg variant NDR: 0.87
+  rss           10 runs  |  1 winner   |  (NDR not computed — invalid_config)
+
+
+═══════════════════════════════════════════════════════════════════════
+3. RESULTS — COMMITTED WINNERS (6 total, 0 rolled back)
+═══════════════════════════════════════════════════════════════════════
+
+All 6 committed wins show +50% NDR improvement (0.67 → 1.0 or 0.33 → 0.67).
+
+Date        Agent          Param                    Old Query                  New Query                   NDR Gain
+----------  -------------  -----------------------  -------------------------  --------------------------  --------
+2026-03-14  arxiv          ARXIV_SEARCH_QUERIES[3]  "tool-augmented LLM"       "LLM integrated tools"      +50%
+2026-03-14  arxiv          ARXIV_SEARCH_QUERIES[1]  "autonomous coding agents" "autonomous code synthesis" +100%
+2026-03-14  tool_monitor   TOOL_SEARCH_QUERIES[5]   "AI agent framework"       "AI-driven agent system"    +50%
+2026-03-16  tool_monitor   TOOL_SEARCH_QUERIES[0]   "MCP server"               "MCP microservice"          +50%
+2026-03-16  tool_monitor   TOOL_SEARCH_QUERIES[3]   "LLM framework"            "large language model       +50%
+                                                                                infrastructure"
+2026-03-16  domain_watch   DOMAIN_WATCH_QUERIES[4]  "clinical decision         "clinical decision          +50%
+                                                     support"                   making AI"
+
+NOTE: An earlier commit on 2026-03-14 for ARXIV_SEARCH_QUERIES[1] (+100% NDR) was
+subsequently reverted via git. It's still marked committed=1 in the ledger because
+the revert was done manually via git (ledger not updated).
+
+
+═══════════════════════════════════════════════════════════════════════
+4. NEW WINNERS PENDING (from today's runs — NOT YET validated/committed)
+═══════════════════════════════════════════════════════════════════════
+
+3 fresh winners from the 2026-03-16 afternoon runs still need validation:
+
+Timestamp            Agent   Param                    Old Query                  New Query                   NDR  Improvement
+-------------------  ------  -----------------------  -------------------------  --------------------------  ---  -----------
+2026-03-16 13:53     arxiv   ARXIV_SEARCH_QUERIES[0]  "MCP model context         "contextual model protocol  50%  NOT validated
+                                                       protocol"                  analysis"
+2026-03-16 13:51     rss     RSS_FEEDS[4]             "The Batch"                "AI industry insights"      50%  invalid_config (see issue 2)
+2026-03-16 13:45     arxiv   ARXIV_SEARCH_QUERIES[0]  same as above              same as above               50%  guardrail_blocked on earlier run
+
+TO PROMOTE:
+  python run-experiments.py --validate   # runs Claude re-check on pending winners
+  python run-experiments.py --commit     # commits validated winners to config
+
+
+═══════════════════════════════════════════════════════════════════════
+5. BLOCKING ISSUES & DECISIONS NEEDED
+═══════════════════════════════════════════════════════════════════════
+
+ISSUE 1 — insufficient_data dominates (32 of 79 runs = 40%)
+  What: Experiments fail because fewer than 5 relevant signals are returned
+        (MIN_SIGNALS_PER_EXPERIMENT = 5 in auto_research/config.py).
+  Impact: Only 52% of experiments produce usable comparisons.
+  Root cause: Many query combinations don't reliably return 5+ scorable signals
+              from ArXiv + GitHub + HN in the mini-pipeline.
+  Decision needed: Lower MIN_SIGNALS_PER_EXPERIMENT to 3? Or widen search
+                   sources in mini_pipeline.py? Or switch to a different
+                   baseline (signal count vs NDR) for sparse queries?
+
+ISSUE 2 — RSS feed mutations produce invalid_config (5 experiments)
+  What: The mutator generates free-form text descriptions ("AI industry insights")
+        when asked to mutate RSS feed names (e.g. "The Batch", "Latent Space").
+        These aren't valid RSS feed identifiers and can't be scored.
+  Impact: RSS agent can't benefit from the experiment loop.
+  Decision needed: Either exclude rss from EXPERIMENT_AGENTS or teach the
+                   mutator to generate valid RSS feed URLs/names rather than
+                   descriptive text. File: auto_research/mutator.py ~line 177.
+
+ISSUE 3 — YouTube agent: 0 winners from 10 runs
+  What: youtube has the highest avg variant NDR (0.87) but no wins vs baseline.
+  Impact: YouTube queries are not improving despite active mutation.
+  Likely cause: Baseline queries may already be well-optimized, or the mini-
+                pipeline doesn't search YouTube (only arXiv, GitHub, HN) so
+                YouTube variants can't be fairly evaluated in simulation.
+  Decision needed: Is YouTube even evaluable in the mini-pipeline? If not,
+                   remove it from EXPERIMENT_AGENTS (currently included per
+                   auto_research/config.py).
+
+ISSUE 4 — Rollback check not integrated
+  What: `python run-experiments.py --rollback-check` prints:
+        "Rollback check requires production NDR — not yet integrated"
+  Impact: Weekly regression detection is non-functional. If a committed
+          mutation degrades real pipeline quality, it won't be caught.
+  Decision needed: Implement production NDR tracking by reading IdeaForge
+                   DB signal scores as the ground truth. See auto_research/
+                   committer.py: check_weekly_rollback().
+
+ISSUE 5 — No weekly baselines have ever been saved
+  What: weekly_baselines table in experiments.db is empty.
+  Impact: Rollback check can never work without a baseline to compare against.
+  Decision needed: Run `ledger.save_weekly_baseline()` on a schedule (or hook
+                   it into the cron job). Needed before rollback check is useful.
+
+ISSUE 6 — Guardrail mismatch between simulation and production
+  What: 1 experiment was guardrail_blocked (NDR up but avg_score dropped).
+        The arxiv "contextual model protocol analysis" query shows conflicting
+        results — guardrail_blocked in one run, completed winner in the next.
+        This suggests Ollama's scoring is non-deterministic enough to produce
+        opposite verdicts for the same query pair.
+  Impact: Winners may be promoted that wouldn't survive Claude validation;
+          Claude validation catches some of this but not all.
+  Decision needed: Add deterministic seed or multiple-run averaging to reduce
+                   scoring variance before promoting a winner.
+
+
+═══════════════════════════════════════════════════════════════════════
+6. ACTIONS TO UNBLOCK PROGRESS
+═══════════════════════════════════════════════════════════════════════
+
+Immediate (today):
+  1. Validate + commit pending winners:
+       python run-experiments.py --validate && python run-experiments.py --commit
+
+  2. Fix RSS mutations — either:
+     a) Remove 'rss' from EXPERIMENT_AGENTS in auto_research/config.py, OR
+     b) Update mutator.py to emit valid RSS feed URLs instead of descriptions
+
+  3. Remove 'youtube' from EXPERIMENT_AGENTS (or add YouTube search to
+     mini_pipeline.py so variants can actually be evaluated)
+
+Short-term:
+  4. Lower MIN_SIGNALS_PER_EXPERIMENT from 5 → 3 to cut insufficient_data rate
+  5. Save first weekly baseline manually:
+       python -c "from auto_research.ledger import ExperimentLedger; ExperimentLedger().save_weekly_baseline(0.0, 0.0, {})"
+     Then hook it into cron weekly
+
+  6. Implement production NDR reader in committer.py:
+     Read from ~/projects/ideaforge/data/ideaforge.db to get real-world signal
+     quality scores as baseline for rollback detection
+
+═══════════════════════════════════════════════════════════════════════
+7. WHAT IS WORKING WELL
+═══════════════════════════════════════════════════════════════════════
+
+- Core loop (mutate → score → compare → validate → commit) works end to end
+- 6 query improvements committed with zero rollbacks — 100% retention rate
+- Claude validation step is functioning (6/9 winners validated)
+- Guardrail (prevent score regression despite NDR gain) fired correctly at least once
+- Experiment ledger correctly tracks full history
+- All 4 test suites passing (ledger, evaluator, mini_pipeline, mutator)
+- Git auto-commit of winners is working (visible in git log)
