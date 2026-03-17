@@ -1,0 +1,171 @@
+[
+  {
+    "signal_id": "rss-9df8827db37d",
+    "source": "rss_scanner",
+    "title": "My fireside chat about agentic engineering at the Pragmatic Summit",
+    "summary": "<p>I was a speaker last month at the <a href=\"https://www.pragmaticsummit.com/\">Pragmatic Summit</a> in San Francisco, where I participated in a fireside chat session about <a href=\"https://simonwilli",
+    "url": "https://simonwillison.net/2026/Mar/14/pragmatic-summit/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "fireside",
+      "chat"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.928144+00:00"
+  },
+  {
+    "signal_id": "rss-36a4a05f393d",
+    "source": "rss_scanner",
+    "title": "Quoting Jannis Leidel",
+    "summary": "<blockquote cite=\"https://jazzband.co/news/2026/03/14/sunsetting-jazzband\"><p>GitHub\u2019s\u00a0<a href=\"https://www.theregister.com/2026/02/18/godot_maintainers_struggle_with_draining/\">slopocalypse</a>\u00a0\u2013 the",
+    "url": "https://simonwillison.net/2026/Mar/14/jannis-leidel/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "quoting",
+      "jannis",
+      "leidel"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.906022+00:00"
+  },
+  {
+    "signal_id": "rss-6eda9312cdfb",
+    "source": "rss_scanner",
+    "title": "What is agentic engineering?",
+    "summary": "<p><em><a href=\"https://simonwillison.net/guides/agentic-engineering-patterns/\">Agentic Engineering Patterns</a> &gt;</em></p>\n    <p>I use the term <strong>agentic engineering</strong> to describe th",
+    "url": "https://simonwillison.net/guides/agentic-engineering-patterns/what-is-agentic-engineering/#atom-everything",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "what",
+      "agentic"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.867317+00:00"
+  },
+  {
+    "signal_id": "rss-e167e88c7c6c",
+    "source": "rss_scanner",
+    "title": "How coding agents work",
+    "summary": "<p><em><a href=\"https://simonwillison.net/guides/agentic-engineering-patterns/\">Agentic Engineering Patterns</a> &gt;</em></p>\n    <p>As with any tool, understanding how <a href=\"https://simonwillison",
+    "url": "https://simonwillison.net/guides/agentic-engineering-patterns/how-coding-agents-work/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "coding",
+      "agents"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.841743+00:00"
+  },
+  {
+    "signal_id": "rss-e236e3845522",
+    "source": "rss_scanner",
+    "title": "Coding agents for data analysis",
+    "summary": "<p><strong><a href=\"https://simonw.github.io/nicar-2026-coding-agents/\">Coding agents for data analysis</a></strong></p>\nHere's the handout I prepared for my NICAR 2026 workshop \"Coding agents for dat",
+    "url": "https://simonwillison.net/2026/Mar/16/coding-agents-for-data-analysis/#atom-everything",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "coding",
+      "agents"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.819205+00:00"
+  },
+  {
+    "signal_id": "rss-5b5eed2fde79",
+    "source": "rss_scanner",
+    "title": "Quoting Guilherme Rambo",
+    "summary": "<blockquote cite=\"https://daringfireball.net/2026/03/apple_enclaves_neo_camera_indicator\"><p>Tidbit: the software-based camera indicator light in the MacBook Neo runs in the secure exclave\u00b9 part of th",
+    "url": "https://simonwillison.net/2026/Mar/16/guilherme-rambo/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "quoting",
+      "guilherme",
+      "rambo"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.798044+00:00"
+  },
+  {
+    "signal_id": "rss-b4ae7ae57689",
+    "source": "rss_scanner",
+    "title": "Quoting A member of Anthropic\u2019s alignment-science team",
+    "summary": "<blockquote cite=\"https://www.newyorker.com/news/annals-of-inquiry/the-pentagon-went-to-war-with-anthropic-whats-really-at-stake?_sp=9a6e0ff7-2bfd-46f8-a9e1-3941ef2003b5.1773495048769\"><p>The point of",
+    "url": "https://simonwillison.net/2026/Mar/16/blackmail/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "quoting",
+      "member"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.774450+00:00"
+  },
+  {
+    "signal_id": "rss-26f8bdffd49f",
+    "source": "rss_scanner",
+    "title": "Use subagents and custom agents in Codex",
+    "summary": "<p><strong><a href=\"https://developers.openai.com/codex/subagents\">Use subagents and custom agents in Codex</a></strong></p>\nSubagents were announced in general availability today for OpenAI Codex, af",
+    "url": "https://simonwillison.net/2026/Mar/16/codex-subagents/#atom-everything",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "subagents"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.750845+00:00"
+  },
+  {
+    "signal_id": "rss-9721b0ee8122",
+    "source": "rss_scanner",
+    "title": "Introducing Mistral Small 4",
+    "summary": "<p><strong><a href=\"https://mistral.ai/news/mistral-small-4\">Introducing Mistral Small 4</a></strong></p>\nBig new release from Mistral today (despite the name) - a new Apache 2 licensed 119B parameter",
+    "url": "https://simonwillison.net/2026/Mar/16/mistral-small-4/#atom-everything",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "introducing",
+      "mistral",
+      "small"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:26.727278+00:00"
+  },
+  {
+    "signal_id": "rss-1c7190fa1982",
+    "source": "rss_scanner",
+    "title": "[AINews] NVIDIA GTC: Jensen goes hard on OpenClaw, Vera CPU, and announces $1T sales backlog in 2027",
+    "summary": "a quiet day lets us reflect on NVIDIA GTC 2026",
+    "url": "https://www.latent.space/p/ainews-nvidia-gtc-jensen-goes-hard",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "[ainews]",
+      "nvidia",
+      "gtc:"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:25.550529+00:00"
+  },
+  {
+    "signal_id": "rss-111450cce5f2",
+    "source": "rss_scanner",
+    "title": "ImportAI 449: LLMs training other LLMs; 72B distributed training run; computer vision is harder than generative text",
+    "summary": "<img alt=\"\" class=\"attachment-thumbnail size-thumbnail wp-post-image\" height=\"150\" src=\"https://i0.wp.com/jack-clark.net/wp-content/uploads/2026/03/https3A2F2Fsubstack-post-media.s3.amazonaws.com2Fpub",
+    "url": "https://jack-clark.net/2026/03/16/importai-449-llms-training-other-llms-72b-distributed-training-run-computer-vision-is-harder-than-generative-text/",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "importai",
+      "449:",
+      "llms"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:06:22.844726+00:00"
+  }
+]

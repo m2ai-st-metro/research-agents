@@ -1,0 +1,9 @@
+{
+  "date": "2026-03-17",
+  "total_signals": 103,
+  "by_source": {
+    "rss_scanner": 11,
+    "tool_monitor": 60,
+    "arxiv_hf": 32
+  }
+}
