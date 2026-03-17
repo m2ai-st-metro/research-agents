@@ -1,0 +1,501 @@
+[
+  {
+    "signal_id": "arxiv-2603.15542v1",
+    "source": "arxiv_hf",
+    "title": "InterveneBench: Benchmarking LLMs for Intervention Reasoning and Causal Study Design in Real Social Systems",
+    "summary": "Causal inference in social science relies on end-to-end, intervention-centered research-design reasoning grounded in real-world policy interventions, but current benchmarks fail to evaluate this capab",
+    "url": "https://arxiv.org/pdf/2603.15542v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "intervenebench:",
+      "benchmarking",
+      "llms"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:14.001043+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15559v1",
+    "source": "arxiv_hf",
+    "title": "Probabilistic Model Checking Taken by Storm",
+    "summary": "This tutorial paper presents a hands-on perspective on probabilistic model checking with the Storm model checker. Storm is a decade-old model checker that excels in performance and a rich Python-based",
+    "url": "https://arxiv.org/pdf/2603.15559v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "probabilistic",
+      "model",
+      "checking"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:13.977796+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15566v1",
+    "source": "arxiv_hf",
+    "title": "Lore: Repurposing Git Commit Messages as a Structured Knowledge Protocol for AI Coding Agents",
+    "summary": "As AI coding agents become both primary producers and consumers of source code, the software industry faces an accelerating loss of institutional knowledge. Each commit captures a code diff but discar",
+    "url": "https://arxiv.org/pdf/2603.15566v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "lore:",
+      "repurposing"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:13.956730+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15584v1",
+    "source": "arxiv_hf",
+    "title": "Physics-Informed Neural Systems for the Simulation of EUV Electromagnetic Wave Diffraction from a Lithography Mask",
+    "summary": "Physics-informed neural networks (PINNs) and neural operators (NOs) for solving the problem of diffraction of Extreme Ultraviolet (EUV) electromagnetic waves from contemporary lithography masks are pr",
+    "url": "https://arxiv.org/pdf/2603.15584v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "physics-informed",
+      "neural",
+      "systems"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:13.935592+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15586v1",
+    "source": "arxiv_hf",
+    "title": "Computational Concept of the Psyche",
+    "summary": "This article presents an overview of approaches to modeling the human psyche in the context of constructing an artificial one. Based on this overview, a concept of cognitive architecture is proposed, ",
+    "url": "https://arxiv.org/pdf/2603.15586v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "computational",
+      "concept"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:13.914092+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15563v1",
+    "source": "arxiv_hf",
+    "title": "The PokeAgent Challenge: Competitive and Long-Context Learning at Scale",
+    "summary": "We present the PokeAgent Challenge, a large-scale benchmark for decision-making research built on Pokemon's multi-agent battle system and expansive role-playing game (RPG) environment. Partial observa",
+    "url": "https://arxiv.org/pdf/2603.15563v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "pokeagent",
+      "challenge:"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:10.357604+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15569v1",
+    "source": "arxiv_hf",
+    "title": "Mamba-3: Improved Sequence Modeling using State Space Principles",
+    "summary": "Scaling inference-time compute has emerged as an important driver of LLM performance, making inference efficiency a central focus of model design alongside model quality. While the current Transformer",
+    "url": "https://arxiv.org/pdf/2603.15569v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "mamba-3:",
+      "improved",
+      "sequence"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:10.336682+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15613v1",
+    "source": "arxiv_hf",
+    "title": "Hierarchies of direct powers, ultrapowers and cumulative powers",
+    "summary": "In this paper we investigate cumulative hierarchies of functions on structures, or cumulative powers, and study their properties. Particularly, we show how they extend the preservation phenomena of re",
+    "url": "https://arxiv.org/pdf/2603.15613v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "hierarchies",
+      "direct"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:06.348130+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15590v1",
+    "source": "arxiv_hf",
+    "title": "Effective Distillation to Hybrid xLSTM Architectures",
+    "summary": "There have been numerous attempts to distill quadratic attention-based large language models (LLMs) into sub-quadratic linearized architectures. However, despite extensive research, such distilled mod",
+    "url": "https://arxiv.org/pdf/2603.15590v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "effective",
+      "distillation"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:02.469171+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15599v1",
+    "source": "arxiv_hf",
+    "title": "SmartSearch: How Ranking Beats Structure for Conversational Memory Retrieval",
+    "summary": "Recent conversational memory systems invest heavily in LLM-based structuring at ingestion time and learned retrieval policies at query time. We show that neither is necessary. SmartSearch retrieves fr",
+    "url": "https://arxiv.org/pdf/2603.15599v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "smartsearch:",
+      "ranking"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:02.446306+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15588v1",
+    "source": "arxiv_hf",
+    "title": "Switching-Reference Voltage Control for Distribution Systems with AI-Training Data Centers",
+    "summary": "Large-scale AI training workloads in modern data centers exhibit rapid and periodic power fluctuations, which may induce significant voltage deviations in power distribution systems. Existing voltage ",
+    "url": "https://arxiv.org/pdf/2603.15588v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "switching-reference",
+      "voltage",
+      "control"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:59.079606+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15593v1",
+    "source": "arxiv_hf",
+    "title": "Flat-Band Generation in InAs/GaSb Quantum Wells through Vertically Engineered Heterostructures",
+    "summary": "Quantum materials constitute a novel category of substances wherein quantum effects and electron-electron (e-e) interactions give rise to unforeseen phenomena on a macroscopic scale. Of particular int",
+    "url": "https://arxiv.org/pdf/2603.15593v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "flat-band",
+      "generation"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:59.058316+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15597v1",
+    "source": "arxiv_hf",
+    "title": "AC-Foley: Reference-Audio-Guided Video-to-Audio Synthesis with Acoustic Transfer",
+    "summary": "Existing video-to-audio (V2A) generation methods predominantly rely on text prompts alongside visual information to synthesize audio. However, two critical bottlenecks persist: semantic granularity ga",
+    "url": "https://arxiv.org/pdf/2603.15597v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "ac-foley:",
+      "reference-audio-guided",
+      "video-to-audio"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:59.036316+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15606v1",
+    "source": "arxiv_hf",
+    "title": "Saddle Point Evasion via Curvature-Regularized Gradient Dynamics",
+    "summary": "Nonconvex optimization underlies many modern machine learning and control tasks, where saddle points pose the dominant obstacle to reliable convergence in high-dimensional settings. Escaping these sad",
+    "url": "https://arxiv.org/pdf/2603.15606v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "saddle",
+      "point",
+      "evasion"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:59.013035+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15609v1",
+    "source": "arxiv_hf",
+    "title": "Differential Privacy for Network Connectedness Indices",
+    "summary": "Researchers increasingly use data on social and economic networks to study a range of social science questions, but releasing statistics derived from networks can raise significant privacy concerns. W",
+    "url": "https://arxiv.org/pdf/2603.15609v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "differential",
+      "privacy"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:58.992122+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15612v1",
+    "source": "arxiv_hf",
+    "title": "HSImul3R: Physics-in-the-Loop Reconstruction of Simulation-Ready Human-Scene Interactions",
+    "summary": "We present HSImul3R, a unified framework for simulation-ready 3D reconstruction of human-scene interactions (HSI) from casual captures, including sparse-view images and monocular videos. Existing meth",
+    "url": "https://arxiv.org/pdf/2603.15612v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "hsimul3r:",
+      "physics-in-the-loop",
+      "reconstruction"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:58.967704+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15587v1",
+    "source": "arxiv_hf",
+    "title": "A direct controlled-phase gate between microwave photons",
+    "summary": "Useful quantum information processing ultimately requires operations over large Hilbert spaces, where logical information can be encoded efficiently and protected against noise. Harmonic oscillators n",
+    "url": "https://arxiv.org/pdf/2603.15587v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "direct",
+      "controlled-phase"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:55.395061+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15589v1",
+    "source": "arxiv_hf",
+    "title": "LEXI: Lossless Exponent Coding for Efficient Inter-Chiplet Communication in Hybrid LLMs",
+    "summary": "Data movement overheads increase the inference latency of state-of-the-art large language models (LLMs). These models commonly use the bfloat16 (BF16) format for stable training. Floating-point standa",
+    "url": "https://arxiv.org/pdf/2603.15589v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "lexi:",
+      "lossless",
+      "exponent"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:55.371530+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15594v1",
+    "source": "arxiv_hf",
+    "title": "OpenSeeker: Democratizing Frontier Search Agents by Fully Open-Sourcing Training Data",
+    "summary": "Deep search capabilities have become an indispensable competency for frontier Large Language Model (LLM) agents, yet the development of high-performance search agents remains dominated by industrial g",
+    "url": "https://arxiv.org/pdf/2603.15594v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "openseeker:",
+      "democratizing",
+      "frontier"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:55.347858+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15602v1",
+    "source": "arxiv_hf",
+    "title": "Nonequilibrium energetics of sensing and actuation by a smart active particle",
+    "summary": "Smart active agents must allocate finite energetic resources across distinct functions, yet the underlying thermodynamic trade-offs remain poorly understood. Here, we introduce a minimal model of a se",
+    "url": "https://arxiv.org/pdf/2603.15602v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "nonequilibrium",
+      "energetics"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:55.325806+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15604v1",
+    "source": "arxiv_hf",
+    "title": "EAAE: Energy-Aware Autonomous Exploration for UAVs in Unknown 3D Environments",
+    "summary": "Battery-powered multirotor unmanned aerial vehicles (UAVs) can rapidly map unknown environments, but mission performance is often limited by energy rather than geometry alone. Standard exploration pol",
+    "url": "https://arxiv.org/pdf/2603.15604v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "eaae:",
+      "energy-aware",
+      "autonomous"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:55.303478+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15605v1",
+    "source": "arxiv_hf",
+    "title": "Perception-Aware Autonomous Exploration in Feature-Limited Environments",
+    "summary": "Autonomous exploration in unknown environments typically relies on onboard state estimation for localisation and mapping. Existing exploration methods primarily maximise coverage efficiency, but often",
+    "url": "https://arxiv.org/pdf/2603.15605v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "perception-aware",
+      "autonomous",
+      "exploration"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:55.281572+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15608v1",
+    "source": "arxiv_hf",
+    "title": "Benchmarking quantum simulation with neutron-scattering experiments",
+    "summary": "A central goal of quantum computation is the realistic simulation of quantum materials. Although quantum processors have advanced rapidly in scale and fidelity, it has remained unclear whether pre-fau",
+    "url": "https://arxiv.org/pdf/2603.15608v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "benchmarking",
+      "quantum",
+      "simulation"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.936199+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15610v1",
+    "source": "arxiv_hf",
+    "title": "Universal Weakly Fault-Tolerant Quantum Computation via Code Switching in the [[8,3,2]] Code",
+    "summary": "Code-switching offers a route to universal, fault-tolerant quantum computation by circumventing the limitation implied by the Eastin-Knill theorem against a universal transversal gate set within a sin",
+    "url": "https://arxiv.org/pdf/2603.15610v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "universal",
+      "weakly",
+      "fault-tolerant"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.913969+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15611v1",
+    "source": "arxiv_hf",
+    "title": "Code-A1: Adversarial Evolving of Code LLM and Test LLM via Reinforcement Learning",
+    "summary": "Reinforcement learning for code generation relies on verifiable rewards from unit test pass rates. Yet high-quality test suites are scarce, existing datasets offer limited coverage, and static rewards",
+    "url": "https://arxiv.org/pdf/2603.15611v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "code-a1:",
+      "adversarial",
+      "evolving"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.891734+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15614v1",
+    "source": "arxiv_hf",
+    "title": "Tri-Prompting: Video Diffusion with Unified Control over Scene, Subject, and Motion",
+    "summary": "Recent video diffusion models have made remarkable strides in visual quality, yet precise, fine-grained control remains a key bottleneck that limits practical customizability for content creation. For",
+    "url": "https://arxiv.org/pdf/2603.15614v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "tri-prompting:",
+      "video",
+      "diffusion"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.868918+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15615v1",
+    "source": "arxiv_hf",
+    "title": "Mechanistic Origin of Moral Indifference in Language Models",
+    "summary": "Existing behavioral alignment techniques for Large Language Models (LLMs) often neglect the discrepancy between surface compliance and internal unaligned representations, leaving LLMs vulnerable to lo",
+    "url": "https://arxiv.org/pdf/2603.15615v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "mechanistic",
+      "origin"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.844636+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15616v1",
+    "source": "arxiv_hf",
+    "title": "GlyphPrinter: Region-Grouped Direct Preference Optimization for Glyph-Accurate Visual Text Rendering",
+    "summary": "Generating accurate glyphs for visual text rendering is essential yet challenging. Existing methods typically enhance text rendering by training on a large amount of high-quality scene text images, bu",
+    "url": "https://arxiv.org/pdf/2603.15616v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "glyphprinter:",
+      "region-grouped",
+      "direct"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.823979+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15617v1",
+    "source": "arxiv_hf",
+    "title": "HorizonMath: Measuring AI Progress Toward Mathematical Discovery with Automatic Verification",
+    "summary": "Can AI make progress on important, unsolved mathematical problems? Large language models are now capable of sophisticated mathematical and scientific reasoning, but whether they can perform novel rese",
+    "url": "https://arxiv.org/pdf/2603.15617v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "horizonmath:",
+      "measuring"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.799864+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15618v1",
+    "source": "arxiv_hf",
+    "title": "Look Before Acting: Enhancing Vision Foundation Representations for Vision-Language-Action Models",
+    "summary": "Vision-Language-Action (VLA) models have recently emerged as a promising paradigm for robotic manipulation, in which reliable action prediction critically depends on accurately interpreting and integr",
+    "url": "https://arxiv.org/pdf/2603.15618v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "look",
+      "before",
+      "acting:"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.775119+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15619v1",
+    "source": "arxiv_hf",
+    "title": "Mixture-of-Depths Attention",
+    "summary": "Scaling depth is a key driver for large language models (LLMs). Yet, as LLMs become deeper, they often suffer from signal degradation: informative features formed in shallow layers are gradually dilut",
+    "url": "https://arxiv.org/pdf/2603.15619v1",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "mixture-of-depths",
+      "attention"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.751125+00:00"
+  },
+  {
+    "signal_id": "arxiv-2603.15620v1",
+    "source": "arxiv_hf",
+    "title": "Towards Generalizable Robotic Manipulation in Dynamic Environments",
+    "summary": "Vision-Language-Action (VLA) models excel in static manipulation but struggle in dynamic environments with moving targets. This performance gap primarily stems from a scarcity of dynamic manipulation ",
+    "url": "https://arxiv.org/pdf/2603.15620v1",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "towards",
+      "generalizable",
+      "robotic"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:04:51.726979+00:00"
+  }
+]

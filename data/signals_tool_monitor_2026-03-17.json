@@ -1,0 +1,842 @@
+[
+  {
+    "signal_id": "tool-876066ed632a",
+    "source": "tool_monitor",
+    "title": "mikejtoolen/Custos_AI",
+    "summary": "\ud83e\udd16 Analyze customer churn risk, assess financial exposure, and automate business decisions using an AI-driven agentic system with LangChain.",
+    "url": "https://github.com/mikejtoolen/Custos_AI",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "mikejtoolen/custos_ai"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.705855+00:00"
+  },
+  {
+    "signal_id": "tool-0e84dabd43ca",
+    "source": "tool_monitor",
+    "title": "Titroupast/PlotWeaver",
+    "summary": "An AI-driven agent system for consistent and creative light novel expansion",
+    "url": "https://github.com/Titroupast/PlotWeaver",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "titroupast/plotweaver"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.681701+00:00"
+  },
+  {
+    "signal_id": "tool-c7c5f0a7bbf3",
+    "source": "tool_monitor",
+    "title": "sidiishan/soul.py",
+    "summary": "Build intelligent agents using soul.py, a Python framework that simplifies creating adaptable and autonomous AI-driven systems.",
+    "url": "https://github.com/sidiishan/soul.py",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "sidiishan/soul.py"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.660574+00:00"
+  },
+  {
+    "signal_id": "tool-268e49696e74",
+    "source": "tool_monitor",
+    "title": "Whitedevill0/agentscope",
+    "summary": "Build and test intelligent agents with a flexible framework designed for research, development, and deployment of AI-driven decision systems.",
+    "url": "https://github.com/Whitedevill0/agentscope",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "whitedevill0/agentscope"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.637634+00:00"
+  },
+  {
+    "signal_id": "tool-04eab3b1e9a0",
+    "source": "tool_monitor",
+    "title": "vicky999jeevi/AI-Code-Explainer-Optimizer",
+    "summary": "\ud83e\udde9 Optimize and explain code effortlessly with our AI-driven multi-agent system, using LangGraph and Gemini for efficient solutions.",
+    "url": "https://github.com/vicky999jeevi/AI-Code-Explainer-Optimizer",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "vicky999jeevi/ai-code-explainer-optimizer"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.616093+00:00"
+  },
+  {
+    "signal_id": "tool-7883c6977dcb",
+    "source": "tool_monitor",
+    "title": "majdwa515/agentic-design-patterns-cn",
+    "summary": "\ud83d\udee0\ufe0f Build intelligent systems with this guide to agentic design patterns, simplifying the process for developers and enhancing capabilities in AI-driven projects.",
+    "url": "https://github.com/majdwa515/agentic-design-patterns-cn",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "majdwa515/agentic-design-patterns-cn"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.596101+00:00"
+  },
+  {
+    "signal_id": "tool-b26430dbaf26",
+    "source": "tool_monitor",
+    "title": "duongdz-create/Voicebot-Reservation-system-for-Hotels",
+    "summary": "\ud83d\udecf\ufe0f Explore and book hotels effortlessly with our AI-driven voicebot, offering natural conversations and real-time price comparisons.",
+    "url": "https://github.com/duongdz-create/Voicebot-Reservation-system-for-Hotels",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "duongdz-create/voicebot-reservation-system-for-hotels"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.575049+00:00"
+  },
+  {
+    "signal_id": "tool-871d4870b488",
+    "source": "tool_monitor",
+    "title": "iddokip/Talent-Acquisition-Agent",
+    "summary": "\ud83e\udd16 Streamline recruitment with an AI-driven system that simplifies CV parsing, ranking, and candidate management using modern technologies.",
+    "url": "https://github.com/iddokip/Talent-Acquisition-Agent",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "iddokip/talent-acquisition-agent"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.552801+00:00"
+  },
+  {
+    "signal_id": "tool-05790a04f7ba",
+    "source": "tool_monitor",
+    "title": "sway121/Agentes_IA",
+    "summary": "\ud83d\udecd\ufe0f Automate your sales process with an AI-driven multi-agent system that improves efficiency from product inquiries to payment links.",
+    "url": "https://github.com/sway121/Agentes_IA",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "sway121/agentes_ia"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.527758+00:00"
+  },
+  {
+    "signal_id": "tool-039df4f53276",
+    "source": "tool_monitor",
+    "title": "alexinaldojunior/mcp-rag-agent",
+    "summary": "\ud83d\udd0d Build a production-ready RAG system that combines LangGraph and MCP integration for precise, context-aware AI-driven question answering.",
+    "url": "https://github.com/alexinaldojunior/mcp-rag-agent",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "alexinaldojunior/mcp-rag-agent"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:53.503740+00:00"
+  },
+  {
+    "signal_id": "tool-298ceb1c9fb6",
+    "source": "tool_monitor",
+    "title": "JStaRFilms/VibeCode-Protocol-Suite",
+    "summary": "A comprehensive suite of protocols, meta-prompts, and orchestration tools designed to streamline software development workflows, project management, and team collaboration. Includes the VibeCode Proto",
+    "url": "https://github.com/JStaRFilms/VibeCode-Protocol-Suite",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "jstarfilms/vibecode-protocol-suite"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.973276+00:00"
+  },
+  {
+    "signal_id": "tool-fab9c248e327",
+    "source": "tool_monitor",
+    "title": "MohammadAboulEla/ComfyUI-iTools",
+    "summary": "A powerful node suite for ComfyUI that streamlines your workflow. It offers smart prompt management, image metadata analysis, visual comparison tools, customizable templates, history tracking, and enh",
+    "url": "https://github.com/MohammadAboulEla/ComfyUI-iTools",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "mohammadaboulela/comfyui-itools"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.949699+00:00"
+  },
+  {
+    "signal_id": "tool-2e3764f368ed",
+    "source": "tool_monitor",
+    "title": "legeling/PromptHub",
+    "summary": "\u4e00\u6b3e\u5f00\u6e90\u3001\u7eaf\u672c\u5730 Prompt \uff0cSkill \u7ba1\u7406\u5de5\u5177\uff0c\u5e2e\u52a9\u4f60\u9ad8\u6548\u7ba1\u7406\u3001\u7248\u672c\u63a7\u5236\u548c\u590d\u7528 Prompt\uff0c\u5e76\u4e00\u952e\u5206\u53d1skill | An open-source, local-first AI prompt management tool that helps you efficiently manage, version-control, and reuse your prompts",
+    "url": "https://github.com/legeling/PromptHub",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "legeling/prompthub"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.885038+00:00"
+  },
+  {
+    "signal_id": "tool-8e4af8b97860",
+    "source": "tool_monitor",
+    "title": "ProjAnvil/SCV",
+    "summary": "A powerful codebase management and analysis tool for Claude Code",
+    "url": "https://github.com/ProjAnvil/SCV",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "projanvil/scv"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.863696+00:00"
+  },
+  {
+    "signal_id": "tool-96180e63e05e",
+    "source": "tool_monitor",
+    "title": "clhuang224/pre-prompt",
+    "summary": "A small browser-based tool focused on reusable mapping management, so you can swap names, project terms, or other sensitive words before pasting text into an LLM.",
+    "url": "https://github.com/clhuang224/pre-prompt",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "clhuang224/pre-prompt"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.835220+00:00"
+  },
+  {
+    "signal_id": "tool-ce6e2cd65bcc",
+    "source": "tool_monitor",
+    "title": "Alya0/Video-Segmentation-Annotation-Using-SAM2",
+    "summary": "An end-to-end video annotation tool that lets annotators browse video datasets, add point prompts on initial frames, and automatically generate object segmentation masks for entire videos using SAM2, ",
+    "url": "https://github.com/Alya0/Video-Segmentation-Annotation-Using-SAM2",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "alya0/video-segmentation-annotation-using-sam2"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.811399+00:00"
+  },
+  {
+    "signal_id": "tool-51b9ae11fd64",
+    "source": "tool_monitor",
+    "title": "coxthulhu/Cthulhu-Prompt",
+    "summary": "A prompt authoring and management tool designed for software developers.",
+    "url": "https://github.com/coxthulhu/Cthulhu-Prompt",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "coxthulhu/cthulhu-prompt"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.787436+00:00"
+  },
+  {
+    "signal_id": "tool-ddfb44e98431",
+    "source": "tool_monitor",
+    "title": "Arturistcool/spec",
+    "summary": "\ud83d\uddc2\ufe0f Store, version, and share prompts with PromptG, a standardized JSON format designed for flexible and tool-agnostic prompt management.",
+    "url": "https://github.com/Arturistcool/spec",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "arturistcool/spec"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.763889+00:00"
+  },
+  {
+    "signal_id": "tool-03c66928f062",
+    "source": "tool_monitor",
+    "title": "ayybee1/product-manager-skills",
+    "summary": "Enable AI tools to perform product management tasks like critiquing PRDs, analyzing SaaS metrics, and planning roadmaps using pure Markdown prompts.",
+    "url": "https://github.com/ayybee1/product-manager-skills",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "ayybee1/product-manager-skills"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.739815+00:00"
+  },
+  {
+    "signal_id": "tool-94ceb7b347f8",
+    "source": "tool_monitor",
+    "title": "cerredz/HarnessHub",
+    "summary": "Agent Harness Hub \u2014 Primitive building blocks and reference harnesses for wrapping LLMs (Claude, GPT, etc.) with custom control layers. Designed for developers who want to own the full stack around th",
+    "url": "https://github.com/cerredz/HarnessHub",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "cerredz/harnesshub"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:50.716987+00:00"
+  },
+  {
+    "signal_id": "tool-a073895afe20",
+    "source": "tool_monitor",
+    "title": "nizamra/Generative-AI-for-AWS-Cloud-Engineers",
+    "summary": "Terraform to Master the integration, deployment, and optimization of large language models (LLMs) within the AWS cloud infrastructure.",
+    "url": "https://github.com/nizamra/Generative-AI-for-AWS-Cloud-Engineers",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "nizamra/generative-ai-for-aws-cloud-engineers"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.191015+00:00"
+  },
+  {
+    "signal_id": "tool-bb1737239fb2",
+    "source": "tool_monitor",
+    "title": "Terminator1pluss/cloud-deployed-llm-ai-assistant",
+    "summary": "This project implements an AI-powered assistant using Large Language Models (LLMs) to generate intelligent responses to user queries. The application is deployed on cloud infrastructure to ensure scal",
+    "url": "https://github.com/Terminator1pluss/cloud-deployed-llm-ai-assistant",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "terminator1pluss/cloud-deployed-llm-ai-assistant"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.164720+00:00"
+  },
+  {
+    "signal_id": "tool-b6e821b35593",
+    "source": "tool_monitor",
+    "title": "Sayalijoshi25/Sayalijoshi25.github.io",
+    "summary": "Portfolio highlighting my experience in cloud platforms, Linux systems, distributed databases, automation, and large language models (LLMs). Includes technical projects and engineering work across mod",
+    "url": "https://github.com/Sayalijoshi25/Sayalijoshi25.github.io",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "sayalijoshi25/sayalijoshi25.github.io"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.141175+00:00"
+  },
+  {
+    "signal_id": "tool-2884a74048c0",
+    "source": "tool_monitor",
+    "title": "GoldstonianConcordanceBible/-GCB-Knowledge-Infrastructure-roadmaps-AI-Knowledge-Graph-Expansion-Roadmap.md",
+    "summary": "This roadmap defines the infrastructure expansion required to ensure the **Goldstonian Concordance Bible (GCB)** becomes a fully machine-discoverable theological corpus across scholarly, AI, and knowl",
+    "url": "https://github.com/GoldstonianConcordanceBible/-GCB-Knowledge-Infrastructure-roadmaps-AI-Knowledge-Graph-Expansion-Roadmap.md",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "goldstonianconcordancebible/-gcb-knowledge-infrastructure-roadmaps-ai-knowledge-graph-expansion-roadmap.md"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.118892+00:00"
+  },
+  {
+    "signal_id": "tool-3947c9e7a242",
+    "source": "tool_monitor",
+    "title": "A7med7x7/mistral-geoscience-finetune-demo",
+    "summary": "Fine-tune Large Language Models with MLflow Tracking Server - ReproGen Infrastructure based",
+    "url": "https://github.com/A7med7x7/mistral-geoscience-finetune-demo",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "a7med7x7/mistral-geoscience-finetune-demo"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.095656+00:00"
+  },
+  {
+    "signal_id": "tool-ab28561f76de",
+    "source": "tool_monitor",
+    "title": "natenberenstein/deep-dive-llms",
+    "summary": "Knowledge base covering Large Language Models, Retrieval-Augmented Generation, and AI Agents \u2014 from foundations to advanced architectures. Includes deep dives   on LLM internals, GPU architecture, inf",
+    "url": "https://github.com/natenberenstein/deep-dive-llms",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "natenberenstein/deep-dive-llms"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.073136+00:00"
+  },
+  {
+    "signal_id": "tool-8b93c8bb4848",
+    "source": "tool_monitor",
+    "title": "awslabs/aiops-modules",
+    "summary": "AIOps modules is a collection of reusable Infrastructure as Code (IaC) modules for Machine Learning (ML), Foundation Models (FM), Large Language Models (LLM) and GenAI development and operations on AW",
+    "url": "https://github.com/awslabs/aiops-modules",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "awslabs/aiops-modules"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.050514+00:00"
+  },
+  {
+    "signal_id": "tool-80510e1afd32",
+    "source": "tool_monitor",
+    "title": "roninazure/project-darc-feed",
+    "summary": "Project\u202fD.A.R.C. is a security\u2011focused AI recon tool designed to find sensitive corporate infrastructure that may have been exposed to large language models. ",
+    "url": "https://github.com/roninazure/project-darc-feed",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "roninazure/project-darc-feed"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.028940+00:00"
+  },
+  {
+    "signal_id": "tool-82342c79eb7d",
+    "source": "tool_monitor",
+    "title": "NatLabRockies/COMPASS",
+    "summary": "INFRA-COMPASS is a tool that leverages Large Language Models (LLMs) to create and maintain an inventory of state and local codes and ordinances applicable to energy infrastructure.",
+    "url": "https://github.com/NatLabRockies/COMPASS",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "natlabrockies/compass"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:48.000527+00:00"
+  },
+  {
+    "signal_id": "tool-f4db8d62e012",
+    "source": "tool_monitor",
+    "title": "mattjhawken/tensorlink.io",
+    "summary": "Run and fine-tune large language models remotely with peer-to-peer infrastructure.",
+    "url": "https://github.com/mattjhawken/tensorlink.io",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "mattjhawken/tensorlink.io"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:47.977578+00:00"
+  },
+  {
+    "signal_id": "tool-5711a3367a5b",
+    "source": "tool_monitor",
+    "title": "vbiroshak/ai-project-architect",
+    "summary": "A workspace architecture for sustained knowledge work with AI assistants. No code, no API, no external tools.",
+    "url": "https://github.com/vbiroshak/ai-project-architect",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "vbiroshak/ai-project-architect"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.465315+00:00"
+  },
+  {
+    "signal_id": "tool-f11582955690",
+    "source": "tool_monitor",
+    "title": "ArnoldoSQ/smart-coding-mcp",
+    "summary": "\ud83e\udde0 Enhance code search with intelligent semantic indexing, empowering AI assistants to find relevant code quickly and accurately in your projects.",
+    "url": "https://github.com/ArnoldoSQ/smart-coding-mcp",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "arnoldosq/smart-coding-mcp"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.443617+00:00"
+  },
+  {
+    "signal_id": "tool-8de6e2de07f7",
+    "source": "tool_monitor",
+    "title": "omkar402/knowledge-assistant",
+    "summary": "An AI-powered knowledge management and research assistant that allows users to ingest diverse content types (PDFs, web pages, Office documents, code repositories, videos, markdown), build a queryable ",
+    "url": "https://github.com/omkar402/knowledge-assistant",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "omkar402/knowledge-assistant"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.422370+00:00"
+  },
+  {
+    "signal_id": "tool-dbc000f1f7b1",
+    "source": "tool_monitor",
+    "title": "bayu605/ContextWeaver",
+    "summary": "\ud83e\uddf5 Enhance AI code assistants with ContextWeaver: a semantic engine providing precise code retrieval through hybrid search and intelligent context expansion.",
+    "url": "https://github.com/bayu605/ContextWeaver",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "bayu605/contextweaver"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.398419+00:00"
+  },
+  {
+    "signal_id": "tool-e8a8f5a6c6fb",
+    "source": "tool_monitor",
+    "title": "LessTanker/xv6-graphRAG",
+    "summary": "This repository is almost done by AI, so it may be unbelievably shit. GraphRAG assistant for xv6-riscv: code indexing, graph-aware retrieval, and grounded answers.",
+    "url": "https://github.com/LessTanker/xv6-graphRAG",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "lesstanker/xv6-graphrag"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.375952+00:00"
+  },
+  {
+    "signal_id": "tool-21ba40397a98",
+    "source": "tool_monitor",
+    "title": "ChongC1990/lokuma-cli",
+    "summary": "CLI to install Lokuma design intelligence skill for AI coding assistants",
+    "url": "https://github.com/ChongC1990/lokuma-cli",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "chongc1990/lokuma-cli"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.349070+00:00"
+  },
+  {
+    "signal_id": "tool-fb06a885a01c",
+    "source": "tool_monitor",
+    "title": "awththunder/cc-use-exp",
+    "summary": "\ud83d\udee0\ufe0f Configure AI coding assistants easily with ready-to-use templates for Claude Code and Gemini CLI, maximizing support with minimal effort.",
+    "url": "https://github.com/awththunder/cc-use-exp",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "awththunder/cc-use-exp"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.327404+00:00"
+  },
+  {
+    "signal_id": "tool-ae76769bf41a",
+    "source": "tool_monitor",
+    "title": "kaindrakonis/vibedev",
+    "summary": "\ud83d\udcca Analyze AI coding assistant usage, costs, and productivity with vibedev's interactive tools and insights for better decision-making.",
+    "url": "https://github.com/kaindrakonis/vibedev",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "kaindrakonis/vibedev"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.304038+00:00"
+  },
+  {
+    "signal_id": "tool-6ac616092c3c",
+    "source": "tool_monitor",
+    "title": "ucdavis/ai-skills-registry",
+    "summary": "CLI and registry for managing AI coding assistant skills across Claude Code, Cursor, VSCode, and Antigravity \u2014 organized by language and engineering concept.",
+    "url": "https://github.com/ucdavis/ai-skills-registry",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "ucdavis/ai-skills-registry"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.280395+00:00"
+  },
+  {
+    "signal_id": "tool-79e085e71aa2",
+    "source": "tool_monitor",
+    "title": "KarthikeyanReddy11/AI-ASSISTANT-CODING-ASSIGNMENTS",
+    "summary": "KarthikeyanReddy11/AI-ASSISTANT-CODING-ASSIGNMENTS",
+    "url": "https://github.com/KarthikeyanReddy11/AI-ASSISTANT-CODING-ASSIGNMENTS",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "karthikeyanreddy11/ai-assistant-coding-assignments"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:45.256921+00:00"
+  },
+  {
+    "signal_id": "tool-13f391a656e8",
+    "source": "tool_monitor",
+    "title": "anshulrules/Antigravity2Api",
+    "summary": "\ud83d\ude80 Transform Antigravity into standard Claude and Gemini APIs, enabling seamless tool use, structured outputs, and workaround support for MCP issues.",
+    "url": "https://github.com/anshulrules/Antigravity2Api",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "anshulrules/antigravity2api"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.670653+00:00"
+  },
+  {
+    "signal_id": "tool-ce847f4fa44a",
+    "source": "tool_monitor",
+    "title": "yunacong/ecommerce-distribution-growth-workbench",
+    "summary": "\u6296\u97f3\u7535\u5546\u5e73\u53f0\u5206\u53d1\u589e\u957f\u4e0e\u7b56\u7565\u4f18\u5316\u5de5\u4f5c\u53f0 | \u95ee\u9898\u53d1\u73b0\u00b7\u6f0f\u6597\u5f52\u56e0\u00b7A/B\u5b9e\u9a8c\u8bbe\u8ba1\u00b7AI\u590d\u76d8 | Streamlit + Plotly + Claude API",
+    "url": "https://github.com/yunacong/ecommerce-distribution-growth-workbench",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "yunacong/ecommerce-distribution-growth-workbench"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.644263+00:00"
+  },
+  {
+    "signal_id": "tool-5d78e23313da",
+    "source": "tool_monitor",
+    "title": "ExpertVagabond/shopify-mcp",
+    "summary": "MCP server for Shopify Admin API \u2014 36 tools for products, orders, customers, inventory, fulfillments, collections, analytics, marketing, content, and webhooks",
+    "url": "https://github.com/ExpertVagabond/shopify-mcp",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "expertvagabond/shopify-mcp"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.622122+00:00"
+  },
+  {
+    "signal_id": "tool-5073d91b5131",
+    "source": "tool_monitor",
+    "title": "pnv06/betterclaude-workers",
+    "summary": "\ud83d\udd27 Fix orphaned tool_result errors in Claude API calls with BetterClaude, an efficient Cloudflare Workers proxy for seamless conversations.",
+    "url": "https://github.com/pnv06/betterclaude-workers",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "pnv06/betterclaude-workers"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.600536+00:00"
+  },
+  {
+    "signal_id": "tool-b3605863bb04",
+    "source": "tool_monitor",
+    "title": "RandomSynergy17/claudeMax-OpenAI-HTTP-Proxy",
+    "summary": "Drop-in OpenAI-compatible API proxy powered by Claude Code CLI and your Claude Max subscription",
+    "url": "https://github.com/RandomSynergy17/claudeMax-OpenAI-HTTP-Proxy",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "randomsynergy17/claudemax-openai-http-proxy"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.579027+00:00"
+  },
+  {
+    "signal_id": "tool-f71d540c0d9f",
+    "source": "tool_monitor",
+    "title": "yprimakov/ai-job-search-pipeline",
+    "summary": "AI-powered job search pipeline: tailor your resume to any job description using Claude API, with application tracking and Q&A knowledge base",
+    "url": "https://github.com/yprimakov/ai-job-search-pipeline",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "yprimakov/ai-job-search-pipeline"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.558270+00:00"
+  },
+  {
+    "signal_id": "tool-126fee0a0834",
+    "source": "tool_monitor",
+    "title": "bernardpacis/create-mcp-server-kit",
+    "summary": "\ud83d\ude80 Scaffold a production-ready Model Context Protocol (MCP) server in seconds, complete with TypeScript, validation, and CI-ready templates.",
+    "url": "https://github.com/bernardpacis/create-mcp-server-kit",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "bernardpacis/create-mcp-server-kit"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.537149+00:00"
+  },
+  {
+    "signal_id": "tool-ed6626e9e81e",
+    "source": "tool_monitor",
+    "title": "ahsan5197/free-crypto-news",
+    "summary": "\ud83d\udcf0 Access real-time crypto news from 7 sources in 18 languages for free, with no API keys or rate limits. Simple, efficient, and reliable.",
+    "url": "https://github.com/ahsan5197/free-crypto-news",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "ahsan5197/free-crypto-news"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.515344+00:00"
+  },
+  {
+    "signal_id": "tool-067afda227d5",
+    "source": "tool_monitor",
+    "title": "multipleof4/sune",
+    "summary": "An OpenRouter Frontend & Android App \u2014 Also supports API keys for Gemini, OpenAI, & Claude",
+    "url": "https://github.com/multipleof4/sune",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "multipleof4/sune"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.492268+00:00"
+  },
+  {
+    "signal_id": "tool-351d96b54786",
+    "source": "tool_monitor",
+    "title": "umerfarooq7687445/ai-chat-app",
+    "summary": "\ud83e\udd16 Explore a modern AI chat app with access to hundreds of free AI models, all in a user-friendly interface powered by OpenRouter's API.",
+    "url": "https://github.com/umerfarooq7687445/ai-chat-app",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "umerfarooq7687445/ai-chat-app"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:42.466365+00:00"
+  },
+  {
+    "signal_id": "tool-c1040cf43a00",
+    "source": "tool_monitor",
+    "title": "zh-lim/mcp_agents",
+    "summary": "Agentic workflows imagined in a microservices manners (skills)",
+    "url": "https://github.com/zh-lim/mcp_agents",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "zh-lim/mcp_agents"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.977208+00:00"
+  },
+  {
+    "signal_id": "tool-197c57a253a3",
+    "source": "tool_monitor",
+    "title": "cimo/Ms_mcp",
+    "summary": "Microservice mcp.",
+    "url": "https://github.com/cimo/Ms_mcp",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "cimo/ms_mcp"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.956072+00:00"
+  },
+  {
+    "signal_id": "tool-d9a8b23637ca",
+    "source": "tool_monitor",
+    "title": "sumanth-0707/mcp-data-transform-service",
+    "summary": "MCP-based microservice for intelligent date transformation in ETL pipelines. It analyzes natural-language prompts to determine the target date format, normalizes mixed source date formats, and integra",
+    "url": "https://github.com/sumanth-0707/mcp-data-transform-service",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "sumanth-0707/mcp-data-transform-service"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.933911+00:00"
+  },
+  {
+    "signal_id": "tool-b43162a634cb",
+    "source": "tool_monitor",
+    "title": "kliushnichenko/jooby-mcp",
+    "summary": " Jooby module that lets you run a Model Context Protocol (MCP) server",
+    "url": "https://github.com/kliushnichenko/jooby-mcp",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "kliushnichenko/jooby-mcp"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.911720+00:00"
+  },
+  {
+    "signal_id": "tool-343cd35567f1",
+    "source": "tool_monitor",
+    "title": "aleksanderwinecki/fresha-kb",
+    "summary": "Knowledge base CLI + MCP server that indexes microservice repos for AI agent consumption",
+    "url": "https://github.com/aleksanderwinecki/fresha-kb",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "aleksanderwinecki/fresha-kb"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.890096+00:00"
+  },
+  {
+    "signal_id": "tool-eaf1bd9f7d24",
+    "source": "tool_monitor",
+    "title": "niyetbay0304/gateway",
+    "summary": "Provide visibility, traceability, and cost tracking for AI requests with minimal overhead across multiple AI providers and APIs.",
+    "url": "https://github.com/niyetbay0304/gateway",
+    "relevance": "medium",
+    "relevance_rationale": "Default medium relevance (heuristic fallback)",
+    "tags": [
+      "niyetbay0304/gateway"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.858447+00:00"
+  },
+  {
+    "signal_id": "tool-cdf9e9110f55",
+    "source": "tool_monitor",
+    "title": "Unknown384-come/agent-runner",
+    "summary": "Run autonomous AI agents with tool-calling via a Go microservice that connects Laravel and LLM providers, streaming real-time results over SSE.",
+    "url": "https://github.com/Unknown384-come/agent-runner",
+    "relevance": "medium",
+    "relevance_rationale": "Matched medium-priority keyword (heuristic fallback)",
+    "tags": [
+      "unknown384-come/agent-runner"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.834883+00:00"
+  },
+  {
+    "signal_id": "tool-debc638e4a19",
+    "source": "tool_monitor",
+    "title": "Sanga1032/fullstack-mcp-playground",
+    "summary": "\ud83e\udd16 Build fullstack AI applications using the Model Context Protocol (MCP) with a microservices architecture and Claude as the LLM engine.",
+    "url": "https://github.com/Sanga1032/fullstack-mcp-playground",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "sanga1032/fullstack-mcp-playground"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.810099+00:00"
+  },
+  {
+    "signal_id": "tool-84a0ca1a7e42",
+    "source": "tool_monitor",
+    "title": "Antika7/greengrub-mcp-server",
+    "summary": "A Spring Boot MCP (Model Context Protocol) server that exposes real-time hunger relief coordination tools \u2014 connecting MCP Clients to greengrub microservices",
+    "url": "https://github.com/Antika7/greengrub-mcp-server",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "antika7/greengrub-mcp-server"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.787489+00:00"
+  },
+  {
+    "signal_id": "tool-52cffa819437",
+    "source": "tool_monitor",
+    "title": "Ej-Locked/FlowCore",
+    "summary": "\ud83d\ude80 Build a minimal Flink-like streaming engine in Rust and React to process events with tumbling windows, late-event detection, and a simple web interface.",
+    "url": "https://github.com/Ej-Locked/FlowCore",
+    "relevance": "high",
+    "relevance_rationale": "Matched high-priority keyword (heuristic fallback)",
+    "tags": [
+      "ej-locked/flowcore"
+    ],
+    "domain": "ai-agents",
+    "created_at": "2026-03-17T05:05:39.763771+00:00"
+  }
+]
