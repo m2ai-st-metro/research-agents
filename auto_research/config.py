@@ -11,7 +11,7 @@ EXPERIMENTS_DB = DATA_DIR / "experiments.db"
 
 # --- Ollama ---
 OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "qwen2.5:14b"
+OLLAMA_MODEL = "qwen2.5:7b-instruct"
 OLLAMA_TIMEOUT = 120  # seconds per request
 
 # --- Experiment Settings ---
