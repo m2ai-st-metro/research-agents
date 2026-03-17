@@ -394,7 +394,11 @@ def get_transcript(video_id: str) -> str | None:
 
 
 def _get_transcript_api(video_id: str) -> str | None:
-    """Extract transcript using youtube-transcript-api."""
+    """Extract transcript using youtube-transcript-api.
+
+    Supports both the legacy class-method API (<0.6.3) and the new
+    instance-based API (>=1.0) where fetch() returns FetchedTranscript.
+    """
     try:
         from youtube_transcript_api import YouTubeTranscriptApi
     except ImportError:
@@ -402,8 +406,10 @@ def _get_transcript_api(video_id: str) -> str | None:
         return None
 
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-        parts = [entry["text"] for entry in transcript_list]
+        # New instance-based API (>=1.0)
+        api = YouTubeTranscriptApi()
+        transcript = api.fetch(video_id)
+        parts = [snippet.text for snippet in transcript]
         full_text = " ".join(parts)
         return full_text[:YOUTUBE_TRANSCRIPT_MAX_CHARS]
     except Exception as e:
