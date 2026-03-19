@@ -60,7 +60,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "Claude API",
     "AI coding assistant",
     "large language model infrastructure",
-    "prompt management tool",
+    "prompt engineering framework",
     "AI-driven agent system",
 ]
 TOOL_MAX_RESULTS_PER_QUERY = 10
