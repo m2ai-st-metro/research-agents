@@ -79,7 +79,7 @@ DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 YOUTUBE_SEARCH_QUERIES: list[str] = [
     "autonomous AI coding projects 2023",
     "supply chain AI automation",
-    "MCP model context protocol",
+    "MCP model application in AI context management",
     "LLM tool use function calling",
     "AI developer tools 2026",
     "healthcare AI technology",
