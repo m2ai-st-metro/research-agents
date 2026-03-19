@@ -47,7 +47,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "autonomous coding agents",
     "prompt based AI training",
     "LLM tool integration frameworks",
-    "AI code generation evaluation",
+    "code generation metrics AI",
     "LLM self-improvement",
     "agentic workflow orchestration",
 ]
