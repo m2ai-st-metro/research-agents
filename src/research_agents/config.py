@@ -77,7 +77,7 @@ DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 
 # --- YouTube Trending Scanner ---
 YOUTUBE_SEARCH_QUERIES: list[str] = [
-    "autonomous AI coding projects 2023",
+    "autonomous coding assistants in AI development 2023",
     "supply chain AI automation",
     "MCP model application in AI context management",
     "LLM tool use function calling",
