@@ -46,7 +46,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "contextual model protocol analysis",
     "autonomous code synthesis frameworks",
     "prompt based AI training",
-    "LLM tool integration frameworks",
+    "LLM toolkit ecosystem",
     "code generation metrics AI",
     "LLM self-improvement",
     "agentic workflow orchestration",
