@@ -80,7 +80,7 @@ YOUTUBE_SEARCH_QUERIES: list[str] = [
     "autonomous coding assistants in AI development 2023",
     "supply chain AI automation",
     "contextual AI management with MCP model applications 2023",
-    "function calling in LLMs for AI development 2023",
+    "function calling capabilities in advanced LLMs for developer tools 2023",
     "AI developer tools 2026",
     "healthcare AI technology",
     "agentic workflows AI",
