@@ -43,7 +43,7 @@ OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "180"))  # Higher for CPU 
 
 # --- ArXiv / Paper Scanner ---
 ARXIV_SEARCH_QUERIES: list[str] = [
-    "contextual model protocol analysis",
+    "contextual model interaction protocols",
     "autonomous code synthesis frameworks",
     "prompt based AI training",
     "LLM toolkit ecosystem",
