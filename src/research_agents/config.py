@@ -190,7 +190,7 @@ GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for recent announcements about AI agent frameworks, MCP servers, or tool-use APIs.",
     "Search for emerging healthcare AI startups or products focused on home health and HIPAA compliance.",
-    "Search for new developer productivity tools powered by AI that launched in the past week.",
+    "Search for recent AI-driven enhancements in developer tools and platforms launched within the last week",
     "Search for recent funding rounds or acquisitions in the AI developer tools space.",
     "Search for open-source AI projects gaining traction on GitHub related to autonomous coding.",
 ]
