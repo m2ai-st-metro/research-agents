@@ -47,7 +47,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "autonomous code synthesis frameworks",
     "training data prompt engineering",
     "LLM integration frameworks",
-    "code generation evaluation AI",
+    "code generation effectiveness metrics",
     "LLM self-improvement",
     "agentic workflow orchestration",
 ]
