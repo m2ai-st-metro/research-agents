@@ -71,7 +71,7 @@ DOMAIN_WATCH_QUERIES: list[str] = [
     "solo developer AI tools",
     "workflow automation AI",
     "HIPAA compliant AI",
-    "AI in clinical diagnostics",
+    "clinical AI diagnostic tools",
 ]
 DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 
