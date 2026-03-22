@@ -226,7 +226,7 @@ PERPLEXITY_MODEL = "sonar-pro"
 PERPLEXITY_MAX_TOKENS = 4096
 PERPLEXITY_RESEARCH_QUERIES: list[str] = [
     "What are the biggest emerging pain points for solo AI developers this week?",
-    "What new AI agent frameworks or MCP servers launched recently?",
+    "What recent developments in AI agent technologies and server infrastructure are impacting solo developers?",
     "What healthcare AI regulatory changes or HIPAA-compliant tools appeared this week?",
     "What are the latest trends in autonomous coding agents and AI-assisted software engineering?",
     "What workflow automation tools are gaining traction among small teams?",
