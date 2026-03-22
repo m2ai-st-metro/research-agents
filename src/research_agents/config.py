@@ -49,7 +49,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "LLM integration frameworks",
     "code generation evaluation standards",
     "LLM self-improvement",
-    "agent-driven workflow automation",
+    "automated workflow design patterns",
 ]
 ARXIV_MAX_RESULTS_PER_QUERY = 10
 ARXIV_MIN_RELEVANCE = "medium"  # Only write signals >= this level
