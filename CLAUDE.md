@@ -47,5 +47,5 @@ IdeaForge scores + classifies → Metroplex triages
 ```
 Daily 5 AM:      arxiv + tool-monitor
 Every 3 days:    domain-watch
-Saturday 11 PM:  idea-surfacer
+Daily 11 PM:     idea-surfacer
 ```

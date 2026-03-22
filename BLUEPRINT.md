@@ -48,7 +48,7 @@
 
 ### Phase 7: Idea Surfacer Agent
 - [x] idea_surfacer.py
-- [x] Write to caught_ideas.db with machine-surfaced tag
+- [x] Write to ideaforge.db with machine-surfaced tag
 - [x] Mark consumed signals
 - [x] Tests (6/6)
 
@@ -68,7 +68,7 @@
 ```
 Mon-Sat 5AM:  arxiv + tool-monitor → ResearchSignals
 Wed/Sat 5AM:  domain-watcher → ResearchSignals
-Sat 11PM:     idea-surfacer → caught_ideas.db
+Sat 11PM:     idea-surfacer → ideaforge.db
 Sun 2AM:      Snow-Town loop (SL now reads research signals too)
 ```
 

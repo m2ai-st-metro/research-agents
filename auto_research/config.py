@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 # --- Paths ---
@@ -10,12 +11,12 @@ DATA_DIR = AUTO_RESEARCH_ROOT / "data"
 EXPERIMENTS_DB = DATA_DIR / "experiments.db"
 
 # --- Ollama ---
-OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "qwen2.5:7b-instruct"
-OLLAMA_TIMEOUT = 120  # seconds per request
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
+OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))
 
 # --- Experiment Settings ---
-# Which agents to experiment on (must have free API sources)
+# Which agents to experiment on
 EXPERIMENT_AGENTS: list[str] = [
     "arxiv",
     "tool_monitor",
@@ -23,9 +24,12 @@ EXPERIMENT_AGENTS: list[str] = [
     "youtube",
     # "rss" excluded — RSS_FEEDS is a list of {name, url, parser} dicts,
     # not search queries. Mutations change feed names, not search behavior.
+    "perplexity",
+    "chatgpt",
+    "gemini_research",
 ]
 
-# Agents that cost money to query (excluded from default experiments)
+# Agents that cost money to query (for cost tracking, not exclusion)
 PAID_QUERY_AGENTS: list[str] = [
     "perplexity",
     "chatgpt",

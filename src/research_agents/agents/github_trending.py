@@ -16,11 +16,10 @@ import time
 
 import httpx
 
-from ..claude_client import assess_relevance, get_client
-from ..config import PERSONA_IDS
-from ..signal_writer import get_store, signal_exists, write_signal
-
 from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
+
+from ..claude_client import assess_relevance, get_client
+from ..signal_writer import get_store, signal_exists, write_signal
 
 logger = logging.getLogger(__name__)
 
@@ -144,7 +143,8 @@ def run_agent(dry_run: bool = False) -> str:
                     continue
 
                 # Also check if tool_monitor already has this repo
-                tool_monitor_id = f"tool-{hashlib.sha256(repo['full_name'].encode()).hexdigest()[:12]}"
+                tm_hash = hashlib.sha256(repo["full_name"].encode()).hexdigest()[:12]
+                tool_monitor_id = f"tool-{tm_hash}"
                 if signal_exists(tool_monitor_id, store=store):
                     skipped_dedup += 1
                     continue
@@ -200,7 +200,9 @@ def run_agent(dry_run: bool = False) -> str:
                     store=store,
                 )
                 total_written += 1
-                logger.info("  Wrote [%s]: %s (%d stars)", relevance, repo["full_name"], repo["stars"])
+                logger.info(
+                    "  Wrote [%s]: %s (%d stars)", relevance, repo["full_name"], repo["stars"]
+                )
 
             # Rate limit courtesy
             time.sleep(2.0)

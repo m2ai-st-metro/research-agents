@@ -301,6 +301,174 @@ def search_rss(query: str, max_results: int = 10) -> list[dict]:
     return articles[:max_results]
 
 
+# --- Paid Agent Searchers ---
+# These call external LLM APIs that return pre-structured signals.
+# Queries are full research prompts, not keyword searches.
+# Cost: ~$0.01-0.10 per query depending on model.
+
+PERPLEXITY_API_URL_PAID = "https://api.perplexity.ai/chat/completions"
+OPENAI_API_URL_PAID = "https://api.openai.com/v1/chat/completions"
+
+_PAID_SYSTEM_PROMPT = """You are a research analyst for a solo AI developer/consultant.
+Identify 2-5 actionable signals: tools, market shifts, regulatory changes, or opportunities.
+
+Focus: AI agents, MCP servers, healthcare AI (HIPAA), developer tools, workflow automation.
+
+Return JSON only:
+{"signals": [{"title": "...", "summary": "2-3 sentences", "url": "source URL or null", "relevance": "high|medium|low", "tags": ["tag1"], "domain": "ai-agents|healthcare-ai|developer-tools|etc"}]}"""
+
+
+def _parse_paid_signals(result: dict, source_prefix: str) -> list[dict]:
+    """Convert paid agent JSON response to standard signal format."""
+    signals = []
+    for s in result.get("signals", []):
+        title = s.get("title", "")
+        sig_id = f"{source_prefix}-{hashlib.sha256(f'{title}'.encode()).hexdigest()[:12]}"
+        signals.append({
+            "signal_id": sig_id,
+            "title": title,
+            "summary": s.get("summary", title)[:500],
+            "url": s.get("url") or "",
+            "source": source_prefix,
+        })
+    return signals
+
+
+def search_perplexity(query: str, max_results: int = 10) -> list[dict]:
+    """Search via Perplexity Sonar API. Costs ~$0.01/query."""
+    import os
+    api_key = os.environ.get("PERPLEXITY_API_KEY")
+    if not api_key:
+        logger.warning("PERPLEXITY_API_KEY not set, skipping perplexity search")
+        return []
+
+    try:
+        resp = httpx.post(
+            PERPLEXITY_API_URL_PAID,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json={
+                "model": "sonar-pro",
+                "messages": [
+                    {"role": "system", "content": _PAID_SYSTEM_PROMPT},
+                    {"role": "user", "content": query},
+                ],
+                "max_tokens": 4096,
+            },
+            timeout=60.0,
+        )
+        resp.raise_for_status()
+        text = resp.json()["choices"][0]["message"]["content"].strip()
+        if text.startswith("```"):
+            text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+        import json as _json
+        result = _json.loads(text)
+    except Exception as e:
+        logger.warning("Perplexity search failed for '%s': %s", query[:60], e)
+        return []
+
+    return _parse_paid_signals(result, "perplexity")[:max_results]
+
+
+def search_chatgpt(query: str, max_results: int = 10) -> list[dict]:
+    """Search via OpenAI ChatGPT API. Costs ~$0.02-0.05/query."""
+    import os
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        logger.warning("OPENAI_API_KEY not set, skipping chatgpt search")
+        return []
+
+    # Read model from research-agents config to avoid hardcoding
+    import sys
+    from pathlib import Path
+    config_path = Path(__file__).resolve().parent.parent / "src" / "research_agents"
+    if str(config_path.parent) not in sys.path:
+        sys.path.insert(0, str(config_path.parent))
+    try:
+        import importlib
+        import research_agents.config as ra_config
+        importlib.reload(ra_config)
+        model = getattr(ra_config, "CHATGPT_MODEL", "gpt-4o")
+    except ImportError:
+        model = "gpt-4o"
+
+    try:
+        resp = httpx.post(
+            OPENAI_API_URL_PAID,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json={
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": _PAID_SYSTEM_PROMPT},
+                    {"role": "user", "content": query},
+                ],
+                "max_completion_tokens": 4096,
+                "response_format": {"type": "json_object"},
+            },
+            timeout=60.0,
+        )
+        resp.raise_for_status()
+        text = resp.json()["choices"][0]["message"]["content"].strip()
+        if text.startswith("```"):
+            text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+        import json as _json
+        result = _json.loads(text)
+    except Exception as e:
+        logger.warning("ChatGPT search failed for '%s': %s", query[:60], e)
+        return []
+
+    return _parse_paid_signals(result, "chatgpt")[:max_results]
+
+
+def search_gemini(query: str, max_results: int = 10) -> list[dict]:
+    """Search via Gemini with Google Search grounding. Costs ~$0.01/query."""
+    import os
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        logger.warning("GEMINI_API_KEY not set, skipping gemini search")
+        return []
+
+    try:
+        from google import genai
+        from google.genai import types
+
+        client = genai.Client(api_key=api_key)
+
+        # Read model from research-agents config
+        import sys
+        from pathlib import Path
+        config_path = Path(__file__).resolve().parent.parent / "src" / "research_agents"
+        if str(config_path.parent) not in sys.path:
+            sys.path.insert(0, str(config_path.parent))
+        try:
+            import importlib
+            import research_agents.config as ra_config
+            importlib.reload(ra_config)
+            model = getattr(ra_config, "GEMINI_RESEARCH_MODEL", "gemini-2.0-flash")
+        except ImportError:
+            model = "gemini-2.0-flash"
+
+        google_search_tool = types.Tool(google_search=types.GoogleSearch())
+        response = client.models.generate_content(
+            model=model,
+            contents=f"{_PAID_SYSTEM_PROMPT}\n\nResearch query: {query}",
+            config=types.GenerateContentConfig(
+                max_output_tokens=4096,
+                tools=[google_search_tool],
+                response_mime_type="application/json",
+            ),
+        )
+        text = response.text.strip() if response.text else ""
+        if text.startswith("```"):
+            text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+        import json as _json
+        result = _json.loads(text)
+    except Exception as e:
+        logger.warning("Gemini search failed for '%s': %s", query[:60], e)
+        return []
+
+    return _parse_paid_signals(result, "gemini")[:max_results]
+
+
 # Maps agent name to search function
 AGENT_SEARCHERS: dict[str, callable] = {
     "arxiv": search_arxiv,
@@ -308,6 +476,9 @@ AGENT_SEARCHERS: dict[str, callable] = {
     "domain_watch": search_hn,
     "youtube": search_youtube,
     "rss": search_rss,
+    "perplexity": search_perplexity,
+    "chatgpt": search_chatgpt,
+    "gemini_research": search_gemini,
 }
 
 

@@ -1,7 +1,7 @@
 """Claude API validator — confirms Ollama winners against production scoring.
 
 Closes the sim-to-real gap by running top winning variants through
-Claude Sonnet (the production model) before committing changes.
+Claude Sonnet (via DeepInfra) before committing changes.
 """
 
 from __future__ import annotations
@@ -25,20 +25,23 @@ from .mini_pipeline import (
 logger = logging.getLogger(__name__)
 
 
-def _get_anthropic_client():
-    """Create Anthropic client from environment."""
+def _get_deepinfra_client():
+    """Create DeepInfra OpenAI-compatible client from environment."""
     try:
-        from anthropic import Anthropic
+        from openai import OpenAI
     except ImportError:
-        logger.error("anthropic package not installed — cannot validate with Claude")
+        logger.error("openai package not installed — cannot validate with Claude")
         return None
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = os.environ.get("DEEPINFRA_API_KEY")
     if not api_key:
-        logger.error("ANTHROPIC_API_KEY not set — cannot validate with Claude")
+        logger.error("DEEPINFRA_API_KEY not set — cannot validate with Claude")
         return None
 
-    return Anthropic(api_key=api_key)
+    return OpenAI(
+        api_key=api_key,
+        base_url="https://api.deepinfra.com/v1/openai",
+    )
 
 
 def _claude_assess_relevance(
@@ -46,9 +49,9 @@ def _claude_assess_relevance(
     title: str,
     summary: str,
     source_context: str,
-    model: str = "claude-sonnet-4-5-20250929",
+    model: str = "anthropic/claude-4-sonnet",
 ) -> dict:
-    """Assess relevance via Claude API (production model)."""
+    """Assess relevance via Claude API on DeepInfra (production model)."""
     import json
 
     prompt = f"""Assess the relevance of this research signal to a solo AI developer's ecosystem.
@@ -74,12 +77,12 @@ Respond with JSON only:
     "persona_tags": []
 }}"""
 
-    response = client.messages.create(
+    response = client.chat.completions.create(
         model=model,
         max_tokens=1024,
         messages=[{"role": "user", "content": prompt}],
     )
-    text = response.content[0].text.strip()
+    text = response.choices[0].message.content.strip()
     if text.startswith("```"):
         text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
 
@@ -109,7 +112,7 @@ def validate_winner(
     This only validates scoring quality — we don't re-run the search
     (that already used free APIs).
     """
-    anthropic_client = _get_anthropic_client()
+    anthropic_client = _get_deepinfra_client()
     if anthropic_client is None:
         logger.warning("Skipping Claude validation — no API client available")
         return False

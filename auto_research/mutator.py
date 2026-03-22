@@ -149,6 +149,18 @@ def _fallback_mutate(query: str, agent: str) -> str:
             "tutorial", "demo", "2026", "comparison",
             "deep dive", "review",
         ],
+        "perplexity": [
+            "this week", "this month", "emerging", "solo developer",
+            "open source", "cost-effective",
+        ],
+        "chatgpt": [
+            "for solo consultancies", "underserved markets", "revenue models",
+            "competitive moats", "emerging niches",
+        ],
+        "gemini_research": [
+            "launched recently", "funding rounds", "open-source",
+            "gaining traction", "breaking news",
+        ],
     }
 
     agent_mods = modifiers.get(agent, ["new", "emerging", "practical"])

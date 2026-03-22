@@ -1,7 +1,7 @@
 """Shared API wrappers for research-agents pipeline.
 
 - Relevance assessment: Ollama (local, no API cost)
-- Idea synthesis: Anthropic Claude (kept on Sonnet for quality)
+- Idea synthesis: Claude via DeepInfra (OpenAI-compatible API)
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 import os
 
-from anthropic import Anthropic
+from openai import OpenAI
 
 from .config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL
 from .ollama_client import assess_relevance_ollama
@@ -17,13 +17,16 @@ from .ollama_client import assess_relevance_ollama
 logger = logging.getLogger(__name__)
 
 
-def get_client() -> Anthropic:
-    """Create an Anthropic client from environment.
+def get_client() -> OpenAI:
+    """Create a DeepInfra OpenAI-compatible client from environment.
 
     Used only by idea_surfacer for synthesis (the one task
     where frontier model quality matters).
     """
-    return Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+    return OpenAI(
+        api_key=os.environ.get("DEEPINFRA_API_KEY"),
+        base_url="https://api.deepinfra.com/v1/openai",
+    )
 
 
 def assess_relevance(

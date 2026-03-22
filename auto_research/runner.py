@@ -11,6 +11,7 @@ import sys
 import time
 from pathlib import Path
 
+from .committer import commit_winner
 from .config import (
     AGENT_QUERY_KEYS,
     EXPERIMENT_AGENTS,
@@ -183,7 +184,7 @@ def run_experiments(
                 logger.info("Result: %s", comparison.reason)
 
                 # Log to ledger
-                log_experiment(
+                exp_id = log_experiment(
                     conn=conn,
                     agent=agent,
                     param_name=param_name,
@@ -199,6 +200,28 @@ def run_experiments(
                     status="completed" if comparison.is_valid else "insufficient_data",
                     notes=comparison.reason,
                 )
+
+                # Auto-commit winners
+                if comparison.is_winner:
+                    logger.info(
+                        "AUTO-COMMIT: %s query '%s' -> '%s' (+%.1f%% NDR)",
+                        agent, baseline_query, variant_query,
+                        comparison.improvement_pct * 100,
+                    )
+                    committed = commit_winner(
+                        conn=conn,
+                        experiment_id=exp_id,
+                        agent=agent,
+                        param_name=param_name,
+                        old_query=baseline_query,
+                        new_query=variant_query,
+                        improvement_pct=comparison.improvement_pct,
+                        dry_run=dry_run,
+                    )
+                    if committed:
+                        logger.info("Committed successfully.")
+                    else:
+                        logger.warning("Commit failed — query may have changed since experiment started.")
 
                 # Rate limit between agents
                 time.sleep(5)
@@ -253,6 +276,12 @@ def main() -> None:
         action="store_true",
         help="Show experiment ledger summary and exit",
     )
+    parser.add_argument(
+        "--rounds",
+        type=int,
+        default=1,
+        help="Number of experiment rounds to run (default: 1)",
+    )
 
     args = parser.parse_args()
 
@@ -278,7 +307,12 @@ def main() -> None:
         return
 
     agents = args.agents.split(",") if args.agents else None
-    run_experiments(agents=agents, dry_run=args.dry_run, verbose=args.verbose)
+    run_experiments(
+        agents=agents,
+        dry_run=args.dry_run,
+        verbose=args.verbose,
+        rounds=args.rounds,
+    )
 
 
 if __name__ == "__main__":
