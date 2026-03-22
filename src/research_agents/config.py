@@ -30,8 +30,8 @@ def get_snow_town_db() -> Path:
     return SNOW_TOWN_ROOT / "data" / "persona_metrics.db"
 
 
-# --- Claude API (used only for idea synthesis) ---
-CLAUDE_MODEL = "claude-sonnet-4-5-20250929"
+# --- Claude API via DeepInfra (used only for idea synthesis) ---
+CLAUDE_MODEL = "anthropic/claude-4-sonnet"
 CLAUDE_MAX_TOKENS = 4096
 
 # --- Ollama (local LLM for relevance assessment + trend reports) ---
@@ -102,18 +102,80 @@ YOUTUBE_SUMMARIZER_MODEL = "gemini-3.1-flash-lite-preview"
 YOUTUBE_SUMMARIZER_MAX_TOKENS = 4096
 GEMINI_API_KEY_ENV = "GEMINI_API_KEY"  # env var name for Gemini API key
 
+# --- Reddit Scanner ---
+REDDIT_SUBREDDITS: list[str] = [
+    "SideProject",
+    "indiehackers",
+    "selfhosted",
+    "devtools",
+    "MachineLearning",
+]
+REDDIT_POSTS_PER_SUBREDDIT: int = 10
+REDDIT_MIN_RELEVANCE: str = "medium"
+REDDIT_MAX_SIGNALS_PER_RUN: int = 15
+
+# --- Product Hunt Scanner ---
+PRODUCTHUNT_RSS_URL: str = "https://www.producthunt.com/feed"
+PRODUCTHUNT_MAX_ITEMS: int = 20
+PRODUCTHUNT_MIN_RELEVANCE: str = "medium"
+PRODUCTHUNT_MAX_SIGNALS_PER_RUN: int = 10
+
 # --- Cadences ---
 CADENCE = {
     "arxiv": "daily",
     "tool_monitor": "daily",
     "domain_watch": "every_3_days",
-    "idea_surfacer": "every_3_days",
+    "idea_surfacer": "daily",
     "youtube": "daily",
     "rss": "daily",
     "trend_analyzer": "weekly",
     "perplexity": "daily",
     "chatgpt": "every_3_days",
     "gemini_research": "daily",
+    "github_trending": "daily",
+    "reddit": "daily",
+    "product_hunt": "daily",
+}
+
+# --- Agent Specializations (anti-monoculture) ---
+# Each LLM agent focuses on a specific signal type to reduce overlap.
+AGENT_SPECIALIZATIONS: dict[str, dict[str, str | list[str]]] = {
+    "perplexity": {
+        "focus": "tactical",
+        "description": "Tool launches, releases, MCP ecosystem, specific product updates",
+        "do_not_report": [
+            "broad market analysis or competitive dynamics",
+            "business model speculation",
+            "regulatory policy analysis",
+            "funding rounds or acquisitions",
+        ],
+    },
+    "chatgpt": {
+        "focus": "strategic",
+        "description": (
+            "Market dynamics, competitive positioning, "
+            "business models, underserved niches"
+        ),
+        "do_not_report": [
+            "specific tool or library releases",
+            "individual GitHub repos or open-source projects",
+            "technical implementation details",
+            "recent news events less than 7 days old",
+        ],
+    },
+    "gemini_research": {
+        "focus": "emerging",
+        "description": (
+            "Recent developments (<7 days), regulatory changes, "
+            "funding rounds, acquisitions"
+        ),
+        "do_not_report": [
+            "established market dynamics or competitive analysis",
+            "tools or frameworks that have been available for more than 2 weeks",
+            "business model analysis or strategic positioning",
+            "broad industry trends without specific recent events",
+        ],
+    },
 }
 
 # --- Persona IDs (for tool_monitor tagging) ---
@@ -145,7 +207,7 @@ RSS_LOOKBACK_DAYS = 3  # Ignore articles older than this
 TREND_LOOKBACK_DAYS = 14  # Window of signals to analyze
 TREND_REPORT_DIR = DATA_DIR / "trend_reports"
 TREND_MIN_SIGNALS_FOR_ANALYSIS = 5  # Skip if fewer signals in window
-TREND_SUMMARIZER_MODEL = "claude-haiku-4-5-20251001"
+TREND_SUMMARIZER_MODEL = "anthropic/claude-4-sonnet"
 TREND_SUMMARIZER_MAX_TOKENS = 8192
 
 # --- Firecrawl Enrichment (Test Phase) ---

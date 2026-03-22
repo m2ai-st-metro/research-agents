@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS ideas (
     synthesized_at TIMESTAMP,
     scored_at TIMESTAMP,
     exported_at TIMESTAMP,
-    ultra_magnus_id INTEGER
+    ultra_magnus_id INTEGER,
+    signal_source TEXT DEFAULT 'unknown'
 );
 CREATE INDEX IF NOT EXISTS idx_ideas_status ON ideas(status);
 CREATE INDEX IF NOT EXISTS idx_ideas_weighted_score ON ideas(weighted_score);
@@ -66,20 +67,23 @@ def write_idea_to_ideaforge(
     description: str,
     tags: list[str],
     source_signal_ids: list[str],
+    problem_statement: str = "",
+    target_audience: str = "",
+    signal_source: str = "unknown",
     db_path: Path | None = None,
 ) -> int:
     """Write a synthesized idea to IdeaForge's ideas table.
 
     Maps idea_surfacer output to IdeaForge schema:
-      title            -> title
-      description      -> description
-      (empty)          -> problem_statement
-      (empty)          -> target_audience
-      source_signal_ids -> source_signals (JSON array)
-      provenance tag   -> source_subreddits[0] (workaround for provenance)
-      len(signal_ids)  -> signal_count
-      now()            -> synthesized_at
-      'unscored'       -> status
+      title              -> title
+      description        -> description
+      problem_statement  -> problem_statement
+      target_audience    -> target_audience
+      source_signal_ids  -> source_signals (JSON array)
+      provenance tag     -> source_subreddits[0] (workaround for provenance)
+      len(signal_ids)    -> signal_count
+      now()              -> synthesized_at
+      'unscored'         -> status
 
     Returns the inserted idea row ID.
     """
@@ -101,16 +105,17 @@ def write_idea_to_ideaforge(
             """INSERT INTO ideas
             (title, description, problem_statement, target_audience,
              source_signals, source_subreddits, signal_count,
-             status, synthesized_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+             signal_source, status, synthesized_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 title,
                 description,
-                "",  # problem_statement -- scorer can extract later
-                "",  # target_audience -- scorer can extract later
+                problem_statement,
+                target_audience,
                 json.dumps(source_signal_ids),
                 json.dumps(provenance),
                 len(source_signal_ids),
+                signal_source,
                 "unscored",
                 now,
             ),

@@ -51,7 +51,8 @@ CREATE TABLE IF NOT EXISTS ideas (
     synthesized_at TIMESTAMP,
     scored_at TIMESTAMP,
     exported_at TIMESTAMP,
-    ultra_magnus_id INTEGER
+    ultra_magnus_id INTEGER,
+    signal_source TEXT DEFAULT 'unknown'
 );
 """
 

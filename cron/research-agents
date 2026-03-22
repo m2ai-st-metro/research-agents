@@ -22,5 +22,14 @@
 # Daily at 6:15 AM UTC: gemini-research (Google Search grounded, staggered after perplexity)
 15 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh gemini-research >> /var/log/research-agents/pipeline.log 2>&1
 
-# Every 3 days at 11 PM UTC: idea-surfacer (synthesize signals into IdeaForge ideas)
-0 23 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1
+# Daily at 6:35 AM UTC: github-trending (staggered after other research agents)
+35 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh github-trending >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 6:45 AM UTC: reddit (public JSON API, staggered after github-trending)
+45 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh reddit >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 7:00 AM UTC: product-hunt (RSS feed, staggered after reddit)
+0 7 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh product-hunt >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 11 PM UTC: idea-surfacer (synthesize signals into IdeaForge ideas)
+0 23 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1

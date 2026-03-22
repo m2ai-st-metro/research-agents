@@ -29,6 +29,11 @@ AGENTS: dict[str, str] = {
     "gemini-research": "research_agents.agents.gemini_research_agent",
 }
 
+# Additional agents (A1 multi-source ingestion)
+AGENTS["github-trending"] = "research_agents.agents.github_trending"
+AGENTS["reddit"] = "research_agents.agents.reddit_scanner"
+AGENTS["product-hunt"] = "research_agents.agents.producthunt_scanner"
+
 
 def _setup_logging(verbose: bool = False) -> None:
     level = logging.DEBUG if verbose else logging.INFO
