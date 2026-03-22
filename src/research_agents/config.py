@@ -83,7 +83,7 @@ YOUTUBE_SEARCH_QUERIES: list[str] = [
     "LLM driven feature enhancements in AI dev tools 2023",
     "AI developer tools 2026",
     "healthcare AI technology",
-    "agentic workflows AI",
+    "agentic systems integration in ai workflows 2023",
 ]
 YOUTUBE_MAX_RESULTS_PER_QUERY = 5
 YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
