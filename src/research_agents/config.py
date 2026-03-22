@@ -31,7 +31,7 @@ def get_snow_town_db() -> Path:
 
 
 # --- Claude API via DeepInfra (used only for idea synthesis) ---
-CLAUDE_MODEL = "anthropic/claude-4-sonnet"
+CLAUDE_MODEL = "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B"
 CLAUDE_MAX_TOKENS = 4096
 
 # --- Ollama (local LLM for relevance assessment + trend reports) ---

@@ -105,8 +105,8 @@ def write_idea_to_ideaforge(
             """INSERT INTO ideas
             (title, description, problem_statement, target_audience,
              source_signals, source_subreddits, signal_count,
-             signal_source, status, synthesized_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+             status, synthesized_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 title,
                 description,
@@ -115,7 +115,6 @@ def write_idea_to_ideaforge(
                 json.dumps(source_signal_ids),
                 json.dumps(provenance),
                 len(source_signal_ids),
-                signal_source,
                 "unscored",
                 now,
             ),

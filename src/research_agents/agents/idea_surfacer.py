@@ -11,12 +11,12 @@ import json
 import logging
 from datetime import datetime, timedelta
 
-from contracts.research_signal import ResearchSignal  # noqa: E402
-
 from ..claude_client import get_client
 from ..config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL
-from ..signal_writer import get_store
+from ..signal_writer import get_store  # Must import before contracts (injects sys.path)
 from .ideaforge_writer import write_idea_to_ideaforge
+
+from contracts.research_signal import ResearchSignal  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
