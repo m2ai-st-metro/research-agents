@@ -61,7 +61,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "AI coding assistant",
     "LLM deployment infrastructure",
     "prompt engineering framework",
-    "AI agent architecture",
+    "AI agent design patterns",
 ]
 TOOL_MAX_RESULTS_PER_QUERY = 10
 
