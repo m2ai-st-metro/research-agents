@@ -47,7 +47,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "autonomous code synthesis frameworks",
     "data-driven prompt optimization",
     "LLM deployment strategies",
-    "code generation evaluation standards",
+    "code generation performance metrics",
     "LLM capability enhancement",
     "workflow automation techniques arxiv",
 ]
