@@ -46,7 +46,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "interactive neural network design",
     "autonomous code synthesis frameworks",
     "data-driven prompt optimization",
-    "LLM integration frameworks",
+    "LLM deployment strategies",
     "code generation evaluation standards",
     "LLM capability enhancement",
     "workflow automation techniques arxiv",
