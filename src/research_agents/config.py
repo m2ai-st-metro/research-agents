@@ -47,7 +47,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "code generation autonomous systems",
     "prompt tuning data analysis",
     "LLM deployment strategies",
-    "code generation performance metrics",
+    "code generation efficiency optimization",
     "LLM performance scaling",
     "automated workflow systems analysis",
 ]
