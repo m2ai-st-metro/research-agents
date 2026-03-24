@@ -48,7 +48,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "data-driven prompt optimization",
     "LLM deployment strategies",
     "code generation performance metrics",
-    "LLM capability enhancement",
+    "LLM performance scaling",
     "workflow automation techniques arxiv",
 ]
 ARXIV_MAX_RESULTS_PER_QUERY = 10
