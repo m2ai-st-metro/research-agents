@@ -69,7 +69,7 @@ TOOL_MAX_RESULTS_PER_QUERY = 10
 DOMAIN_WATCH_QUERIES: list[str] = [
     "healthcare AI home health",
     "solo developer AI tools",
-    "workflow automation AI",
+    "automated workflow AI solutions",
     "HIPAA compliant AI",
     "clinical AI diagnostic tools",
 ]
