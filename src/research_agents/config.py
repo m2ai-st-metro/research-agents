@@ -56,7 +56,7 @@ ARXIV_MIN_RELEVANCE = "medium"  # Only write signals >= this level
 
 # --- Tool/Library Monitor ---
 TOOL_SEARCH_QUERIES: list[str] = [
-    "MCP microservice",
+    "MCP architecture repository",
     "Claude API",
     "AI coding assistant",
     "LLM deployment infrastructure",
