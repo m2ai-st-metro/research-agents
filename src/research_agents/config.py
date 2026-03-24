@@ -49,7 +49,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "LLM deployment strategies",
     "code generation performance metrics",
     "LLM performance scaling",
-    "workflow automation techniques arxiv",
+    "automated workflow systems analysis",
 ]
 ARXIV_MAX_RESULTS_PER_QUERY = 10
 ARXIV_MIN_RELEVANCE = "medium"  # Only write signals >= this level
