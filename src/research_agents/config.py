@@ -57,7 +57,7 @@ ARXIV_MIN_RELEVANCE = "medium"  # Only write signals >= this level
 # --- Tool/Library Monitor ---
 TOOL_SEARCH_QUERIES: list[str] = [
     "MCP architecture repository",
-    "Claude API",
+    "Claude API integration examples",
     "AI coding assistant",
     "LLM deployment infrastructure",
     "prompt engineering framework",
