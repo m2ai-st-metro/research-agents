@@ -46,7 +46,7 @@ ARXIV_SEARCH_QUERIES: list[str] = [
     "interactive neural architectures",
     "autonomous code generation frameworks",
     "prompt tuning data analysis",
-    "LLM integration challenges",
+    "LLM deployment obstacles",
     "code generation efficiency optimization",
     "LLM performance scaling",
     "automated workflow systems analysis",
