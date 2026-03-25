@@ -254,6 +254,6 @@ GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for emerging healthcare AI startups or products focused on home health and HIPAA compliance.",
     "Search for recent AI-driven enhancements in developer tools and platforms launched within the last week",
     "Search for recent funding rounds or acquisitions in the AI developer tools space.",
-    "Search for open-source AI projects gaining traction on GitHub related to autonomous coding.",
+    "Search for recent activity and updates in open-source AI projects on GitHub focusing on code generation and automated programming tools",
 ]
 GEMINI_RESEARCH_MIN_RELEVANCE = "medium"
