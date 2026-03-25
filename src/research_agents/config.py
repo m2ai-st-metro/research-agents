@@ -44,7 +44,7 @@ OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "180"))  # Higher for CPU 
 # --- ArXiv / Paper Scanner ---
 ARXIV_SEARCH_QUERIES: list[str] = [
     "interactive neural architectures",
-    "code generation autonomous systems",
+    "autonomous code generation frameworks",
     "prompt tuning data analysis",
     "LLM integration challenges",
     "code generation efficiency optimization",
