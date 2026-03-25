@@ -59,7 +59,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "MCP architecture repository",
     "Claude API integration examples",
     "AI coding assistant",
-    "LLM deployment infrastructure",
+    "deploying large language models infrastructure",
     "prompt engineering framework",
     "AI agent development strategies",
 ]
