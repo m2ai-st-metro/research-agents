@@ -81,7 +81,7 @@ YOUTUBE_SEARCH_QUERIES: list[str] = [
     "supply chain AI automation",
     "MCP model applications in AI-driven workflow automation 2023",
     "LLM integration for enhancing AI development environments 2023",
-    "AI developer tools 2026",
+    "advanced ai coding tools and platforms 2023",
     "healthcare AI technology",
     "agentic systems integration in ai workflows 2023",
 ]
