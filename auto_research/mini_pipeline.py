@@ -387,9 +387,9 @@ def search_chatgpt(query: str, max_results: int = 10) -> list[dict]:
         import importlib
         import research_agents.config as ra_config
         importlib.reload(ra_config)
-        model = getattr(ra_config, "CHATGPT_MODEL", "gpt-4o")
+        model = getattr(ra_config, "CHATGPT_MODEL", "gpt-4.1")
     except ImportError:
-        model = "gpt-4o"
+        model = "gpt-4.1"
 
     try:
         resp = httpx.post(
