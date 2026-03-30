@@ -32,10 +32,22 @@ if [[ ${#AGENTS[@]} -eq 0 ]]; then
 fi
 
 # --- Lock file to prevent overlapping runs ---
+MAX_LOCK_AGE_SECONDS=3600  # 1 hour — no single run should take longer
+
 if [[ -f "$LOCK_FILE" ]]; then
     LOCK_PID=$(cat "$LOCK_FILE" 2>/dev/null || echo "")
-    if [[ -n "$LOCK_PID" ]] && kill -0 "$LOCK_PID" 2>/dev/null; then
-        echo "$LOG_PREFIX Another run is active (PID $LOCK_PID). Exiting."
+    LOCK_AGE=0
+    if [[ -f "$LOCK_FILE" ]]; then
+        LOCK_CREATED=$(stat -c %Y "$LOCK_FILE" 2>/dev/null || echo 0)
+        NOW=$(date +%s)
+        LOCK_AGE=$(( NOW - LOCK_CREATED ))
+    fi
+
+    if [[ "$LOCK_AGE" -ge "$MAX_LOCK_AGE_SECONDS" ]]; then
+        echo "$LOG_PREFIX Lock file is ${LOCK_AGE}s old (max ${MAX_LOCK_AGE_SECONDS}s). Force-removing stale lock (PID $LOCK_PID)."
+        rm -f "$LOCK_FILE"
+    elif [[ -n "$LOCK_PID" ]] && kill -0 "$LOCK_PID" 2>/dev/null; then
+        echo "$LOG_PREFIX Another run is active (PID $LOCK_PID, age ${LOCK_AGE}s). Exiting."
         exit 1
     else
         echo "$LOG_PREFIX Stale lock file found (PID $LOCK_PID not running). Removing."

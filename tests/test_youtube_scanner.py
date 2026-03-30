@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 # Ensure Snow-Town contracts are importable
-SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-factory"
+SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-records"
 if str(SNOW_TOWN_ROOT) not in sys.path:
     sys.path.insert(0, str(SNOW_TOWN_ROOT))
 
@@ -251,11 +251,13 @@ class TestGetTranscript:
 
 class TestGetTranscriptApi:
 
-    @patch("research_agents.agents.youtube_scanner.YouTubeTranscriptApi", create=True)
-    def test_extracts_transcript(self, mock_yt_class):
-        # We need to mock at the import level
+    def test_extracts_transcript(self):
+        # v1.x API: YouTubeTranscriptApi().fetch(video_id) returns objects with .text
+        entries = [MagicMock(text=e["text"]) for e in SAMPLE_TRANSCRIPT]
+        mock_yt_class = MagicMock()
+        mock_yt_class.return_value.fetch.return_value = entries
         mock_module = MagicMock()
-        mock_module.YouTubeTranscriptApi.get_transcript.return_value = SAMPLE_TRANSCRIPT
+        mock_module.YouTubeTranscriptApi = mock_yt_class
 
         with patch.dict("sys.modules", {"youtube_transcript_api": mock_module}):
             result = _get_transcript_api("abc123")

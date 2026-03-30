@@ -5,10 +5,10 @@ from pathlib import Path
 
 import pytest
 
-# Ensure ST Factory contracts are importable in tests
-SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-factory"
-if str(SNOW_TOWN_ROOT) not in sys.path:
-    sys.path.insert(0, str(SNOW_TOWN_ROOT))
+# Ensure ST Records contracts are importable in tests
+ST_RECORDS_ROOT = Path(__file__).resolve().parent.parent.parent / "st-records"
+if str(ST_RECORDS_ROOT) not in sys.path:
+    sys.path.insert(0, str(ST_RECORDS_ROOT))
 
 from contracts.store import ContractStore
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 
-from .config import IMPROVEMENT_THRESHOLD, MIN_SIGNALS_PER_EXPERIMENT
+from .config import IMPROVEMENT_THRESHOLD, MIN_SIGNALS_PER_AGENT, MIN_SIGNALS_PER_EXPERIMENT
 from .mini_pipeline import ExperimentResult
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ def compare(
     baseline: ExperimentResult,
     variant: ExperimentResult,
     threshold: float = IMPROVEMENT_THRESHOLD,
-    min_signals: int = MIN_SIGNALS_PER_EXPERIMENT,
+    min_signals: int | None = None,
 ) -> Comparison:
     """Compare a variant result against the baseline.
 
@@ -46,6 +46,10 @@ def compare(
     2. Variant non-dismiss rate must exceed baseline by threshold
     3. Avg weighted score must not drop (guardrail)
     """
+    # Use per-agent override if available, else default
+    if min_signals is None:
+        min_signals = MIN_SIGNALS_PER_AGENT.get(agent, MIN_SIGNALS_PER_EXPERIMENT)
+
     # Check minimum data threshold
     if baseline.signals_relevant < min_signals:
         return Comparison(

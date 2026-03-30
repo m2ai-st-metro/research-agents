@@ -25,7 +25,8 @@ EXPERIMENT_AGENTS: list[str] = [
     # "rss" excluded — RSS_FEEDS is a list of {name, url, parser} dicts,
     # not search queries. Mutations change feed names, not search behavior.
     "perplexity",
-    "chatgpt",
+    # "chatgpt" disabled — ceiling NDR problem (baseline 1.0, can't improve).
+    # Replaced by ClaudeClaw scheduled task: Nate Newsletter Digester (task 3cd0ba31).
     "gemini_research",
 ]
 
@@ -37,10 +38,18 @@ PAID_QUERY_AGENTS: list[str] = [
 ]
 
 VARIANTS_PER_AGENT = 1  # Number of query variants to test per agent per run
-IMPROVEMENT_THRESHOLD = 0.15  # 15% improvement required for auto-commit
+IMPROVEMENT_THRESHOLD = 0.20  # 20% improvement required for auto-commit (raised from 15%)
 ROLLBACK_THRESHOLD = 0.10  # 10% weekly drop triggers rollback
-MIN_SIGNALS_PER_EXPERIMENT = 5  # Minimum signals for valid comparison
+AUTO_COMMIT_ENABLED = False  # Set True after validating 5-10 winners manually
+MIN_SIGNALS_PER_EXPERIMENT = 2  # Lowered from 5: most agents produce 0.5-4 signals/query/run
 MAX_CLAUDE_VALIDATIONS = 3  # Top N winners to validate via Claude API
+
+# Per-agent minimum signal overrides. Data from 1900 signals over 28 days shows
+# per-query yields: tool_monitor ~4, arxiv ~1.6, perplexity ~1.8, youtube ~0.5.
+# A threshold of 5 would reject every agent except tool_monitor.
+MIN_SIGNALS_PER_AGENT: dict[str, int] = {
+    "tool_monitor": 3,  # highest yield agent, can afford a higher bar
+}
 
 # --- Scoring (mirrors IdeaForge config) ---
 SCORE_WEIGHTS: dict[str, float] = {

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from datetime import datetime, timedelta
 
 from ..claude_client import get_client
@@ -39,6 +40,38 @@ def _get_recent_signals(days: int = 7) -> list[ResearchSignal]:
         store.close()
 
 
+def _try_parse_ideas_json(text: str) -> list[dict] | None:
+    """Try to extract and parse ideas JSON from LLM output.
+
+    Returns list of idea dicts on success, None on failure.
+    """
+    # Strip markdown fences (may appear after prose preamble)
+    fence_match = re.search(r'```(?:json)?\s*\n([\s\S]*?)```', text)
+    if fence_match:
+        text = fence_match.group(1).strip()
+    else:
+        # No fences — extract the outermost JSON object
+        match = re.search(r'\{[\s\S]*\}', text)
+        if match:
+            text = match.group(0)
+
+    try:
+        result = json.loads(text)
+        # Handle both {"ideas": [...]} envelope and bare idea object
+        if "ideas" in result:
+            return result["ideas"]
+        elif "title" in result and "description" in result:
+            # Model returned a single idea without the envelope
+            logger.info("Response was a bare idea object — wrapping in list")
+            return [result]
+        else:
+            logger.warning(f"Parsed JSON but unexpected structure: {list(result.keys())}")
+            return None
+    except json.JSONDecodeError:
+        logger.warning(f"Failed to parse JSON from LLM response: {text[:200]}")
+        return None
+
+
 def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> list[dict]:
     """Use Claude to synthesize signals into actionable project ideas.
 
@@ -46,6 +79,18 @@ def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> l
     """
     if not signals or dry_run:
         return []
+
+    # Cap signals to avoid blowing the context window.
+    # Prioritize high-relevance signals, then sort by recency.
+    MAX_SIGNALS = 75
+    if len(signals) > MAX_SIGNALS:
+        high = [s for s in signals if s.relevance.value == "high"]
+        medium = [s for s in signals if s.relevance.value == "medium"]
+        # Take all high, fill remaining with medium (most recent first)
+        high.sort(key=lambda s: s.emitted_at, reverse=True)
+        medium.sort(key=lambda s: s.emitted_at, reverse=True)
+        signals = (high + medium)[:MAX_SIGNALS]
+        logger.info(f"Capped to {len(signals)} signals ({len(high)} high, rest medium)")
 
     # Format signals for the prompt
     signal_summaries = []
@@ -107,33 +152,61 @@ Rules:
 - Each idea MUST have a non-empty problem_statement and target_audience
 - If no clear ideas emerge from the signals, return {{"ideas": []}}
 - Avoid: healthcare compliance, enterprise platforms, ideas requiring large teams
-- Maximum 3 ideas per synthesis run"""
+- Maximum 6 ideas per synthesis run"""
 
     client = get_client()
     response = client.chat.completions.create(
         model=CLAUDE_MODEL,
         max_tokens=CLAUDE_MAX_TOKENS,
-        messages=[{"role": "user", "content": prompt}],
+        messages=[
+            {"role": "system", "content": "You are a JSON-only responder. Output ONLY valid JSON with no prose, no markdown fences, no explanation. Start your response with '{'."},
+            {"role": "user", "content": prompt},
+        ],
     )
 
-    text = response.choices[0].message.content.strip()
+    raw_text = response.choices[0].message.content.strip()
+    parsed = _try_parse_ideas_json(raw_text)
 
-    # Robust JSON extraction: handle markdown fences and/or prose preamble
-    if text.startswith("```"):
-        text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-    else:
-        # Claude may prefix the JSON with prose — extract the first JSON object/array
-        import re
-        match = re.search(r'\{[\s\S]*\}', text)
-        if match:
-            text = match.group(0)
+    if parsed is not None:
+        return parsed
 
-    try:
-        result = json.loads(text)
-        return result.get("ideas", [])
-    except json.JSONDecodeError:
-        logger.warning(f"Failed to parse synthesis response: {text[:200]}")
-        return []
+    # --- Retry: LLM returned prose or malformed JSON. Ask once more. ---
+    logger.warning("First LLM response was not valid JSON — retrying with stronger prompt")
+    retry_response = client.chat.completions.create(
+        model=CLAUDE_MODEL,
+        max_tokens=CLAUDE_MAX_TOKENS,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You MUST respond with ONLY valid JSON. "
+                    "No prose, no markdown, no explanation. "
+                    "Just the JSON object starting with '{'. "
+                    "Do not wrap in code fences."
+                ),
+            },
+            {"role": "user", "content": prompt},
+            {"role": "assistant", "content": raw_text},
+            {
+                "role": "user",
+                "content": (
+                    "Your previous response could not be parsed as JSON. "
+                    "Please respond with ONLY the JSON object in the exact format "
+                    'requested: {"ideas": [...]}. No other text.'
+                ),
+            },
+        ],
+    )
+
+    retry_text = retry_response.choices[0].message.content.strip()
+    parsed = _try_parse_ideas_json(retry_text)
+
+    if parsed is not None:
+        logger.info("Retry succeeded — parsed JSON on second attempt")
+        return parsed
+
+    logger.warning(f"Retry also failed to produce valid JSON: {retry_text[:200]}")
+    return []
 
 
 def _mark_signals_consumed(signal_ids: list[str]) -> None:
@@ -172,7 +245,6 @@ def run_agent(dry_run: bool = False) -> str:
     logger.info(f"Synthesized {len(ideas)} ideas")
 
     written = 0
-    consumed_signal_ids: list[str] = []
 
     # Build signal ID -> source mapping for provenance
     signal_source_map: dict[str, str] = {}
@@ -200,14 +272,10 @@ def run_agent(dry_run: bool = False) -> str:
         logger.info(f"Wrote idea #{idea_id} to IdeaForge: {idea['title']}")
         written += 1
 
-        # Track which signals were consumed
-        for sid in idea.get("source_signal_ids", []):
-            if sid not in consumed_signal_ids:
-                consumed_signal_ids.append(sid)
-
-    # Mark consumed signals
-    if consumed_signal_ids:
-        _mark_signals_consumed(consumed_signal_ids)
-        logger.info(f"Marked {len(consumed_signal_ids)} signals as consumed")
+    # Mark ALL input signals as consumed (not just LLM-referenced ones —
+    # the LLM returns made-up IDs that don't match actual signal_ids).
+    all_input_ids = [s.signal_id for s in signals]
+    _mark_signals_consumed(all_input_ids)
+    logger.info(f"Marked {len(all_input_ids)} signals as consumed")
 
     return f"Synthesized {written} ideas from {len(signals)} signals"

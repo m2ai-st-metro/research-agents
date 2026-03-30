@@ -29,7 +29,7 @@ Requires `~/.env.shared` with:
 - `ANTHROPIC_API_KEY` - for Claude relevance assessment
 
 Optional overrides:
-- `SNOW_TOWN_ROOT` - defaults to `~/projects/st-factory`
+- `ST_RECORDS_ROOT` - defaults to `~/projects/st-records`
 - `IDEA_CATCHER_DB` - defaults to `~/projects/ultra-magnus/idea-catcher/data/caught_ideas.db`
 
 ## Agent Entry Points

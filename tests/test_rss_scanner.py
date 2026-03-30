@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 # Ensure Snow-Town contracts are importable
-SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-factory"
+SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-records"
 if str(SNOW_TOWN_ROOT) not in sys.path:
     sys.path.insert(0, str(SNOW_TOWN_ROOT))
 

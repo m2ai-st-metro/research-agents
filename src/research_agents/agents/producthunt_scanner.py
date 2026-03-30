@@ -15,7 +15,6 @@ from calendar import timegm
 from datetime import datetime, timedelta, timezone
 
 import feedparser  # type: ignore[import-untyped]
-from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 
 from ..claude_client import assess_relevance, get_client
 from ..config import (
@@ -24,7 +23,9 @@ from ..config import (
     PRODUCTHUNT_MIN_RELEVANCE,
     PRODUCTHUNT_RSS_URL,
 )
-from ..signal_writer import get_store, signal_exists, write_signal
+from ..signal_writer import get_store, signal_exists, write_signal  # noqa: E402 — must come before contracts (injects sys.path)
+
+from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 
 logger = logging.getLogger(__name__)
 

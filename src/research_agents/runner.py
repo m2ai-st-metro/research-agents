@@ -9,9 +9,9 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from .config import CADENCE, SNOW_TOWN_ROOT, ULTRA_MAGNUS_DB
+from .config import CADENCE, ST_RECORDS_ROOT, ULTRA_MAGNUS_DB
 
-app = typer.Typer(name="research-agents", help="Ambient research intelligence for Snow-Town.")
+app = typer.Typer(name="research-agents", help="Ambient research intelligence for ST Records.")
 console = Console()
 logger = logging.getLogger(__name__)
 
@@ -103,8 +103,8 @@ def status() -> None:
     table.add_column("Setting", style="bold")
     table.add_column("Value")
 
-    table.add_row("Snow-Town root", str(SNOW_TOWN_ROOT))
-    table.add_row("Snow-Town DB", str(SNOW_TOWN_ROOT / "data" / "persona_metrics.db"))
+    table.add_row("ST Records root", str(ST_RECORDS_ROOT))
+    table.add_row("ST Records DB", str(ST_RECORDS_ROOT / "data" / "persona_metrics.db"))
     table.add_row("Ultra-Magnus DB", str(ULTRA_MAGNUS_DB))
 
     for agent_name, cadence in CADENCE.items():
@@ -114,7 +114,7 @@ def status() -> None:
 
     # Try to load signal counts
     try:
-        sys.path.insert(0, str(SNOW_TOWN_ROOT))
+        sys.path.insert(0, str(ST_RECORDS_ROOT))
         from contracts import ContractStore
         store = ContractStore()
         try:

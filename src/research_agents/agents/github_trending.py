@@ -2,7 +2,7 @@
 
 Searches GitHub for recently created/updated repositories with significant
 star counts across key languages. Assesses relevance with persona-awareness
-tagging, then writes signals to ST Factory ContractStore.
+tagging, then writes signals to ST Records ContractStore.
 
 Signal IDs prefixed with `github_trending-` for A1 source tracking.
 """
@@ -16,10 +16,10 @@ import time
 
 import httpx
 
-from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
-
 from ..claude_client import assess_relevance, get_client
-from ..signal_writer import get_store, signal_exists, write_signal
+from ..signal_writer import get_store, signal_exists, write_signal  # noqa: E402 — must come before contracts (injects sys.path)
+
+from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 
 logger = logging.getLogger(__name__)
 

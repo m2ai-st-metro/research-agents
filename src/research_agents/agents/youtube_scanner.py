@@ -2,7 +2,7 @@
 
 Scans YouTube for trending/popular videos in AI, tech, and supply chain topics.
 Extracts transcripts, summarizes via Gemini Flash, generates Mermaid diagrams
-of key concepts, and writes ResearchSignal records to ST Factory ContractStore.
+of key concepts, and writes ResearchSignal records to ST Records ContractStore.
 """
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ def _make_signal_id(video_id: str) -> str:
 
 
 def _search_youtube_api(
-    query: str, api_key: str, max_results: int = 5
+    query: str, api_key: str, max_results: int = 5, order: str = "relevance"
 ) -> list[dict]:
     """Search YouTube Data API v3 for videos matching the query.
 
@@ -60,7 +60,7 @@ def _search_youtube_api(
         "part": "snippet",
         "q": query,
         "type": "video",
-        "order": "relevance",
+        "order": order,
         "maxResults": min(max_results, 50),
         "relevanceLanguage": "en",
         "videoDuration": "medium",  # 4-20 minutes (good content length)
@@ -212,12 +212,12 @@ def _search_youtube_fallback(query: str, max_results: int = 5) -> list[dict]:
     return videos
 
 
-def search_youtube(query: str, max_results: int = 5) -> list[dict]:
+def search_youtube(query: str, max_results: int = 5, order: str = "relevance") -> list[dict]:
     """Search YouTube for videos. Uses API if key available, else yt-dlp fallback."""
     api_key = _get_youtube_api_key()
     if api_key:
-        logger.info(f"Using YouTube Data API v3 for search: '{query}'")
-        return _search_youtube_api(query, api_key, max_results)
+        logger.info(f"Using YouTube Data API v3 for search: '{query}' (order={order})")
+        return _search_youtube_api(query, api_key, max_results, order=order)
     else:
         logger.info(f"No YouTube API key, using yt-dlp fallback for: '{query}'")
         return _search_youtube_fallback(query, max_results)
@@ -402,8 +402,9 @@ def _get_transcript_api(video_id: str) -> str | None:
         return None
 
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-        parts = [entry["text"] for entry in transcript_list]
+        api = YouTubeTranscriptApi()
+        transcript_list = api.fetch(video_id)
+        parts = [entry.text for entry in transcript_list]
         full_text = " ".join(parts)
         return full_text[:YOUTUBE_TRANSCRIPT_MAX_CHARS]
     except Exception as e:
@@ -532,9 +533,11 @@ def run_agent(dry_run: bool = False) -> str:
         time.sleep(1.0)  # Rate limit between channel fetches
 
     # Phase 2: Topic search queries
-    for query in YOUTUBE_SEARCH_QUERIES:
-        logger.info(f"Searching YouTube: '{query}'")
-        videos = search_youtube(query, max_results=YOUTUBE_MAX_RESULTS_PER_QUERY)
+    # Alternate between relevance and date ordering to balance quality and freshness
+    for i, query in enumerate(YOUTUBE_SEARCH_QUERIES):
+        order = "date" if i % 2 == 0 else "relevance"
+        logger.info(f"Searching YouTube: '{query}' (order={order})")
+        videos = search_youtube(query, max_results=YOUTUBE_MAX_RESULTS_PER_QUERY, order=order)
         video_batches.append((f"search:{query}", videos))
 
     # Process all batches through the same pipeline

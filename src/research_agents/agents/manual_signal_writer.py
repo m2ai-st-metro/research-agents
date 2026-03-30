@@ -22,7 +22,7 @@ from ..claude_client import assess_relevance, get_client
 from ..config import FIRECRAWL_API_KEY_ENV
 from ..signal_writer import signal_exists, write_signal
 
-# Must come after signal_writer (which injects st-factory into sys.path)
+# Must come after signal_writer (which injects st-records into sys.path)
 from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 
 logger = logging.getLogger(__name__)

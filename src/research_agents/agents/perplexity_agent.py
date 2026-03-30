@@ -11,6 +11,7 @@ import hashlib
 import json
 import logging
 import os
+import re
 import time
 from typing import Any
 
@@ -29,7 +30,7 @@ from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E40
 
 logger = logging.getLogger(__name__)
 
-PERPLEXITY_API_URL = "https://api.perplexity.ai/chat/completions"
+PERPLEXITY_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 RELEVANCE_ORDER = {"high": 3, "medium": 2, "low": 1}
 
@@ -83,6 +84,8 @@ def _call_perplexity(query: str, api_key: str) -> dict[str, Any]:
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
+        "HTTP-Referer": "https://github.com/m2ai-portfolio",
+        "X-Title": "ST Metro Research Agents",
     }
     payload = {
         "model": PERPLEXITY_MODEL,
@@ -107,9 +110,10 @@ def _call_perplexity(query: str, api_key: str) -> dict[str, Any]:
     # Extract citations if available
     citations = data.get("citations", [])
 
-    # Handle markdown code blocks
-    if text.startswith("```"):
-        text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    # Strip prose preamble and markdown code fences (sonar-pro sometimes prepends headers)
+    fence_match = re.search(r"```(?:json)?\s*\n([\s\S]*?)```", text)
+    if fence_match:
+        text = fence_match.group(1).strip()
 
     try:
         result = json.loads(text)

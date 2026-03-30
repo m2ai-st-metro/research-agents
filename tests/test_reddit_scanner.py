@@ -6,9 +6,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-SNOW_TOWN_ROOT = Path(__file__).resolve().parent.parent.parent / "st-factory"
-if str(SNOW_TOWN_ROOT) not in sys.path:
-    sys.path.insert(0, str(SNOW_TOWN_ROOT))
+ST_RECORDS_ROOT = Path(__file__).resolve().parent.parent.parent / "st-records"
+if str(ST_RECORDS_ROOT) not in sys.path:
+    sys.path.insert(0, str(ST_RECORDS_ROOT))
 
 from research_agents.agents.reddit_scanner import (
     _fetch_subreddit_hot,

@@ -29,7 +29,7 @@ from ..config import (
 )
 from ..signal_writer import get_store, signal_exists, write_signal
 
-# Must come after signal_writer (which injects st-factory into sys.path)
+# Must come after signal_writer (which injects st-records into sys.path)
 from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 
 logger = logging.getLogger(__name__)

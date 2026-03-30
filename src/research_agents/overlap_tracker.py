@@ -15,14 +15,14 @@ from datetime import datetime, timedelta, timezone
 from itertools import combinations
 from pathlib import Path
 
-from .config import DATA_DIR, SNOW_TOWN_ROOT
+from .config import DATA_DIR, ST_RECORDS_ROOT
 
 logger = logging.getLogger(__name__)
 
-# Ensure st-factory contracts importable
-_snow_town_path = str(SNOW_TOWN_ROOT)
-if _snow_town_path not in sys.path:
-    sys.path.insert(0, _snow_town_path)
+# Ensure st-records contracts importable
+_st_records_path = str(ST_RECORDS_ROOT)
+if _st_records_path not in sys.path:
+    sys.path.insert(0, _st_records_path)
 
 from contracts.store import ContractStore  # noqa: E402
 
@@ -64,7 +64,7 @@ def compute_pairwise_overlap(
     Returns:
         Dict mapping "source_a vs source_b" to Jaccard similarity score.
     """
-    store_dir = data_dir or (SNOW_TOWN_ROOT / "data")
+    store_dir = data_dir or (ST_RECORDS_ROOT / "data")
     store = ContractStore(data_dir=store_dir)
 
     try:

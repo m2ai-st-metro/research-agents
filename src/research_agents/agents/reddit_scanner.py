@@ -14,7 +14,6 @@ import logging
 import time
 
 import httpx
-from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 
 from ..claude_client import assess_relevance, get_client
 from ..config import (
@@ -23,6 +22,9 @@ from ..config import (
     REDDIT_POSTS_PER_SUBREDDIT,
     REDDIT_SUBREDDITS,
 )
+from ..signal_writer import get_store, signal_exists, write_signal  # noqa: E402 — must come before contracts (injects sys.path)
+
+from contracts.research_signal import SignalRelevance, SignalSource  # noqa: E402
 from ..signal_writer import get_store, signal_exists, write_signal
 
 logger = logging.getLogger(__name__)

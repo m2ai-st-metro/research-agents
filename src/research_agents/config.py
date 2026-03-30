@@ -9,9 +9,9 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 
-SNOW_TOWN_ROOT = Path(os.environ.get(
-    "SNOW_TOWN_ROOT",
-    str(Path.home() / "projects" / "st-factory"),
+ST_RECORDS_ROOT = Path(os.environ.get(
+    "ST_RECORDS_ROOT",
+    str(Path.home() / "projects" / "st-records"),
 ))
 
 ULTRA_MAGNUS_DB = Path(os.environ.get(
@@ -25,9 +25,9 @@ IDEAFORGE_DB = Path(os.environ.get(
 ))
 
 
-def get_snow_town_db() -> Path:
-    """Return path to Snow-Town persona_metrics.db."""
-    return SNOW_TOWN_ROOT / "data" / "persona_metrics.db"
+def get_st_records_db() -> Path:
+    """Return path to ST Records persona_metrics.db."""
+    return ST_RECORDS_ROOT / "data" / "persona_metrics.db"
 
 
 # --- Claude API via DeepInfra (used only for idea synthesis) ---
@@ -77,15 +77,15 @@ DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
 
 # --- YouTube Trending Scanner ---
 YOUTUBE_SEARCH_QUERIES: list[str] = [
-    "autonomous coding assistants in AI development 2023",
-    "supply chain AI automation",
-    "MCP model in AI workflow optimization techniques 2023",
-    "LLM integration for enhancing AI development environments 2023",
-    "advanced ai coding tools and platforms 2023",
-    "healthcare AI technology",
-    "agentic systems integration in ai workflows 2023",
+    "autonomous coding assistants AI development",
+    "AI agent frameworks MCP tool use",
+    "solo developer AI tools automation",
+    "LLM integration AI development environments",
+    "advanced ai coding tools platforms",
+    "healthcare AI technology home health",
+    "agentic systems AI workflows orchestration",
 ]
-YOUTUBE_MAX_RESULTS_PER_QUERY = 5
+YOUTUBE_MAX_RESULTS_PER_QUERY = 10
 YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
 YOUTUBE_TRANSCRIPT_MAX_CHARS = 15000  # Truncate transcripts for summarization
 YOUTUBE_API_KEY_ENV = "YOUTUBE_API_KEY"  # env var name for YouTube Data API v3 key
@@ -94,6 +94,11 @@ YOUTUBE_API_KEY_ENV = "YOUTUBE_API_KEY"  # env var name for YouTube Data API v3 
 # Supports both channel IDs (UC...) and handles (@name).
 YOUTUBE_CHANNELS: list[dict[str, str]] = [
     {"name": "Nate B Jones", "handle": "@natebjones"},
+    {"name": "Matt Wolfe", "handle": "@maboroshi"},
+    {"name": "AI Jason", "handle": "@AIJasonZ"},
+    {"name": "Matthew Berman", "handle": "@matthew_berman"},
+    {"name": "David Ondrej", "handle": "@DavidOndrej"},
+    {"name": "Fireship", "handle": "@Fireship"},
 ]
 YOUTUBE_CHANNEL_MAX_VIDEOS = 5  # Recent uploads to check per channel per run
 
@@ -220,9 +225,9 @@ FIRECRAWL_ENRICH_MAX_CHARS = 3000  # Truncate scraped content for relevance re-a
 # --- Manual Signal Ingest ---
 MANUAL_MIN_RELEVANCE = "low"  # Accept anything -- Matthew curated it
 
-# --- Perplexity Research Agent ---
-PERPLEXITY_API_KEY_ENV = "PERPLEXITY_API_KEY"
-PERPLEXITY_MODEL = "sonar-pro"
+# --- Perplexity Research Agent (routed via OpenRouter) ---
+PERPLEXITY_API_KEY_ENV = "OPENROUTER_API_KEY"
+PERPLEXITY_MODEL = "perplexity/sonar-pro"
 PERPLEXITY_MAX_TOKENS = 4096
 PERPLEXITY_RESEARCH_QUERIES: list[str] = [
     "What are the biggest emerging pain points for solo AI developers this week?",

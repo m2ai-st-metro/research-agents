@@ -6,22 +6,22 @@ import logging
 import sys
 from pathlib import Path
 
-from .config import SNOW_TOWN_ROOT
+from .config import ST_RECORDS_ROOT
 
 logger = logging.getLogger(__name__)
 
-# Add Snow-Town to sys.path so we can import contracts
-_snow_town_path = str(SNOW_TOWN_ROOT)
-if _snow_town_path not in sys.path:
-    sys.path.insert(0, _snow_town_path)
+# Add st-records to sys.path so we can import contracts
+_st_records_path = str(ST_RECORDS_ROOT)
+if _st_records_path not in sys.path:
+    sys.path.insert(0, _st_records_path)
 
 from contracts import ContractStore  # noqa: E402
 from contracts.research_signal import ResearchSignal, SignalRelevance, SignalSource  # noqa: E402
 
 
 def get_store(db_path: Path | None = None) -> ContractStore:
-    """Get a ContractStore instance pointing to Snow-Town data."""
-    data_dir = SNOW_TOWN_ROOT / "data"
+    """Get a ContractStore instance pointing to ST Records data."""
+    data_dir = ST_RECORDS_ROOT / "data"
     return ContractStore(data_dir=data_dir, db_path=db_path)
 
 

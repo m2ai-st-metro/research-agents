@@ -14,6 +14,7 @@ from pathlib import Path
 from .committer import commit_winner
 from .config import (
     AGENT_QUERY_KEYS,
+    AUTO_COMMIT_ENABLED,
     EXPERIMENT_AGENTS,
     IMPROVEMENT_THRESHOLD,
     MAX_CLAUDE_VALIDATIONS,
@@ -201,27 +202,35 @@ def run_experiments(
                     notes=comparison.reason,
                 )
 
-                # Auto-commit winners
+                # Commit winners (gated by AUTO_COMMIT_ENABLED)
                 if comparison.is_winner:
-                    logger.info(
-                        "AUTO-COMMIT: %s query '%s' -> '%s' (+%.1f%% NDR)",
-                        agent, baseline_query, variant_query,
-                        comparison.improvement_pct * 100,
-                    )
-                    committed = commit_winner(
-                        conn=conn,
-                        experiment_id=exp_id,
-                        agent=agent,
-                        param_name=param_name,
-                        old_query=baseline_query,
-                        new_query=variant_query,
-                        improvement_pct=comparison.improvement_pct,
-                        dry_run=dry_run,
-                    )
-                    if committed:
-                        logger.info("Committed successfully.")
+                    if AUTO_COMMIT_ENABLED:
+                        logger.info(
+                            "AUTO-COMMIT: %s query '%s' -> '%s' (+%.1f%% NDR)",
+                            agent, baseline_query, variant_query,
+                            comparison.improvement_pct * 100,
+                        )
+                        committed = commit_winner(
+                            conn=conn,
+                            experiment_id=exp_id,
+                            agent=agent,
+                            param_name=param_name,
+                            old_query=baseline_query,
+                            new_query=variant_query,
+                            improvement_pct=comparison.improvement_pct,
+                            dry_run=dry_run,
+                        )
+                        if committed:
+                            logger.info("Committed successfully.")
+                        else:
+                            logger.warning("Commit failed — query may have changed since experiment started.")
                     else:
-                        logger.warning("Commit failed — query may have changed since experiment started.")
+                        logger.info(
+                            "WINNER (pending review): %s query '%s' -> '%s' (+%.1f%% NDR). "
+                            "Set AUTO_COMMIT_ENABLED=True in config to auto-apply.",
+                            agent, baseline_query, variant_query,
+                            comparison.improvement_pct * 100,
+                        )
 
                 # Rate limit between agents
                 time.sleep(5)

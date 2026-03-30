@@ -11,11 +11,11 @@ research-agents status
 
 ## Project Purpose
 
-Ambient research intelligence for ST Factory's self-correcting feedback loop. Four agents scan papers, tools, adjacent domains, and synthesize findings into ideas — all writing to ST Factory's ContractStore as `ResearchSignal` records.
+Ambient research intelligence for ST Records' self-correcting feedback loop. Four agents scan papers, tools, adjacent domains, and synthesize findings into ideas -- all writing to ST Records' ContractStore as `ResearchSignal` records.
 
 ## Architecture
 
-- Signal producers (agents) write `ResearchSignal` to ST Factory ContractStore
+- Signal producers (agents) write `ResearchSignal` to ST Records ContractStore
 - Sky-Lynx reads signals via `research_reader.py` during weekly analysis
 - Idea surfacer writes to IdeaForge `ideaforge.db` (status='unscored')
 - Claude API (Sonnet) handles relevance assessment
@@ -23,7 +23,7 @@ Ambient research intelligence for ST Factory's self-correcting feedback loop. Fo
 ## Data Flow
 
 ```
-Agents → ResearchSignal (JSONL + SQLite in st-factory/data/)
+Agents → ResearchSignal (JSONL + SQLite in st-records/data/)
 Sky-Lynx reads signals → includes in weekly analysis prompt
 Idea surfacer → ideaforge.db (IdeaForge, status='unscored')
 IdeaForge scores + classifies → Metroplex triages
@@ -38,7 +38,7 @@ IdeaForge scores + classifies → Metroplex triages
 
 ## Dependencies
 
-- ST Factory contracts (via sys.path, not pip)
+- ST Records contracts (via sys.path, not pip)
 - IdeaForge ideaforge.db (direct SQLite for idea surfacer, config: IDEAFORGE_DB)
 - Anthropic API for relevance assessment
 
