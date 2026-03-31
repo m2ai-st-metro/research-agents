@@ -204,6 +204,9 @@ RSS_FEEDS: list[dict[str, str]] = [
         "parser": "feedparser",
     },
     {"name": "The Batch", "url": "https://www.deeplearning.ai/the-batch/", "parser": "firecrawl"},
+    {"name": "Dev.to AI", "url": "https://dev.to/feed/tag/ai", "parser": "feedparser"},
+    {"name": "Dev.to MCP", "url": "https://dev.to/feed/tag/mcp", "parser": "feedparser"},
+    {"name": "Dev.to CLI", "url": "https://dev.to/feed/tag/cli", "parser": "feedparser"},
 ]
 RSS_MIN_RELEVANCE = "medium"
 RSS_LOOKBACK_DAYS = 3  # Ignore articles older than this
