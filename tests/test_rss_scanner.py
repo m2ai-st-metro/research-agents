@@ -129,7 +129,6 @@ class TestRunAgent:
             "relevance_rationale": "Directly relevant",
             "tags": ["mcp", "agents"],
             "domain": "ai-agents",
-            "persona_tags": ["carmack"],
         }
 
         with patch("research_agents.agents.rss_scanner.get_store", return_value=store):
@@ -139,7 +138,6 @@ class TestRunAgent:
         signals = store.read_signals()
         assert len(signals) == 1
         assert signals[0].source == SignalSource.RSS_SCANNER
-        assert "persona:carmack" in signals[0].tags
 
     @patch("research_agents.agents.rss_scanner._fetch_via_feedparser")
     @patch("research_agents.agents.rss_scanner.RSS_FEEDS", [{"name": "Test", "url": "x", "parser": "feedparser"}])

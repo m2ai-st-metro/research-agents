@@ -159,8 +159,6 @@ def run_agent(dry_run: bool = False) -> str:
                         logger.info(f"  Enriched via Firecrawl: {repo['full_name']}")
 
                 tags = assessment.get("tags", [])
-                for persona in assessment.get("persona_tags", []):
-                    tags.append(f"persona:{persona}")
                 if enriched:
                     tags.append("firecrawl-enriched")
 

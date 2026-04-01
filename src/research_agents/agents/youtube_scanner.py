@@ -614,8 +614,6 @@ def run_agent(dry_run: bool = False) -> str:
                         + summary_data.get("tags", [])
                     )
                 )
-                for persona in assessment.get("persona_tags", []):
-                    tags.append(f"persona:{persona}")
 
                 # Build raw_data with Mermaid diagram and metadata
                 raw_data: dict = {

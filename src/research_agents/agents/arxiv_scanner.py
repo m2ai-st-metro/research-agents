@@ -150,10 +150,7 @@ def run_agent(dry_run: bool = False) -> str:
                     logger.debug(f"  Skipped (low relevance): {paper['title'][:60]}")
                     continue
 
-                # Combine persona tags into regular tags
                 tags = assessment.get("tags", [])
-                for persona in assessment.get("persona_tags", []):
-                    tags.append(f"persona:{persona}")
 
                 write_signal(
                     signal_id=signal_id,

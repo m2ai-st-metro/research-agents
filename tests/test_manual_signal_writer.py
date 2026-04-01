@@ -75,7 +75,6 @@ class TestIngestSignal:
             "relevance_rationale": "Very relevant",
             "tags": ["mcp"],
             "domain": "ai-agents",
-            "persona_tags": [],
         }
 
         result = ingest_signal("https://example.com/article")
@@ -99,7 +98,6 @@ class TestIngestSignal:
             "relevance_rationale": "Somewhat relevant",
             "tags": ["llm"],
             "domain": None,
-            "persona_tags": ["hopper"],
         }
 
         result = ingest_signal("LLM self-play for code review")
@@ -112,4 +110,3 @@ class TestIngestSignal:
         # Should have "manual" tag
         tags = call_kwargs.kwargs["tags"]
         assert "manual" in tags
-        assert "persona:hopper" in tags

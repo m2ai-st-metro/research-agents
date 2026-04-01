@@ -140,8 +140,6 @@ def ingest_signal(url_or_topic: str, dry_run: bool = False) -> str:
 
     tags: list[str] = assessment.get("tags", [])
     tags.append("manual")
-    for persona in assessment.get("persona_tags", []):
-        tags.append(f"persona:{persona}")
 
     write_signal(
         signal_id=signal_id,

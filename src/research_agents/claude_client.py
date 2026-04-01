@@ -47,7 +47,6 @@ def assess_relevance(
         relevance_rationale: str
         tags: list[str]
         domain: str | None
-        persona_tags: list[str]
     """
     return assess_relevance_ollama(
         title=title,

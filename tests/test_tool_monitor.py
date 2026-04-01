@@ -124,7 +124,6 @@ class TestRunAgent:
             "relevance_rationale": "Core MCP tooling",
             "tags": ["mcp"],
             "domain": "developer-tools",
-            "persona_tags": ["hopper"],
         }
 
         with patch("research_agents.agents.tool_monitor.get_store", return_value=store):
@@ -134,4 +133,3 @@ class TestRunAgent:
         signals = store.read_signals()
         assert len(signals) == 1
         assert signals[0].source == SignalSource.TOOL_MONITOR
-        assert "persona:hopper" in signals[0].tags

@@ -73,8 +73,7 @@ Respond with JSON only:
     "relevance": "high" | "medium" | "low",
     "relevance_rationale": "Why this is/isn't relevant (1-2 sentences)",
     "tags": ["tag1", "tag2"],
-    "domain": "primary domain or null",
-    "persona_tags": []
+    "domain": "primary domain or null"
 }}"""
 
     response = client.chat.completions.create(
@@ -94,7 +93,6 @@ Respond with JSON only:
             "relevance_rationale": "Failed to parse",
             "tags": [],
             "domain": None,
-            "persona_tags": [],
         }
 
 

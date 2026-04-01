@@ -409,14 +409,12 @@ class TestRunAgent:
                 "relevance_rationale": "Directly relevant to MCP development",
                 "tags": ["mcp", "agents"],
                 "domain": "ai-agents",
-                "persona_tags": ["carmack"],
             },
             {
                 "relevance": "low",
                 "relevance_rationale": "Not relevant - cooking content",
                 "tags": [],
                 "domain": None,
-                "persona_tags": [],
             },
         ]
 
@@ -431,7 +429,6 @@ class TestRunAgent:
         assert signals[0].title == "MCP Agent Architecture Deep Dive"
         assert signals[0].source == SignalSource.YOUTUBE_SCANNER
         assert signals[0].relevance == SignalRelevance.HIGH
-        assert "persona:carmack" in signals[0].tags
 
         # Verify raw_data includes mermaid diagram
         assert signals[0].raw_data is not None
@@ -473,7 +470,6 @@ class TestRunAgent:
             "relevance_rationale": "Looks relevant based on title",
             "tags": ["ai-agents"],
             "domain": "ai-agents",
-            "persona_tags": [],
         }
 
         with patch("research_agents.agents.youtube_scanner.get_store", return_value=store):

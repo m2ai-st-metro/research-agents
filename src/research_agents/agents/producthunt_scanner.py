@@ -142,8 +142,6 @@ def run_agent(dry_run: bool = False) -> str:
 
             tags = assessment.get("tags", [])
             tags.append("source:producthunt")
-            for persona in assessment.get("persona_tags", []):
-                tags.append(f"persona:{persona}")
 
             write_signal(
                 signal_id=signal_id,

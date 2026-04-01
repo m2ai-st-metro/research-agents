@@ -137,14 +137,12 @@ class TestRunAgent:
                 "relevance_rationale": "Directly relevant to MCP work",
                 "tags": ["mcp", "agents"],
                 "domain": "ai-agents",
-                "persona_tags": ["carmack"],
             },
             {
                 "relevance": "low",
                 "relevance_rationale": "Not relevant",
                 "tags": [],
                 "domain": None,
-                "persona_tags": [],
             },
         ]
 
@@ -158,7 +156,6 @@ class TestRunAgent:
         assert len(signals) == 1
         assert signals[0].title == "Relevant Paper"
         assert signals[0].relevance == SignalRelevance.HIGH
-        assert "persona:carmack" in signals[0].tags
 
     @patch("research_agents.agents.arxiv_scanner._search_arxiv")
     @patch("research_agents.agents.arxiv_scanner.ARXIV_SEARCH_QUERIES", ["test query"])

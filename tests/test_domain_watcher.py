@@ -133,14 +133,12 @@ class TestRunAgent:
                 "relevance_rationale": "Direct healthcare AI impact",
                 "tags": ["healthcare"],
                 "domain": "healthcare-ai",
-                "persona_tags": [],
             },
             {
                 "relevance": "medium",
                 "relevance_rationale": "Tangentially related",
                 "tags": [],
                 "domain": None,
-                "persona_tags": [],
             },
         ]
 
