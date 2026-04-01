@@ -9,10 +9,18 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 
 import httpx
 
 from .config import OLLAMA_BASE_URL, OLLAMA_MODEL, OLLAMA_TIMEOUT
+
+MAX_RETRIES = 2
+RETRY_BACKOFF = 3  # seconds, doubles each retry
+
+
+class OllamaUnavailableError(Exception):
+    """Raised when Ollama is unreachable or returns server errors after retries."""
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +38,31 @@ class OllamaClient:
         self.model = model
         self.timeout = timeout
 
+    def _post_with_retry(self, payload: dict) -> httpx.Response:
+        """POST to Ollama with retry on transient failures."""
+        last_exc = None
+        for attempt in range(MAX_RETRIES + 1):
+            try:
+                resp = httpx.post(
+                    f"{self.base_url}/api/generate",
+                    json=payload,
+                    timeout=self.timeout,
+                )
+                resp.raise_for_status()
+                return resp
+            except (httpx.HTTPStatusError, httpx.ConnectError, httpx.TimeoutException) as e:
+                last_exc = e
+                if attempt < MAX_RETRIES:
+                    wait = RETRY_BACKOFF * (2 ** attempt)
+                    logger.warning(
+                        "Ollama request failed (attempt %d/%d): %s — retrying in %ds",
+                        attempt + 1, MAX_RETRIES + 1, e, wait,
+                    )
+                    time.sleep(wait)
+        raise OllamaUnavailableError(
+            f"Ollama unavailable after {MAX_RETRIES + 1} attempts: {last_exc}"
+        ) from last_exc
+
     def generate(self, prompt: str, system: str | None = None) -> str:
         """Generate a completion from Ollama.
 
@@ -39,6 +72,9 @@ class OllamaClient:
 
         Returns:
             The generated text response.
+
+        Raises:
+            OllamaUnavailableError: If Ollama is unreachable after retries.
         """
         payload: dict = {
             "model": self.model,
@@ -52,12 +88,7 @@ class OllamaClient:
         if system:
             payload["system"] = system
 
-        resp = httpx.post(
-            f"{self.base_url}/api/generate",
-            json=payload,
-            timeout=self.timeout,
-        )
-        resp.raise_for_status()
+        resp = self._post_with_retry(payload)
         return resp.json()["response"]
 
     def generate_json(self, system: str, prompt: str) -> dict:
@@ -74,6 +105,7 @@ class OllamaClient:
 
         Raises:
             ValueError: If response is not valid JSON.
+            OllamaUnavailableError: If Ollama is unreachable after retries.
         """
         payload = {
             "model": self.model,
@@ -87,12 +119,7 @@ class OllamaClient:
             },
         }
 
-        resp = httpx.post(
-            f"{self.base_url}/api/generate",
-            json=payload,
-            timeout=self.timeout,
-        )
-        resp.raise_for_status()
+        resp = self._post_with_retry(payload)
         text = resp.json()["response"].strip()
 
         # Handle markdown code blocks
@@ -143,10 +170,11 @@ Respond with JSON only:
                 system="You are a research signal relevance assessor. Output valid JSON only.",
                 prompt=prompt,
             )
-        except ValueError:
+        except (ValueError, OllamaUnavailableError) as e:
+            logger.warning("Relevance assessment failed: %s", e)
             result = {
                 "relevance": "low",
-                "relevance_rationale": "Failed to parse assessment",
+                "relevance_rationale": f"Assessment unavailable: {type(e).__name__}",
                 "tags": [],
                 "domain": None,
                 "persona_tags": [],

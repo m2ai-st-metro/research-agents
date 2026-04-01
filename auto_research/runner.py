@@ -27,7 +27,7 @@ from .ledger import (
 )
 from .mini_pipeline import ExperimentResult, run_experiment
 from .mutator import generate_variant, select_query_to_mutate
-from .ollama_client import OllamaClient
+from .ollama_client import OllamaClient, OllamaUnavailableError
 
 logger = logging.getLogger(__name__)
 
@@ -110,127 +110,142 @@ def run_experiments(
                 logger.info("Experimenting on agent: %s", agent)
                 logger.info("=" * 60)
 
-                queries = _load_agent_queries(agent)
-                if not queries:
-                    logger.warning("No queries found for agent '%s', skipping", agent)
-                    continue
+                try:
+                    queries = _load_agent_queries(agent)
+                    if not queries:
+                        logger.warning("No queries found for agent '%s', skipping", agent)
+                        continue
 
-                # Select query to mutate
-                query_idx, baseline_query = select_query_to_mutate(queries, agent)
-                param_name = f"{AGENT_QUERY_KEYS.get(agent, agent)}[{query_idx}]"
+                    # Select query to mutate
+                    query_idx, baseline_query = select_query_to_mutate(queries, agent)
+                    param_name = f"{AGENT_QUERY_KEYS.get(agent, agent)}[{query_idx}]"
 
-                logger.info("Baseline query: '%s'", baseline_query)
+                    logger.info("Baseline query: '%s'", baseline_query)
 
-                if dry_run:
-                    logger.info("[DRY RUN] Would generate variant and run experiment")
-                    continue
+                    if dry_run:
+                        logger.info("[DRY RUN] Would generate variant and run experiment")
+                        continue
 
-                # Generate variant
-                variant_query = generate_variant(
-                    current_query=baseline_query,
-                    agent=agent,
-                    client=client,
-                    all_queries=queries,
-                )
-                logger.info("Variant query:  '%s'", variant_query)
+                    # Generate variant
+                    variant_query = generate_variant(
+                        current_query=baseline_query,
+                        agent=agent,
+                        client=client,
+                        all_queries=queries,
+                    )
+                    logger.info("Variant query:  '%s'", variant_query)
 
-                # Run baseline
-                logger.info("Running baseline experiment...")
-                t0 = time.time()
-                baseline_result = run_experiment(
-                    query=baseline_query,
-                    agent=agent,
-                    client=client,
-                )
-                baseline_time = time.time() - t0
-                logger.info(
-                    "Baseline: %d signals found, %d relevant, %d ideas, NDR=%.1f%% (%.1fs)",
-                    baseline_result.signals_found,
-                    baseline_result.signals_relevant,
-                    baseline_result.ideas_total,
-                    baseline_result.non_dismiss_rate * 100,
-                    baseline_time,
-                )
+                    # Run baseline
+                    logger.info("Running baseline experiment...")
+                    t0 = time.time()
+                    baseline_result = run_experiment(
+                        query=baseline_query,
+                        agent=agent,
+                        client=client,
+                    )
+                    baseline_time = time.time() - t0
+                    logger.info(
+                        "Baseline: %d signals found, %d relevant, %d ideas, NDR=%.1f%% (%.1fs)",
+                        baseline_result.signals_found,
+                        baseline_result.signals_relevant,
+                        baseline_result.ideas_total,
+                        baseline_result.non_dismiss_rate * 100,
+                        baseline_time,
+                    )
 
-                # Rate limit between API calls
-                time.sleep(3)
+                    # Rate limit between API calls
+                    time.sleep(3)
 
-                # Run variant
-                logger.info("Running variant experiment...")
-                t0 = time.time()
-                variant_result = run_experiment(
-                    query=variant_query,
-                    agent=agent,
-                    client=client,
-                )
-                variant_time = time.time() - t0
-                logger.info(
-                    "Variant:  %d signals found, %d relevant, %d ideas, NDR=%.1f%% (%.1fs)",
-                    variant_result.signals_found,
-                    variant_result.signals_relevant,
-                    variant_result.ideas_total,
-                    variant_result.non_dismiss_rate * 100,
-                    variant_time,
-                )
+                    # Run variant
+                    logger.info("Running variant experiment...")
+                    t0 = time.time()
+                    variant_result = run_experiment(
+                        query=variant_query,
+                        agent=agent,
+                        client=client,
+                    )
+                    variant_time = time.time() - t0
+                    logger.info(
+                        "Variant:  %d signals found, %d relevant, %d ideas, NDR=%.1f%% (%.1fs)",
+                        variant_result.signals_found,
+                        variant_result.signals_relevant,
+                        variant_result.ideas_total,
+                        variant_result.non_dismiss_rate * 100,
+                        variant_time,
+                    )
 
-                # Compare
-                comparison = compare(
-                    agent=agent,
-                    param_name=param_name,
-                    baseline=baseline_result,
-                    variant=variant_result,
-                )
-                comparisons.append(comparison)
+                    # Compare
+                    comparison = compare(
+                        agent=agent,
+                        param_name=param_name,
+                        baseline=baseline_result,
+                        variant=variant_result,
+                    )
+                    comparisons.append(comparison)
 
-                logger.info("Result: %s", comparison.reason)
+                    logger.info("Result: %s", comparison.reason)
 
-                # Log to ledger
-                exp_id = log_experiment(
-                    conn=conn,
-                    agent=agent,
-                    param_name=param_name,
-                    baseline_value=baseline_query,
-                    variant_value=variant_query,
-                    baseline_signals=baseline_result.signals_relevant,
-                    variant_signals=variant_result.signals_relevant,
-                    baseline_ndr=baseline_result.non_dismiss_rate,
-                    variant_ndr=variant_result.non_dismiss_rate,
-                    baseline_avg_score=baseline_result.avg_weighted_score,
-                    variant_avg_score=variant_result.avg_weighted_score,
-                    improvement_pct=comparison.improvement_pct,
-                    status="completed" if comparison.is_valid else "insufficient_data",
-                    notes=comparison.reason,
-                )
+                    # Log to ledger
+                    exp_id = log_experiment(
+                        conn=conn,
+                        agent=agent,
+                        param_name=param_name,
+                        baseline_value=baseline_query,
+                        variant_value=variant_query,
+                        baseline_signals=baseline_result.signals_relevant,
+                        variant_signals=variant_result.signals_relevant,
+                        baseline_ndr=baseline_result.non_dismiss_rate,
+                        variant_ndr=variant_result.non_dismiss_rate,
+                        baseline_avg_score=baseline_result.avg_weighted_score,
+                        variant_avg_score=variant_result.avg_weighted_score,
+                        improvement_pct=comparison.improvement_pct,
+                        status="completed" if comparison.is_valid else "insufficient_data",
+                        notes=comparison.reason,
+                    )
 
-                # Commit winners (gated by AUTO_COMMIT_ENABLED)
-                if comparison.is_winner:
-                    if AUTO_COMMIT_ENABLED:
-                        logger.info(
-                            "AUTO-COMMIT: %s query '%s' -> '%s' (+%.1f%% NDR)",
-                            agent, baseline_query, variant_query,
-                            comparison.improvement_pct * 100,
-                        )
-                        committed = commit_winner(
-                            conn=conn,
-                            experiment_id=exp_id,
-                            agent=agent,
-                            param_name=param_name,
-                            old_query=baseline_query,
-                            new_query=variant_query,
-                            improvement_pct=comparison.improvement_pct,
-                            dry_run=dry_run,
-                        )
-                        if committed:
-                            logger.info("Committed successfully.")
+                    # Commit winners (gated by AUTO_COMMIT_ENABLED)
+                    if comparison.is_winner:
+                        if AUTO_COMMIT_ENABLED:
+                            logger.info(
+                                "AUTO-COMMIT: %s query '%s' -> '%s' (+%.1f%% NDR)",
+                                agent, baseline_query, variant_query,
+                                comparison.improvement_pct * 100,
+                            )
+                            committed = commit_winner(
+                                conn=conn,
+                                experiment_id=exp_id,
+                                agent=agent,
+                                param_name=param_name,
+                                old_query=baseline_query,
+                                new_query=variant_query,
+                                improvement_pct=comparison.improvement_pct,
+                                dry_run=dry_run,
+                            )
+                            if committed:
+                                logger.info("Committed successfully.")
+                            else:
+                                logger.warning("Commit failed — query may have changed since experiment started.")
                         else:
-                            logger.warning("Commit failed — query may have changed since experiment started.")
-                    else:
-                        logger.info(
-                            "WINNER (pending review): %s query '%s' -> '%s' (+%.1f%% NDR). "
-                            "Set AUTO_COMMIT_ENABLED=True in config to auto-apply.",
-                            agent, baseline_query, variant_query,
-                            comparison.improvement_pct * 100,
-                        )
+                            logger.info(
+                                "WINNER (pending review): %s query '%s' -> '%s' (+%.1f%% NDR). "
+                                "Set AUTO_COMMIT_ENABLED=True in config to auto-apply.",
+                                agent, baseline_query, variant_query,
+                                comparison.improvement_pct * 100,
+                            )
+
+                except OllamaUnavailableError as e:
+                    logger.error(
+                        "Ollama unavailable during %s experiment (round %d): %s — skipping agent",
+                        agent, round_num, e,
+                    )
+                    continue
+                except Exception as e:
+                    logger.error(
+                        "Unexpected error during %s experiment (round %d): %s — skipping agent",
+                        agent, round_num, e,
+                        exc_info=True,
+                    )
+                    continue
 
                 # Rate limit between agents
                 time.sleep(5)

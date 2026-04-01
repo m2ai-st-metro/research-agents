@@ -23,7 +23,7 @@ from .config import (
     ROUTE_THRESHOLDS,
     SCORE_WEIGHTS,
 )
-from .ollama_client import OllamaClient
+from .ollama_client import OllamaClient, OllamaUnavailableError
 
 logger = logging.getLogger(__name__)
 
@@ -571,8 +571,8 @@ Rules:
             prompt=prompt,
         )
         raw_ideas = result.get("ideas", [])
-    except ValueError:
-        logger.warning("Failed to synthesize ideas from %d signals", len(signals))
+    except (ValueError, OllamaUnavailableError) as e:
+        logger.warning("Failed to synthesize ideas from %d signals: %s", len(signals), e)
         return []
 
     ideas = []
@@ -636,7 +636,7 @@ Output JSON:
                 + idea.competition * SCORE_WEIGHTS["competition"],
                 2,
             )
-        except (ValueError, TypeError) as e:
+        except (ValueError, TypeError, OllamaUnavailableError) as e:
             logger.warning("Scoring failed for '%s': %s", idea.title, e)
 
     return ideas
