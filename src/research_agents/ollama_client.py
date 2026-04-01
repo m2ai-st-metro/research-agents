@@ -155,7 +155,7 @@ def assess_relevance_ollama(
     """Assess signal relevance using local Ollama.
 
     Drop-in replacement for claude_client.assess_relevance.
-    Returns same dict structure: relevance, relevance_rationale, tags, domain, persona_tags.
+    Returns same dict structure: relevance, relevance_rationale, tags, domain.
     """
     if client is None:
         client = get_ollama_client()
@@ -164,8 +164,8 @@ def assess_relevance_ollama(
 
 The developer builds:
 - Claude-powered MCP servers and tool-augmented agents
-- An autonomous idea-to-product pipeline (Ultra Magnus)
-- A self-improving feedback loop (Snow-Town: UM -> Sky-Lynx -> Academy)
+- An autonomous idea-to-product pipeline (Metroplex)
+- A self-improving feedback loop (ST Metro: Metroplex -> Sky-Lynx -> ST Records)
 - Healthcare AI projects (HIPAA-compliant, home health focus)
 - Developer productivity tools
 
@@ -179,8 +179,7 @@ Respond with JSON only:
     "relevance": "high" | "medium" | "low",
     "relevance_rationale": "Why this is/isn't relevant (1-2 sentences)",
     "tags": ["tag1", "tag2"],
-    "domain": "primary domain (e.g. ai-agents, healthcare-ai, developer-tools, etc.) or null",
-    "persona_tags": ["persona_id1"]
+    "domain": "primary domain (e.g. ai-agents, healthcare-ai, developer-tools, etc.) or null"
 }}"""
 
     try:
@@ -195,7 +194,6 @@ Respond with JSON only:
             "relevance_rationale": "Failed to parse assessment",
             "tags": [],
             "domain": None,
-            "persona_tags": [],
         }
 
     return result
