@@ -210,7 +210,7 @@ class TestSearchYouTube:
         mock_api.return_value = [{"video_id": "v1", "title": "Test"}]
 
         result = search_youtube("test query")
-        mock_api.assert_called_once_with("test query", "test-key", 5)
+        mock_api.assert_called_once_with("test query", "test-key", 5, order="relevance")
         assert len(result) == 1
 
     @patch("research_agents.agents.youtube_scanner._get_youtube_api_key")
@@ -324,6 +324,7 @@ class TestSummarizeTranscript:
 
 class TestRunAgent:
 
+    @patch("research_agents.agents.youtube_scanner.YOUTUBE_CHANNELS", [])
     @patch("research_agents.agents.youtube_scanner.search_youtube")
     @patch("research_agents.agents.youtube_scanner.YOUTUBE_SEARCH_QUERIES", ["test query"])
     def test_dry_run_no_writes(self, mock_search, store):
@@ -350,6 +351,7 @@ class TestRunAgent:
         signals = store.read_signals()
         assert len(signals) == 0
 
+    @patch("research_agents.agents.youtube_scanner.YOUTUBE_CHANNELS", [])
     @patch("research_agents.agents.youtube_scanner.assess_relevance")
     @patch("research_agents.agents.youtube_scanner.summarize_transcript")
     @patch("research_agents.agents.youtube_scanner.get_transcript")
@@ -437,6 +439,7 @@ class TestRunAgent:
         assert signals[0].raw_data["video_id"] == "vid_high"
         assert signals[0].raw_data["view_count"] == 200000
 
+    @patch("research_agents.agents.youtube_scanner.YOUTUBE_CHANNELS", [])
     @patch("research_agents.agents.youtube_scanner.assess_relevance")
     @patch("research_agents.agents.youtube_scanner.get_transcript")
     @patch("research_agents.agents.youtube_scanner.search_youtube")
@@ -482,6 +485,7 @@ class TestRunAgent:
         assert len(signals) == 1
         assert signals[0].raw_data["has_transcript"] is False
 
+    @patch("research_agents.agents.youtube_scanner.YOUTUBE_CHANNELS", [])
     @patch("research_agents.agents.youtube_scanner.search_youtube")
     @patch("research_agents.agents.youtube_scanner.YOUTUBE_SEARCH_QUERIES", ["test query"])
     def test_dedup_skips_existing(self, mock_search, store):
