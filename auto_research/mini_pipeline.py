@@ -387,9 +387,9 @@ def search_chatgpt(query: str, max_results: int = 10) -> list[dict]:
         import importlib
         import research_agents.config as ra_config
         importlib.reload(ra_config)
-        model = getattr(ra_config, "CHATGPT_MODEL", "gpt-4.1")
+        model = getattr(ra_config, "CHATGPT_MODEL", "gpt-5.4-mini")
     except ImportError:
-        model = "gpt-4.1"
+        model = "gpt-5.4-mini"
 
     try:
         resp = httpx.post(
@@ -443,9 +443,9 @@ def search_gemini(query: str, max_results: int = 10) -> list[dict]:
             import importlib
             import research_agents.config as ra_config
             importlib.reload(ra_config)
-            model = getattr(ra_config, "GEMINI_RESEARCH_MODEL", "gemini-2.0-flash")
+            model = getattr(ra_config, "GEMINI_RESEARCH_MODEL", "gemini-2.5-flash-preview-04-17")
         except ImportError:
-            model = "gemini-2.0-flash"
+            model = "gemini-2.5-flash-preview-04-17"
 
         google_search_tool = types.Tool(google_search=types.GoogleSearch())
         response = client.models.generate_content(

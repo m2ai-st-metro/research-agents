@@ -243,7 +243,7 @@ PERPLEXITY_MIN_RELEVANCE = "medium"
 
 # --- ChatGPT Research Agent ---
 OPENAI_API_KEY_ENV = "OPENAI_API_KEY"
-CHATGPT_MODEL = "gpt-5.4"
+CHATGPT_MODEL = "gpt-5.4-mini"
 CHATGPT_MAX_TOKENS = 4096
 CHATGPT_RESEARCH_QUERIES: list[str] = [
     "Analyze current market gaps in AI developer tooling for solo practitioners and small consultancies.",
@@ -255,7 +255,7 @@ CHATGPT_RESEARCH_QUERIES: list[str] = [
 CHATGPT_MIN_RELEVANCE = "medium"
 
 # --- Gemini Research Agent ---
-GEMINI_RESEARCH_MODEL = "gemini-3.1-pro-preview"
+GEMINI_RESEARCH_MODEL = "gemini-3-flash-preview"
 GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for recent announcements about AI agent frameworks, MCP servers, or tool-use APIs.",
