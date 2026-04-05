@@ -160,14 +160,20 @@ def assess_relevance_ollama(
     if client is None:
         client = get_ollama_client()
 
-    prompt = f"""Assess the relevance of this research signal to a solo AI developer's ecosystem.
+    prompt = f"""Assess the relevance of this research signal to an AI skill foundry.
 
-The developer builds:
-- Claude-powered MCP servers and tool-augmented agents
-- An autonomous idea-to-product pipeline (Metroplex)
-- A self-improving feedback loop (ST Metro: Metroplex -> Sky-Lynx -> ST Records)
-- Healthcare AI projects (HIPAA-compliant, home health focus)
-- Developer productivity tools
+The foundry builds MCP servers, agent skills, workflow tools, and pipeline components.
+Signals are HIGHLY relevant if they reveal:
+- MCP ecosystem gaps (integrations or servers that don't exist yet)
+- Recurring workflow patterns that lack dedicated tooling
+- API surfaces that should be wrapped as MCP servers but aren't
+- Agent infrastructure patterns (skills, pipelines, orchestration components)
+- Developer pain points with AI agent frameworks or tool-use SDKs
+
+Signals are LOW relevance if they are:
+- General AI/ML research without skill/tooling implications
+- Market analysis, funding rounds, or business model discussion
+- Healthcare-specific or domain-specific without agent/skill relevance
 
 Signal:
 - Title: {title}
@@ -179,7 +185,7 @@ Respond with JSON only:
     "relevance": "high" | "medium" | "low",
     "relevance_rationale": "Why this is/isn't relevant (1-2 sentences)",
     "tags": ["tag1", "tag2"],
-    "domain": "primary domain (e.g. ai-agents, healthcare-ai, developer-tools, etc.) or null"
+    "domain": "primary domain (e.g. mcp-servers, agent-skills, workflow-tools, developer-tools, etc.) or null"
 }}"""
 
     try:

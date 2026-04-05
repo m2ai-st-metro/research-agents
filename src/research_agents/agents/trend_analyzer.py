@@ -156,8 +156,8 @@ def _synthesize_trend_report(
     by_domain: dict[str, list[ResearchSignal]] = clusters.get("by_domain", {})  # type: ignore[assignment]
     domain_digest = _build_domain_digest(by_domain)
 
-    prompt = f"""You are analyzing research signals for a solo AI developer/consultant. \
-Write a weekly trend report.
+    prompt = f"""You are analyzing research signals for an AI skill foundry that builds \
+MCP servers, agent skills, workflow tools, and pipeline components. Write a weekly trend report.
 
 Data summary:
 - Total signals: {len(signals)} over {TREND_LOOKBACK_DAYS} days
@@ -170,13 +170,14 @@ Sample signals by domain:
 {domain_digest}
 
 Write a concise markdown trend report with these sections:
-1. **Executive Summary** (2-3 sentences, most important takeaways)
+1. **Executive Summary** (2-3 sentences, most important takeaways for skill building)
 2. **Rising Themes** (what's gaining traction, cite specific signals as evidence)
 3. **Falling Themes** (what's cooling off)
-4. **Domain Spotlight** (most active domain this week, why it matters)
-5. **Recommended Actions** (1-3 concrete things to pay attention to or prototype)
+4. **Skill Gap Radar** (based on the signals, what MCP servers, agent skills, or workflow tools \
+are being discussed but DON'T EXIST yet? What are people building from scratch that should be a reusable tool?)
+5. **Build Queue** (1-3 concrete MCP servers, skills, or workflow tools worth prototyping based on this week's signals)
 
-Keep it punchy. This is for a practitioner who ships, not a researcher who reads. No fluff."""
+Keep it punchy. This is for a builder who ships tools, not a researcher who reads papers. No fluff."""
 
     client = get_ollama_client()
     return client.generate(

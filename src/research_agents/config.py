@@ -41,49 +41,24 @@ OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
 OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "180"))  # Higher for CPU inference
 
-# --- ArXiv / Paper Scanner ---
-ARXIV_SEARCH_QUERIES: list[str] = [
-    "interactive neural architectures",
-    "autonomous code generation frameworks",
-    "prompt tuning data analysis",
-    "LLM deployment obstacles",
-    "code generation efficiency optimization",
-    "LLM performance scaling",
-    "automated workflow systems analysis",
-]
-ARXIV_MAX_RESULTS_PER_QUERY = 10
-ARXIV_MIN_RELEVANCE = "medium"  # Only write signals >= this level
-
-# --- Tool/Library Monitor ---
+# --- Tool/Library Monitor (skill-foundry: MCP ecosystem gaps, agent tooling) ---
 TOOL_SEARCH_QUERIES: list[str] = [
-    "MCP architecture repository",
-    "Claude API integration examples",
-    "AI coding assistant",
-    "deploying large language models infrastructure",
-    "prompt engineering framework",
-    "AI agent development strategies",
+    "MCP server implementation",
+    "model context protocol integration",
+    "AI agent skills framework",
+    "agent workflow orchestration tool",
+    "LLM tool use SDK",
+    "MCP client server typescript python",
 ]
 TOOL_MAX_RESULTS_PER_QUERY = 10
 
-# --- Domain Watcher ---
-DOMAIN_WATCH_QUERIES: list[str] = [
-    "healthcare AI home health",
-    "solo developer AI tools",
-    "automated workflow AI solutions",
-    "HIPAA compliant AI",
-    "clinical AI diagnostic tools",
-]
-DOMAIN_MIN_RELEVANCE = "high"  # Higher bar for adjacent domains
-
-# --- YouTube Trending Scanner ---
+# --- YouTube Trending Scanner (skill-foundry: agent/MCP tooling content) ---
 YOUTUBE_SEARCH_QUERIES: list[str] = [
-    "autonomous coding assistants AI development",
-    "AI agent frameworks MCP tool use",
-    "solo developer AI tools automation",
-    "LLM integration AI development environments",
-    "advanced ai coding tools platforms",
-    "healthcare AI technology home health",
-    "agentic systems AI workflows orchestration",
+    "MCP server tutorial build",
+    "AI agent skills tools framework 2026",
+    "Claude MCP model context protocol",
+    "building AI agent workflows pipelines",
+    "agentic coding tools developer automation",
 ]
 YOUTUBE_MAX_RESULTS_PER_QUERY = 10
 YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
@@ -107,47 +82,37 @@ YOUTUBE_SUMMARIZER_MODEL = "gemini-3.1-flash-lite-preview"
 YOUTUBE_SUMMARIZER_MAX_TOKENS = 4096
 GEMINI_API_KEY_ENV = "GEMINI_API_KEY"  # env var name for Gemini API key
 
-# --- Reddit Scanner ---
+# --- Reddit Scanner (skill-foundry: community pain points, missing tools) ---
 REDDIT_SUBREDDITS: list[str] = [
-    "SideProject",
-    "indiehackers",
-    "selfhosted",
     "devtools",
-    "MachineLearning",
+    "selfhosted",
+    "ClaudeAI",
+    "LocalLLaMA",
+    "ChatGPTPro",
 ]
 REDDIT_POSTS_PER_SUBREDDIT: int = 10
 REDDIT_MIN_RELEVANCE: str = "medium"
 REDDIT_MAX_SIGNALS_PER_RUN: int = 15
 
-# --- Product Hunt Scanner ---
-PRODUCTHUNT_RSS_URL: str = "https://www.producthunt.com/feed"
-PRODUCTHUNT_MAX_ITEMS: int = 20
-PRODUCTHUNT_MIN_RELEVANCE: str = "medium"
-PRODUCTHUNT_MAX_SIGNALS_PER_RUN: int = 10
-
-# --- Cadences ---
+# --- Cadences (retired agents removed 2026-04-05) ---
 CADENCE = {
-    "arxiv": "daily",
     "tool_monitor": "daily",
-    "domain_watch": "every_3_days",
-    "idea_surfacer": "daily",
+    "idea_surfacer": "every_3_days",
     "youtube": "daily",
     "rss": "daily",
     "trend_analyzer": "weekly",
     "perplexity": "daily",
     "chatgpt": "every_3_days",
     "gemini_research": "daily",
-    "github_trending": "daily",
     "reddit": "daily",
-    "product_hunt": "daily",
 }
 
-# --- Agent Specializations (anti-monoculture) ---
+# --- Agent Specializations (anti-monoculture, skill-foundry aligned) ---
 # Each LLM agent focuses on a specific signal type to reduce overlap.
 AGENT_SPECIALIZATIONS: dict[str, dict[str, str | list[str]]] = {
     "perplexity": {
-        "focus": "tactical",
-        "description": "Tool launches, releases, MCP ecosystem, specific product updates",
+        "focus": "skill-gaps",
+        "description": "MCP ecosystem gaps, missing integrations, new skill/tool releases",
         "do_not_report": [
             "broad market analysis or competitive dynamics",
             "business model speculation",
@@ -156,10 +121,10 @@ AGENT_SPECIALIZATIONS: dict[str, dict[str, str | list[str]]] = {
         ],
     },
     "chatgpt": {
-        "focus": "strategic",
+        "focus": "workflow-patterns",
         "description": (
-            "Market dynamics, competitive positioning, "
-            "business models, underserved niches"
+            "Recurring workflow patterns that lack tooling, "
+            "agent skill demand signals, automation gaps"
         ),
         "do_not_report": [
             "specific tool or library releases",
@@ -169,10 +134,10 @@ AGENT_SPECIALIZATIONS: dict[str, dict[str, str | list[str]]] = {
         ],
     },
     "gemini_research": {
-        "focus": "emerging",
+        "focus": "emerging-infra",
         "description": (
-            "Recent developments (<7 days), regulatory changes, "
-            "funding rounds, acquisitions"
+            "New MCP servers, agent framework releases (<7 days), "
+            "SDK updates, protocol changes"
         ),
         "do_not_report": [
             "established market dynamics or competitive analysis",
@@ -194,19 +159,19 @@ PERSONA_IDS: list[str] = [
 ]
 
 # --- RSS/Newsletter Scanner ---
+# --- RSS/Newsletter Scanner (skill-foundry: MCP/agent/workflow focused feeds) ---
 RSS_FEEDS: list[dict[str, str]] = [
-    {"name": "Import AI", "url": "https://jack-clark.net/feed/", "parser": "feedparser"},
-    {"name": "TLDR AI", "url": "https://tldr.tech/ai/rss", "parser": "feedparser"},
-    {"name": "Latent Space", "url": "https://www.latent.space/feed", "parser": "feedparser"},
     {
         "name": "Simon Willison",
         "url": "https://simonwillison.net/atom/everything/",
         "parser": "feedparser",
     },
-    {"name": "The Batch", "url": "https://www.deeplearning.ai/the-batch/", "parser": "firecrawl"},
-    {"name": "Dev.to AI", "url": "https://dev.to/feed/tag/ai", "parser": "feedparser"},
+    {"name": "Latent Space", "url": "https://www.latent.space/feed", "parser": "feedparser"},
     {"name": "Dev.to MCP", "url": "https://dev.to/feed/tag/mcp", "parser": "feedparser"},
     {"name": "Dev.to CLI", "url": "https://dev.to/feed/tag/cli", "parser": "feedparser"},
+    {"name": "Dev.to Agents", "url": "https://dev.to/feed/tag/agents", "parser": "feedparser"},
+    {"name": "Dev.to Automation", "url": "https://dev.to/feed/tag/automation", "parser": "feedparser"},
+    {"name": "TLDR AI", "url": "https://tldr.tech/ai/rss", "parser": "feedparser"},
 ]
 RSS_MIN_RELEVANCE = "medium"
 RSS_LOOKBACK_DAYS = 3  # Ignore articles older than this
@@ -233,11 +198,11 @@ PERPLEXITY_API_KEY_ENV = "OPENROUTER_API_KEY"
 PERPLEXITY_MODEL = "perplexity/sonar-pro"
 PERPLEXITY_MAX_TOKENS = 4096
 PERPLEXITY_RESEARCH_QUERIES: list[str] = [
-    "What are the biggest emerging pain points for solo AI developers this week?",
-    "What recent developments in AI agent technologies and server infrastructure are impacting solo developers?",
-    "What healthcare AI regulatory changes or HIPAA-compliant tools appeared this week?",
-    "What are the latest trends in autonomous coding agents and AI-assisted software engineering?",
-    "What workflow automation tools are gaining traction among small teams?",
+    "What MCP servers or Model Context Protocol integrations were released or updated this week?",
+    "What AI agent skills, plugins, or tool-use integrations are developers asking for but don't exist yet?",
+    "What new workflow automation tools or pipeline frameworks launched for AI agents this week?",
+    "What API services are developers wrapping as MCP servers or agent tools right now?",
+    "What gaps or missing features are people complaining about in Claude, ChatGPT, or AI coding agent ecosystems?",
 ]
 PERPLEXITY_MIN_RELEVANCE = "medium"
 
@@ -246,11 +211,11 @@ OPENAI_API_KEY_ENV = "OPENAI_API_KEY"
 CHATGPT_MODEL = "gpt-5.4-mini"
 CHATGPT_MAX_TOKENS = 4096
 CHATGPT_RESEARCH_QUERIES: list[str] = [
-    "Analyze current market gaps in AI developer tooling for solo practitioners and small consultancies.",
-    "What underserved niches exist at the intersection of healthcare AI and home health services?",
-    "What are the most promising business models for AI-powered SaaS products targeting developers?",
-    "Identify emerging competitive dynamics in the autonomous coding agent space.",
-    "What infrastructure or platform plays are emerging around MCP and tool-augmented LLMs?",
+    "What recurring workflow patterns do AI agent users need that lack dedicated tooling or MCP servers?",
+    "What types of agent skills or automations are developers building repeatedly from scratch instead of using existing tools?",
+    "What API integrations are most requested by AI agent framework users but poorly served by existing MCP servers?",
+    "Where are the biggest gaps between what AI coding agents can do and what workflow infrastructure supports?",
+    "What categories of MCP servers or agent plugins would have the highest utility for solo developers and small teams?",
 ]
 CHATGPT_MIN_RELEVANCE = "medium"
 
@@ -258,10 +223,10 @@ CHATGPT_MIN_RELEVANCE = "medium"
 GEMINI_RESEARCH_MODEL = "gemini-3-flash-preview"
 GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
-    "Search for recent announcements about AI agent frameworks, MCP servers, or tool-use APIs.",
-    "Search for emerging healthcare AI startups or products focused on home health and HIPAA compliance.",
-    "Search for recent AI-driven enhancements in developer tools and platforms launched within the last week",
-    "Search for recent funding rounds or acquisitions in the AI developer tools space.",
-    "Search for recent activity and updates in open-source AI projects on GitHub focusing on code generation and automated programming tools",
+    "Search for new MCP servers, Model Context Protocol implementations, or agent tool-use integrations released in the last 7 days.",
+    "Search for new AI agent framework releases, SDK updates, or orchestration tools launched this week.",
+    "Search for GitHub repositories implementing MCP servers or agent skill plugins that gained traction in the last week.",
+    "Search for new workflow automation or pipeline tools for AI agents released in the last 7 days.",
+    "Search for developer discussions or blog posts about missing MCP integrations or agent skill gaps from the past week.",
 ]
 GEMINI_RESEARCH_MIN_RELEVANCE = "medium"

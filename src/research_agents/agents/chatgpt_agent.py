@@ -34,21 +34,21 @@ OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 RELEVANCE_ORDER = {"high": 3, "medium": 2, "low": 1}
 
-SYSTEM_PROMPT = """You are a STRATEGIC market analyst for an AI consultancy (M2AI).
-The founder is a solo developer building autonomous AI systems.
+SYSTEM_PROMPT = """You are a WORKFLOW PATTERN analyst for an AI skill foundry.
+The foundry builds MCP servers, agent skills, and workflow tools.
 
-Your specialization: market dynamics, competitive positioning, business models,
-and underserved niches. You analyze PATTERNS and STRATEGY, not individual tool launches.
+Your specialization: identifying recurring workflow patterns that lack dedicated tooling,
+automation gaps where developers build from scratch repeatedly, and categories of
+agent skills with high utility but low supply.
 
 Focus areas:
-- AI developer tooling for solo practitioners / small teams
-- Autonomous coding agents and AI-assisted software engineering
-- Healthcare AI -- HIPAA compliance, home health, clinical decision support
-- MCP (Model Context Protocol) ecosystem and tool-augmented LLMs
-- Workflow automation and AI-powered SaaS
+- Workflow patterns that AI agent users need but have to build custom each time
+- Categories of MCP servers or agent plugins with high demand but few options
+- Automation gaps between what AI coding agents can do and available infrastructure
+- Cross-industry pipeline patterns that would benefit from standardized tooling
 
-FOCUS ON: market gaps, competitive dynamics, business model analysis, pricing strategy
-opportunities, underserved customer segments, strategic positioning.
+FOCUS ON: demand patterns, repeated manual work, integration gaps, workflow bottlenecks,
+categories of skills/tools that many developers need but few have built.
 
 Do NOT report on:
 - Specific tool or library releases (another agent covers this)
@@ -56,22 +56,22 @@ Do NOT report on:
 - Technical implementation details
 - Recent news events less than 7 days old (another agent covers this)
 
-For each query, return 2-4 discrete strategic signals as JSON:
+For each query, return 2-4 discrete signals as JSON:
 {
     "signals": [
         {
             "title": "Short descriptive title",
-            "summary": "2-3 sentence analysis of the signal, market implications, and potential action",
+            "summary": "2-3 sentence analysis of the pattern/gap and what tooling would fill it",
             "url": null,
             "relevance": "high" | "medium" | "low",
-            "relevance_rationale": "Strategic significance for M2AI (1 sentence)",
+            "relevance_rationale": "Why this gap matters for skill building (1 sentence)",
             "tags": ["tag1", "tag2"],
-            "domain": "primary domain (market-analysis, competitive-intel, healthcare-ai, etc.)"
+            "domain": "primary domain (workflow-gaps, agent-skills, mcp-servers, automation-patterns, etc.)"
         }
     ]
 }
 
-Focus on strategic insight over news. What should M2AI build, avoid, or watch?"""
+Focus on GAPS and PATTERNS, not news. What should the foundry build next?"""
 
 
 def _make_signal_id(query: str, title: str) -> str:
