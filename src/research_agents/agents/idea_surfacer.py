@@ -109,20 +109,20 @@ def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> l
         f"({', '.join(f'{k}: {v}' for k, v in sorted(source_counts.items()))})"
     )
 
-    prompt = f"""You are a project idea synthesizer for an AI engineer who builds and sells developer tools autonomously.
+    prompt = f"""You are a skill-foundry idea synthesizer. You identify MCP servers, agent skills, \
+workflow tools, and pipeline components that should exist but don't yet.
 
-The developer's current ecosystem and strengths:
-- MCP servers (Python + mcp-sdk): proven build pattern, 100% success rate
-- Claude Agent SDK: multi-agent autonomous builder (YCE Harness)
-- Metroplex: L5 autonomy coordinator that triages, builds, and publishes projects
-- Command Center (CMD): web UI for dispatching agents (Soundwave, Ravage, Content)
-- Galvatron: Telegram bot (Claude Code backend) for ops and quick tasks
-- Sky-Lynx: self-improvement agent that tunes the ecosystem semi-weekly
-- M2AI VoiceBots: commercial VA service targeting agencies/SMBs
-- Starscream: LinkedIn AI thought leadership content engine
+The foundry builds:
+- MCP servers (Python + mcp-sdk): proven pattern, 100% build success rate
+- CLI tools and pip packages for developer workflows
+- Agent skills and workflow pipeline components
+- The build pipeline (Metroplex) can autonomously produce Python CLI tools and MCP servers
 
-Target market: solo developers and small teams using AI agents, MCP, and LLM tooling.
-Revenue model: open-source tools with paid tiers, productized services, consulting.
+What the foundry is looking for:
+- MCP servers that wrap APIs no one has wrapped yet
+- Workflow tools that developers keep building from scratch
+- Agent skills that would be reusable across many agent frameworks
+- Pipeline components that connect existing tools in new ways
 
 Research signals from the past week:
 {chr(10).join(signal_summaries)}
@@ -131,15 +131,18 @@ Research signals from the past week:
 IMPORTANT: Ideas that combine signals from MULTIPLE DIFFERENT sources are stronger
 than ideas based on a single source. Prefer cross-source synthesis when possible.
 
-For each idea (0-3), provide ALL of these fields:
+Prioritize ideas where signals reveal a GAP (something missing) over ideas where
+signals describe something that already exists.
+
+For each idea (0-6), provide ALL of these fields:
 
 {{
     "ideas": [
         {{
             "title": "Clear, specific project name",
-            "description": "What to build and why — 2-3 sentences covering the product vision",
-            "problem_statement": "The specific pain point this solves. Who has this problem and how badly? What do they do today as a workaround?",
-            "target_audience": "Exactly who would pay for or use this. Be specific: 'solo AI developers shipping MCP servers' not 'developers'",
+            "description": "What to build and why -- 2-3 sentences covering the skill/tool vision",
+            "problem_statement": "The specific gap this fills. Who needs this and what do they do today as a workaround?",
+            "target_audience": "Exactly who would use this. Be specific: 'developers building Claude MCP integrations' not 'developers'",
             "tags": ["tag1", "tag2"],
             "source_signal_ids": ["signal-id-1", "signal-id-2"]
         }}
@@ -148,10 +151,10 @@ For each idea (0-3), provide ALL of these fields:
 
 Rules:
 - Only suggest ideas a solo developer can MVP in 2-4 weeks
-- Strong preference for: MCP servers, CLI tools, developer productivity, agent tooling
+- MUST be one of: MCP server, CLI tool, pip package, agent skill, workflow component
 - Each idea MUST have a non-empty problem_statement and target_audience
 - If no clear ideas emerge from the signals, return {{"ideas": []}}
-- Avoid: healthcare compliance, enterprise platforms, ideas requiring large teams
+- Avoid: frontends, mobile apps, enterprise platforms, ideas requiring large teams
 - Maximum 6 ideas per synthesis run"""
 
     client = get_client()
