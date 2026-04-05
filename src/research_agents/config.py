@@ -35,11 +35,12 @@ CLAUDE_MODEL = "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B"
 CLAUDE_MAX_TOKENS = 4096
 
 # --- Ollama (local LLM for relevance assessment + trend reports) ---
-# Default: ProBook localhost (qwen2.5:7b-instruct, CPU, always available)
-# Override via env for AlienPC: OLLAMA_BASE_URL=http://10.0.0.35:11434 OLLAMA_MODEL=qwen2.5:14b
-OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
-OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "180"))  # Higher for CPU inference
+# Default: AlienPC GPU (qwen2.5:14b, RTX 5080, ~7s per assessment)
+# Fallback: ProBook localhost (qwen2.5:7b-instruct, CPU, ~124s per assessment -- too slow)
+# If AlienPC is off, set OLLAMA_BASE_URL=http://localhost:11434 OLLAMA_MODEL=qwen2.5:7b-instruct
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://10.0.0.35:11434")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:14b")
+OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))
 
 # --- Tool/Library Monitor (skill-foundry: MCP ecosystem gaps, agent tooling) ---
 TOOL_SEARCH_QUERIES: list[str] = [
@@ -91,7 +92,7 @@ REDDIT_SUBREDDITS: list[str] = [
     "ChatGPTPro",
 ]
 REDDIT_POSTS_PER_SUBREDDIT: int = 10
-REDDIT_MIN_RELEVANCE: str = "medium"
+REDDIT_MIN_RELEVANCE: str = "high"  # Raised from medium -- too much noise at medium
 REDDIT_MAX_SIGNALS_PER_RUN: int = 15
 
 # --- Cadences (retired agents removed 2026-04-05) ---

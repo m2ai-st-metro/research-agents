@@ -48,7 +48,7 @@ def _search_github_repos(query: str, max_results: int = 10) -> list[dict]:
     Returns list of dicts with: full_name, description, url, stars, language, pushed_at
     """
     params = {
-        "q": f"{query} pushed:>2026-02-01",
+        "q": f"{query} pushed:>2026-02-01 stars:>=5",
         "sort": "updated",
         "order": "desc",
         "per_page": min(max_results, 30),

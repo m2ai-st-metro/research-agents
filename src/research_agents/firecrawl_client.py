@@ -102,7 +102,9 @@ def is_enrichment_available() -> bool:
 
     credits = check_credits()
     if credits == -1:
-        return False
+        # Credits endpoint may be unavailable -- allow enrichment to proceed
+        logger.debug("Firecrawl credits check unavailable, proceeding anyway")
+        return True
 
     if credits < FIRECRAWL_CREDIT_FLOOR:
         logger.warning(
