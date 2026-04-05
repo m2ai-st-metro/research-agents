@@ -1,11 +1,11 @@
 # Research Agents cron schedule
 # Install: sudo cp cron/research-agents /etc/cron.d/
 
-# Daily at 5 AM UTC: arxiv + tool-monitor + rss
-0 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh arxiv tool-monitor rss >> /var/log/research-agents/pipeline.log 2>&1
+# Daily at 5 AM UTC: tool-monitor + rss (arxiv retired 2026-04-05, skill-foundry pivot)
+0 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh tool-monitor rss >> /var/log/research-agents/pipeline.log 2>&1
 
-# Every 3 days at 5:30 AM UTC: domain-watch (staggered to avoid lock race with daily agents)
-30 5 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh domain-watch >> /var/log/research-agents/pipeline.log 2>&1
+# RETIRED 2026-04-05: domain-watch (healthcare/HIPAA focus, not aligned with skill-foundry mission)
+# 30 5 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh domain-watch >> /var/log/research-agents/pipeline.log 2>&1
 
 # Every 3 days at 10 PM UTC: trend-analyzer (runs before idea-surfacer so trend signal is available)
 0 22 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh trend-analyzer >> /var/log/research-agents/pipeline.log 2>&1
@@ -22,14 +22,14 @@
 # Daily at 6:15 AM UTC: gemini-research (Google Search grounded, staggered after perplexity)
 15 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh gemini-research >> /var/log/research-agents/pipeline.log 2>&1
 
-# Daily at 6:35 AM UTC: github-trending (staggered after other research agents)
-35 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh github-trending >> /var/log/research-agents/pipeline.log 2>&1
+# RETIRED 2026-04-05: github-trending (star metrics, tool_monitor covers GitHub)
+# 35 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh github-trending >> /var/log/research-agents/pipeline.log 2>&1
 
-# Daily at 6:45 AM UTC: reddit (public JSON API, staggered after github-trending)
+# Daily at 6:45 AM UTC: reddit (public JSON API)
 45 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh reddit >> /var/log/research-agents/pipeline.log 2>&1
 
-# Daily at 7:00 AM UTC: product-hunt (RSS feed, staggered after reddit)
-0 7 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh product-hunt >> /var/log/research-agents/pipeline.log 2>&1
+# RETIRED 2026-04-05: product-hunt (product launch noise, not aligned with skill-foundry mission)
+# 0 7 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh product-hunt >> /var/log/research-agents/pipeline.log 2>&1
 
 # Daily at 11 PM UTC: idea-surfacer (synthesize signals into IdeaForge ideas)
 0 23 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1

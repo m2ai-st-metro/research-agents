@@ -49,7 +49,7 @@ def _claude_assess_relevance(
     title: str,
     summary: str,
     source_context: str,
-    model: str = "anthropic/claude-4-sonnet",
+    model: str = "anthropic/claude-sonnet-4-6",
 ) -> dict:
     """Assess relevance via Claude API on DeepInfra (production model)."""
     import json

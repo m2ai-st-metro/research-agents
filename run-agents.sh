@@ -27,7 +27,7 @@ done
 
 if [[ ${#AGENTS[@]} -eq 0 ]]; then
     echo "$LOG_PREFIX No agents specified. Usage: ./run-agents.sh [--dry-run] <agent1> [agent2] ..."
-    echo "$LOG_PREFIX Available agents: arxiv, tool-monitor, domain-watch, idea-surfacer, youtube"
+    echo "$LOG_PREFIX Available agents: tool-monitor, rss, youtube, perplexity, chatgpt, gemini-research, reddit, trend-analyzer, idea-surfacer"
     exit 1
 fi
 

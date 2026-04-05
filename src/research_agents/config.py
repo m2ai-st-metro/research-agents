@@ -215,7 +215,7 @@ RSS_LOOKBACK_DAYS = 3  # Ignore articles older than this
 TREND_LOOKBACK_DAYS = 14  # Window of signals to analyze
 TREND_REPORT_DIR = DATA_DIR / "trend_reports"
 TREND_MIN_SIGNALS_FOR_ANALYSIS = 5  # Skip if fewer signals in window
-TREND_SUMMARIZER_MODEL = "anthropic/claude-4-sonnet"
+TREND_SUMMARIZER_MODEL = "anthropic/claude-sonnet-4-6"
 TREND_SUMMARIZER_MAX_TOKENS = 8192
 
 # --- Firecrawl Enrichment (Test Phase) ---

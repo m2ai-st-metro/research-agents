@@ -17,9 +17,7 @@ logger = logging.getLogger(__name__)
 
 # Agent registry — populated as agents are implemented
 AGENTS: dict[str, str] = {
-    "arxiv": "research_agents.agents.arxiv_scanner",
     "tool-monitor": "research_agents.agents.tool_monitor",
-    "domain-watch": "research_agents.agents.domain_watcher",
     "idea-surfacer": "research_agents.agents.idea_surfacer",
     "youtube": "research_agents.agents.youtube_scanner",
     "rss": "research_agents.agents.rss_scanner",
@@ -27,12 +25,14 @@ AGENTS: dict[str, str] = {
     "perplexity": "research_agents.agents.perplexity_agent",
     "chatgpt": "research_agents.agents.chatgpt_agent",
     "gemini-research": "research_agents.agents.gemini_research_agent",
+    "reddit": "research_agents.agents.reddit_scanner",
 }
 
-# Additional agents (A1 multi-source ingestion)
-AGENTS["github-trending"] = "research_agents.agents.github_trending"
-AGENTS["reddit"] = "research_agents.agents.reddit_scanner"
-AGENTS["product-hunt"] = "research_agents.agents.producthunt_scanner"
+# Retired agents (2026-04-05) — skill-foundry pivot, not aligned with MCP/workflow gap discovery
+# "arxiv": "research_agents.agents.arxiv_scanner",          # academic ML papers, no skill gaps
+# "domain-watch": "research_agents.agents.domain_watcher",  # healthcare/HIPAA focus
+# "github-trending": "research_agents.agents.github_trending",  # star metrics, tool_monitor covers GitHub
+# "product-hunt": "research_agents.agents.producthunt_scanner",  # product launch noise
 
 
 def _setup_logging(verbose: bool = False) -> None:
