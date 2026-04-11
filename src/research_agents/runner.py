@@ -26,6 +26,7 @@ AGENTS: dict[str, str] = {
     "chatgpt": "research_agents.agents.chatgpt_agent",
     "gemini-research": "research_agents.agents.gemini_research_agent",
     "reddit": "research_agents.agents.reddit_scanner",
+    "orchestrator-reflector": "research_agents.agents.orchestrator_reflector",
 }
 
 # Retired agents (2026-04-05) — skill-foundry pivot, not aligned with MCP/workflow gap discovery

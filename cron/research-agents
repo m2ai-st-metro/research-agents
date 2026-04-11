@@ -33,3 +33,6 @@
 
 # Daily at 11 PM UTC: idea-surfacer (synthesize signals into IdeaForge ideas)
 0 23 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh idea-surfacer >> /var/log/research-agents/pipeline.log 2>&1
+
+# Daily at 11:30 PM UTC: orchestrator-reflector (turns ClaudeClaw post-mortems into IdeaForge ideas)
+30 23 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh orchestrator-reflector >> /var/log/research-agents/pipeline.log 2>&1
