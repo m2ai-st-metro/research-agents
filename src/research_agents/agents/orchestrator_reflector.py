@@ -2,8 +2,11 @@
 
 Reads post-mortem data from the agentic-orchestrator SQLite database
 (claudeclaw/store/orchestrator.db) and turns escalations, replans, and
-low-composite-score outcomes into candidate ideas in IdeaForge's ideas
-table (status='unscored', signal_source='orchestrator_reflector').
+low-composite-score outcomes into capability gaps in IdeaForge's
+capability_gaps table (status='raw', signal_source='orchestrator_reflector').
+
+Changed 2026-04-15: writes to capability_gaps instead of ideas table
+to stop internal build-failure signals from polluting the scoring pipeline.
 
 Deterministic templating -- no LLM call. This is intentional: the existing
 LLM synthesis path (idea_surfacer) is known to hit Nemotron-3 JSON bugs,
@@ -23,7 +26,7 @@ import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
 
-from .ideaforge_writer import write_idea_to_ideaforge
+from .ideaforge_writer import write_capability_gap
 
 logger = logging.getLogger(__name__)
 
@@ -325,10 +328,9 @@ def _reflect(
 
     for group in outcome_groups:
         idea = _outcome_group_to_idea(group)
-        idea_id = write_idea_to_ideaforge(
+        gap_id = write_capability_gap(
             title=str(idea["title"]),
             description=str(idea["description"]),
-            tags=list(idea["tags"]),  # type: ignore[arg-type]
             source_signal_ids=list(idea["source_signal_ids"]),  # type: ignore[arg-type]
             problem_statement=str(idea["problem_statement"]),
             target_audience=str(idea["target_audience"]),
@@ -336,17 +338,16 @@ def _reflect(
             db_path=ideaforge_db,
         )
         logger.info(
-            "Wrote IdeaForge idea #%d from outcome group (%d members)",
-            idea_id, group.count,
+            "Wrote capability gap #%d from outcome group (%d members)",
+            gap_id, group.count,
         )
         written += 1
 
     for group in decision_groups:
         idea = _decision_group_to_idea(group)
-        idea_id = write_idea_to_ideaforge(
+        gap_id = write_capability_gap(
             title=str(idea["title"]),
             description=str(idea["description"]),
-            tags=list(idea["tags"]),  # type: ignore[arg-type]
             source_signal_ids=list(idea["source_signal_ids"]),  # type: ignore[arg-type]
             problem_statement=str(idea["problem_statement"]),
             target_audience=str(idea["target_audience"]),
@@ -354,8 +355,8 @@ def _reflect(
             db_path=ideaforge_db,
         )
         logger.info(
-            "Wrote IdeaForge idea #%d from decision group (%d members)",
-            idea_id, group.count,
+            "Wrote capability gap #%d from decision group (%d members)",
+            gap_id, group.count,
         )
         written += 1
 

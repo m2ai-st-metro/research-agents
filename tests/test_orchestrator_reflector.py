@@ -197,13 +197,17 @@ def test_dry_run_reports_candidates_without_writing(
     # = 4 deduped candidates total.
     assert "4" in result
 
-    # Nothing written
+    # Nothing written (dry-run skips all writes, table may not exist)
     conn = sqlite3.connect(str(ideaforge_db))
     try:
-        count = conn.execute("SELECT COUNT(*) FROM ideas").fetchone()[0]
+        tables = [r[0] for r in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()]
+        if "capability_gaps" in tables:
+            count = conn.execute("SELECT COUNT(*) FROM capability_gaps").fetchone()[0]
+            assert count == 0
     finally:
         conn.close()
-    assert count == 0
 
     # Cursor not advanced
     assert not cursor_path.exists()
@@ -224,14 +228,14 @@ def test_live_run_writes_deduped_ideas_and_advances_cursor(
     try:
         rows = conn.execute(
             "SELECT title, status, signal_source, source_signals, "
-            "source_subreddits, problem_statement "
-            "FROM ideas ORDER BY id"
+            "problem_statement "
+            "FROM capability_gaps ORDER BY id"
         ).fetchall()
     finally:
         conn.close()
 
     assert len(rows) == 4
-    assert all(row[1] == "unscored" for row in rows)
+    assert all(row[1] == "raw" for row in rows)
     assert all(row[2] == "orchestrator_reflector" for row in rows)
 
     titles = [row[0] for row in rows]
@@ -251,6 +255,7 @@ def test_live_run_writes_deduped_ideas_and_advances_cursor(
     assert "x3" in replans[0]
 
     # Source signals must cite ALL member row IDs from each cluster.
+    # (capability_gaps query returns: title[0], status[1], signal_source[2], source_signals[3], problem_statement[4])
     sources_by_title = {row[0]: json.loads(row[3]) for row in rows}
     cluster_sources = next(
         s for t, s in sources_by_title.items() if "research" in t and "worker" in t
@@ -284,7 +289,7 @@ def test_second_run_is_idempotent(
 
     conn = sqlite3.connect(str(ideaforge_db))
     try:
-        count = conn.execute("SELECT COUNT(*) FROM ideas").fetchone()[0]
+        count = conn.execute("SELECT COUNT(*) FROM capability_gaps").fetchone()[0]
     finally:
         conn.close()
     assert count == 4  # still four, no duplicates
@@ -330,7 +335,7 @@ def test_new_rows_after_cursor_are_picked_up(
 
     conn = sqlite3.connect(str(ideaforge_db))
     try:
-        count = conn.execute("SELECT COUNT(*) FROM ideas").fetchone()[0]
+        count = conn.execute("SELECT COUNT(*) FROM capability_gaps").fetchone()[0]
     finally:
         conn.close()
     assert count == 6
