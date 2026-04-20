@@ -44,22 +44,22 @@ OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))
 
 # --- Tool/Library Monitor (skill-foundry: MCP ecosystem gaps, agent tooling) ---
 TOOL_SEARCH_QUERIES: list[str] = [
-    "MCP server implementation",
-    "model context protocol integration",
-    "AI agent skills framework",
-    "agent workflow orchestration tool",
-    "LLM tool use SDK",
-    "MCP client server typescript python",
+    "MCP server reference implementation",
+    "MCP bridge service API wrapper",
+    "agent skill plugin framework",
+    "multi-agent workflow orchestration engine",
+    "LLM function calling tool use library",
+    "MCP SDK typescript python client binding",
 ]
 TOOL_MAX_RESULTS_PER_QUERY = 10
 
 # --- YouTube Trending Scanner (skill-foundry: agent/MCP tooling content) ---
 YOUTUBE_SEARCH_QUERIES: list[str] = [
-    "MCP server tutorial build",
-    "AI agent skills tools framework 2026",
-    "Claude MCP model context protocol",
-    "building AI agent workflows pipelines",
-    "agentic coding tools developer automation",
+    "MCP server build tutorial 2026",
+    "AI agent framework launch demo 2026",
+    "Claude MCP model context protocol deep dive 2026",
+    "AI agent workflow architecture pipeline design 2026",
+    "AI coding agent review comparison 2026",
 ]
 YOUTUBE_MAX_RESULTS_PER_QUERY = 10
 YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
@@ -199,11 +199,11 @@ PERPLEXITY_API_KEY_ENV = "OPENROUTER_API_KEY"
 PERPLEXITY_MODEL = "perplexity/sonar-pro"
 PERPLEXITY_MAX_TOKENS = 4096
 PERPLEXITY_RESEARCH_QUERIES: list[str] = [
-    "What MCP servers or Model Context Protocol integrations were released or updated this week?",
-    "What AI agent skills, plugins, or tool-use integrations are developers asking for but don't exist yet?",
-    "What new workflow automation tools or pipeline frameworks launched for AI agents this week?",
-    "What API services are developers wrapping as MCP servers or agent tools right now?",
-    "What gaps or missing features are people complaining about in Claude, ChatGPT, or AI coding agent ecosystems?",
+    "Which MCP servers or Model Context Protocol integrations shipped this week, and what capabilities do they add?",
+    "Which agent skills, plugins, or tool-use integrations are developers explicitly requesting that don't yet exist as shipped tools?",
+    "Which new workflow or pipeline automation tools for AI agents launched this week?",
+    "Which external APIs or SaaS services are developers wrapping as MCP servers or agent tools right now, and what drives the choice?",
+    "What specific pain points or missing features are developers actively complaining about in the Claude, ChatGPT, or AI coding agent ecosystems this week?",
 ]
 PERPLEXITY_MIN_RELEVANCE = "medium"
 
@@ -224,10 +224,10 @@ CHATGPT_MIN_RELEVANCE = "medium"
 GEMINI_RESEARCH_MODEL = "gemini-3-flash-preview"
 GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
-    "Search for new MCP servers, Model Context Protocol implementations, or agent tool-use integrations released in the last 7 days.",
-    "Search for new AI agent framework releases, SDK updates, or orchestration tools launched this week.",
-    "Search for GitHub repositories implementing MCP servers or agent skill plugins that gained traction in the last week.",
-    "Search for new workflow automation or pipeline tools for AI agents released in the last 7 days.",
-    "Search for developer discussions or blog posts about missing MCP integrations or agent skill gaps from the past week.",
+    "Search for MCP server or Model Context Protocol integration release announcements published in the last 7 days.",
+    "Search for AI agent framework, SDK, or orchestration library releases announced in the last 7 days.",
+    "Search for GitHub repositories implementing MCP servers or agent skill plugins that gained stars or traction in the last 7 days.",
+    "Search for new agent workflow or pipeline automation tool launches published in the last 7 days.",
+    "Search for recent forum debates and developer exchanges within the last week discussing gaps in MCP integrations or unimplemented agent functionalities",
 ]
 GEMINI_RESEARCH_MIN_RELEVANCE = "medium"
