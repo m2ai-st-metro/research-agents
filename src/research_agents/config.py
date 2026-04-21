@@ -34,6 +34,13 @@ def get_st_records_db() -> Path:
 CLAUDE_MODEL = "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B"
 CLAUDE_MAX_TOKENS = 4096
 
+# --- Idea Surfacer ---
+# Lookback window for signal synthesis. Wider window = more cross-source
+# corroboration opportunity. 75-signal cap still in force (see idea_surfacer.py)
+# so context never blows; older signals only fill leftover slots after recency
+# sort.
+IDEA_SURFACER_LOOKBACK_DAYS = int(os.environ.get("IDEA_SURFACER_LOOKBACK_DAYS", "14"))
+
 # --- Ollama (local LLM for relevance assessment + trend reports) ---
 # Default: AlienPC GPU (qwen2.5:14b, RTX 5080, ~7s per assessment)
 # Fallback: ProBook localhost (qwen2.5:7b-instruct, CPU, ~124s per assessment -- too slow)
@@ -95,17 +102,20 @@ REDDIT_POSTS_PER_SUBREDDIT: int = 10
 REDDIT_MIN_RELEVANCE: str = "high"  # Raised from medium -- too much noise at medium
 REDDIT_MAX_SIGNALS_PER_RUN: int = 15
 
-# --- Cadences (retired agents removed 2026-04-05) ---
+# --- Cadences (retired agents removed 2026-04-05; doc-drift fixed 2026-04-20) ---
+# Values reflect actual user crontab, not aspirational CLAUDE.md claims.
+# "planned" = module exists but is not scheduled; must be added to cron
+# manually if wanted (keeps paid-API spend off by default).
 CADENCE = {
     "tool_monitor": "daily",
-    "idea_surfacer": "every_3_days",
-    "youtube": "daily",
     "rss": "daily",
-    "trend_analyzer": "weekly",
-    "perplexity": "daily",
-    "chatgpt": "every_3_days",
     "gemini_research": "daily",
     "reddit": "daily",
+    "youtube": "daily",
+    "idea_surfacer": "twice_daily",
+    "trend_analyzer": "weekly",
+    "perplexity": "planned",
+    "chatgpt": "planned",
 }
 
 # --- Agent Specializations (anti-monoculture, skill-foundry aligned) ---
@@ -226,7 +236,7 @@ GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for MCP server or Model Context Protocol integration release announcements published in the last 7 days.",
     "Search for AI agent framework, SDK, or orchestration library releases announced in the last 7 days.",
-    "Search for GitHub repositories implementing MCP servers or agent skill plugins that gained stars or traction in the last 7 days.",
+    "Search for GitHub repositories with recent activity related to MCP server implementations or agent skill plugins that have gained popularity in the last week",
     "Search for recent introductions of agent workflow or pipeline automation tools launched within the last week",
     "Search for recent forum debates and developer exchanges within the last week discussing gaps in MCP integrations or unimplemented agent functionalities",
 ]
