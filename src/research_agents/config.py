@@ -53,7 +53,7 @@ OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))
 TOOL_SEARCH_QUERIES: list[str] = [
     "MCP server reference implementation",
     "MCP bridge service API wrapper",
-    "agent skill plugin framework",
+    "skill plugin architecture for agents",
     "multi-agent workflow orchestration engine",
     "LLM function calling tool use library",
     "MCP SDK typescript python client binding",
