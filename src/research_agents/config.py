@@ -66,7 +66,7 @@ YOUTUBE_SEARCH_QUERIES: list[str] = [
     "AI agent framework introduction demo 2026",
     "Claude context protocol in MCP deep analysis 2026",
     "AI workflow automation with agent orchestration strategies 2026",
-    "AI coding助手生产力对比分析2026",
+    "AI coding productivity tools comparison analysis 2026",
 ]
 YOUTUBE_MAX_RESULTS_PER_QUERY = 10
 YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
