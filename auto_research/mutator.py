@@ -62,6 +62,8 @@ def generate_variant(
     agent: str,
     client: OllamaClient,
     all_queries: list[str] | None = None,
+    role: str | None = None,
+    seed_query: str | None = None,
 ) -> str:
     """Generate a variant query for an agent using Ollama.
 
@@ -70,6 +72,11 @@ def generate_variant(
         agent: Agent type (determines context).
         client: OllamaClient for generation.
         all_queries: All current queries for this agent (to avoid duplicates).
+        role: Slot role — anchors the variant to a specific coverage lane so
+            chained mutations can't drift off-topic (telephone-game prevention).
+        seed_query: Original query captured when the slot was created. Shown to
+            the mutator so the variant stays semantically close to the anchor,
+            not just to the current (possibly already-drifted) query.
 
     Returns:
         A new variant query string.
@@ -77,26 +84,46 @@ def generate_variant(
     context = AGENT_CONTEXT.get(agent, "research signal search queries")
     existing = "\n".join(f"- {q}" for q in (all_queries or [current_query]))
 
+    role_block = (
+        f"\nSLOT ROLE (stay within this lane): {role}\n"
+        if role
+        else ""
+    )
+    seed_block = (
+        f"\nOriginal seed query for this slot: \"{seed_query}\"\n"
+        f"The current query may already be a drifted variant. Your job is to improve\n"
+        f"the CURRENT query while staying in the lane defined by the seed + role.\n"
+        if seed_query and seed_query != current_query
+        else ""
+    )
+    role_rule = (
+        "1. STAY WITHIN THE SLOT ROLE above — do not broaden, narrow, or drift to an adjacent topic\n"
+        "2. Target the role from a different angle (different framing or synonyms WITHIN the lane)\n"
+        if role
+        else
+        "1. Targets the same general topic area but from a different angle\n"
+        "2. Is likely to surface MORE relevant, actionable signals\n"
+    )
+
     prompt = f"""You are optimizing search queries for a research signal pipeline.
 
 Agent type: {agent}
 Context: {context}
-
+{role_block}{seed_block}
 Current queries for this agent:
 {existing}
 
 The query to improve: "{current_query}"
 
 Generate ONE alternative query that:
-1. Targets the same general topic area but from a different angle
-2. Is likely to surface MORE relevant, actionable signals
-3. Is NOT a duplicate of any existing query
-4. Follows the format guidelines for this agent type
+{role_rule}3. Is likely to surface MORE relevant, actionable signals within the role
+4. Is NOT a duplicate of any existing query
+5. Follows the format guidelines for this agent type
 
 Think about:
-- What related terms or adjacent topics might surface better results?
-- Is the current query too broad (noisy) or too narrow (missing signals)?
-- Would a different framing catch signals the current query misses?
+- The role (if given) defines the lane; your variant must remain clearly in that lane
+- What related terms or adjacent phrasings WITHIN the role might surface better results?
+- Is the current query too broad (noisy) or too narrow (missing signals) WITHIN the role?
 
 Respond with ONLY the new query string, nothing else. No quotes, no explanation."""
 

@@ -23,24 +23,34 @@ Skill-foundry intelligence pipeline for ST Metro. 9 agents scan for MCP ecosyste
 - Idea surfacer writes to IdeaForge `ideaforge.db` (status='unscored')
 - IdeaForge scores + classifies (skill-fit weighted) -> Metroplex triages
 
-## Agent Registry (9 active + 2 utility)
+## Agent Registry (7 scheduled + 4 on-demand/utility)
 
 | Agent | LLM | Focus | Cadence |
 |-------|-----|-------|---------|
 | tool-monitor | Ollama (AlienPC) | MCP repos, agent SDKs on GitHub | Daily 5 AM |
 | rss | Ollama (AlienPC) | Dev.to MCP/Agents/Automation, Simon Willison, Latent Space | Daily 5 AM |
-| perplexity | Sonar Pro (OpenRouter) | MCP skill gaps, missing integrations | Daily 6 AM |
-| chatgpt | GPT-5.4 (OpenAI) | Workflow patterns lacking tooling | Every 3 days |
-| gemini-research | Gemini 3 Flash (Google) | New MCP/agent releases <7 days | Daily 6:15 AM |
-| youtube | Gemini + Ollama | Agent/MCP tutorial content | Daily 5:15 AM |
-| reddit | Ollama (AlienPC) | r/ClaudeAI, r/LocalLLaMA, r/devtools pain points | Daily 6:45 AM |
-| trend-analyzer | Ollama (AlienPC) | Weekly synthesis with Skill Gap Radar + Build Queue | Weekly |
-| idea-surfacer | Nemotron-3 (DeepInfra) | Synthesize signals into 2-4 week MVP ideas | Every 3 days |
+| gemini-research | Gemini 3 Flash (Google) | New MCP/agent releases <7 days | Daily 7 AM |
+| reddit | Ollama (AlienPC) | r/ClaudeAI, r/LocalLLaMA, r/devtools pain points | Daily 7 PM |
+| youtube | Gemini + Ollama | Agent/MCP tutorial content | Daily 8 PM |
+| idea-surfacer | Nemotron-3 (DeepInfra) | Synthesize signals into 2-4 week MVP ideas | Daily 12 PM + 11 PM |
+| trend-analyzer | Ollama (AlienPC) | Weekly synthesis with Skill Gap Radar + Build Queue | Weekly (Sat 10 PM) |
+| orchestrator-reflector | None (templated) | ClaudeClaw orchestrator failures → capability gaps | On-demand |
 | manual-signal | Ollama | Matthew's manual URL/topic ingestion | Manual |
 | ideaforge-writer | N/A | Helper: writes ideas to IdeaForge DB | Internal |
 
+### Planned but not scheduled
+- **perplexity** (Sonar Pro via OpenRouter) — documented, code present, never added to cron. Add only if OpenRouter spend is budgeted.
+- **chatgpt** (GPT-5.4) — same state. Add only if OpenAI spend is budgeted.
+
+Both modules live in `src/research_agents/agents/` and are reachable via
+`research-agents run perplexity` / `research-agents run chatgpt`. To schedule,
+add a cron line that invokes `run-agents.sh <agent>`.
+
 ### Retired Agents (2026-04-05)
-arxiv_scanner, domain_watcher, github_trending, producthunt_scanner -- not aligned with skill-foundry mission. Tests in `tests/retired/`.
+arxiv_scanner, domain_watcher, github_trending, producthunt_scanner — not
+aligned with skill-foundry mission. Tests in `tests/retired/`. Removed from
+cron 2026-04-20. Modules kept in `src/research_agents/agents/` so they can
+be resurrected without a rewrite if the mission shifts.
 
 ## Key Patterns
 
@@ -64,16 +74,18 @@ arxiv_scanner, domain_watcher, github_trending, producthunt_scanner -- not align
 - Ollama on AlienPC for relevance assessment (5 agents)
 - Paid APIs: OpenRouter (Perplexity), OpenAI (ChatGPT), Google (Gemini), DeepInfra (Nemotron-3)
 
-## Cron Schedule
+## Cron Schedule (current, user crontab)
 
 ```
 Daily 5:00 AM:     tool-monitor + rss
-Daily 5:15 AM:     youtube
-Daily 6:00 AM:     perplexity
-Daily 6:15 AM:     gemini-research
-Daily 6:45 AM:     reddit
-Every 3 days:      chatgpt (6:30 AM), idea-surfacer (11 PM)
-Weekly (Sat):      trend-analyzer (10 PM)
+Daily 7:00 AM:     gemini-research
+Daily 12:00 PM:    idea-surfacer (midday synthesis)
+Daily 7:00 PM:     reddit
+Daily 8:00 PM:     youtube
+Daily 11:00 PM:    idea-surfacer (evening synthesis)
+Weekly (Sat 10 PM): trend-analyzer
 ```
 
-Install: `sudo cp cron/research-agents /etc/cron.d/research-agents`
+Lives in the user crontab (`crontab -e`), not `/etc/cron.d/`. The PATH
+header is required so the venv python and `claude` CLI resolve (see
+`/home/apexaipc/.claude/CLAUDE.md` for the cron PATH fix history).

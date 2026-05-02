@@ -16,7 +16,10 @@ if str(ST_RECORDS_ROOT) not in sys.path:
 from contracts.research_signal import ResearchSignal, SignalRelevance, SignalSource
 
 from research_agents.agents.idea_surfacer import (
+    _extract_first_json_object,
     _get_recent_signals,
+    _synthesize_ideas,
+    _try_parse_ideas_json,
     run_agent,
 )
 from research_agents.agents.ideaforge_writer import write_idea_to_ideaforge
@@ -257,3 +260,156 @@ class TestRunAgent:
 
         # Verify signals were marked consumed
         mock_consume.assert_called_once_with(["synth-001"])
+
+
+class TestExtractFirstJsonObject:
+    """Balanced-brace extractor must survive Nemotron-3's real failure modes."""
+
+    def test_bare_json_passthrough(self):
+        text = '{"ideas": [{"title": "X"}]}'
+        assert _extract_first_json_object(text) == text
+
+    def test_prose_preamble_then_json(self):
+        text = 'We need to output JSON. {"ideas": []}'
+        assert _extract_first_json_object(text) == '{"ideas": []}'
+
+    def test_markdown_json_fence(self):
+        text = '```json\n{"ideas": [{"title": "A"}]}\n```'
+        extracted = _extract_first_json_object(text)
+        assert extracted == '{"ideas": [{"title": "A"}]}'
+
+    def test_bare_fence_without_language(self):
+        text = '```\n{"ideas": []}\n```'
+        assert _extract_first_json_object(text) == '{"ideas": []}'
+
+    def test_trailing_prose_discarded(self):
+        text = '{"ideas": []} No other text.'
+        assert _extract_first_json_object(text) == '{"ideas": []}'
+
+    def test_nested_objects(self):
+        text = '{"ideas": [{"title": "A", "meta": {"nested": true}}]}'
+        assert _extract_first_json_object(text) == text
+
+    def test_braces_inside_string_literal(self):
+        # Brace-depth tracking must ignore braces inside "strings"
+        text = '{"ideas": [{"title": "use {x} as template"}]}'
+        assert _extract_first_json_object(text) == text
+
+    def test_escaped_quote_in_string(self):
+        text = '{"ideas": [{"title": "he said \\"hi\\""}]}'
+        assert _extract_first_json_object(text) == text
+
+    def test_no_json_returns_none(self):
+        assert _extract_first_json_object("just prose, no JSON") is None
+
+    def test_empty_string(self):
+        assert _extract_first_json_object("") is None
+
+
+class TestParseIdeasJson:
+    """End-to-end parse across the extractor + json.loads path."""
+
+    def test_parses_prose_preamble(self):
+        text = 'Here is the JSON: {"ideas": [{"title": "X", "description": "Y"}]}'
+        parsed = _try_parse_ideas_json(text)
+        assert parsed == [{"title": "X", "description": "Y"}]
+
+    def test_parses_fenced_response(self):
+        text = '```json\n{"ideas": [{"title": "A"}, {"title": "B"}]}\n```'
+        parsed = _try_parse_ideas_json(text)
+        assert parsed == [{"title": "A"}, {"title": "B"}]
+
+    def test_empty_ideas_array(self):
+        parsed = _try_parse_ideas_json('{"ideas": []}')
+        assert parsed == []
+
+    def test_bare_idea_object_wrapped(self):
+        text = '{"title": "X", "description": "Y"}'
+        parsed = _try_parse_ideas_json(text)
+        assert parsed == [{"title": "X", "description": "Y"}]
+
+    def test_unparseable_returns_none(self):
+        assert _try_parse_ideas_json("completely unparseable content") is None
+
+    def test_unexpected_structure_returns_none(self):
+        assert _try_parse_ideas_json('{"foo": "bar"}') is None
+
+
+class TestSignalsPreservedOnZeroIdeas:
+    """Lever 1c: signals must survive a zero-idea synthesis run."""
+
+    def test_signals_not_consumed_when_synthesis_returns_empty(self, store, ideaforge_db):
+        write_signal(
+            signal_id="preserve-001",
+            source=SignalSource.ARXIV_HF,
+            title="Test Signal",
+            summary="Test",
+            relevance=SignalRelevance.HIGH,
+            store=store,
+        )
+
+        # Simulate full-pipeline LLM failure: _synthesize_ideas returns []
+        with (
+            patch("research_agents.agents.idea_surfacer.get_store", return_value=store),
+            patch(
+                "research_agents.agents.idea_surfacer._synthesize_ideas",
+                return_value=[],
+            ),
+            patch(
+                "research_agents.agents.idea_surfacer._mark_signals_consumed",
+            ) as mock_consume,
+        ):
+            result = run_agent(dry_run=False)
+
+        # Assert: mark_signals_consumed was NEVER called
+        mock_consume.assert_not_called()
+        assert "signals preserved for retry" in result
+
+
+class TestLookbackWindowConfigurable:
+    """Lever 2a: IDEA_SURFACER_LOOKBACK_DAYS env override drives default window."""
+
+    def test_default_uses_config_value(self, store, monkeypatch):
+        # Reload config so the env override takes effect
+        monkeypatch.setenv("IDEA_SURFACER_LOOKBACK_DAYS", "21")
+        import importlib
+
+        from research_agents import config as cfg
+        importlib.reload(cfg)
+
+        # _get_recent_signals with no arg should now see 21 — verify by
+        # re-importing idea_surfacer and checking the module picked up the new const
+        from research_agents.agents import idea_surfacer
+        importlib.reload(idea_surfacer)
+
+        assert idea_surfacer.IDEA_SURFACER_LOOKBACK_DAYS == 21
+
+        # Cleanup — reload default back to keep test isolation
+        monkeypatch.delenv("IDEA_SURFACER_LOOKBACK_DAYS", raising=False)
+        importlib.reload(cfg)
+        importlib.reload(idea_surfacer)
+
+
+class TestDiversityEarlyReturn:
+    """Lever 2c: synthesis must skip LLM call when unique_sources < 2."""
+
+    def test_single_source_skips_llm(self, store):
+        # All signals from same source
+        for i in range(3):
+            write_signal(
+                signal_id=f"single-{i}",
+                source=SignalSource.ARXIV_HF,
+                title=f"Signal {i}",
+                summary="Test",
+                relevance=SignalRelevance.HIGH,
+                store=store,
+            )
+
+        signals = store.query_signals(consumed=False, limit=500)
+
+        with patch("research_agents.agents.idea_surfacer.get_client") as mock_client:
+            result = _synthesize_ideas(signals, dry_run=False)
+
+        assert result == []
+        # Critical: LLM was never called
+        mock_client.assert_not_called()

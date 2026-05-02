@@ -18,6 +18,9 @@ from .config import (
     EXPERIMENT_AGENTS,
     IMPROVEMENT_THRESHOLD,
     MAX_CLAUDE_VALIDATIONS,
+    get_slot_role,
+    get_slot_seed_query,
+    load_query_seeds,
 )
 from .evaluator import Comparison, compare
 from .ledger import (
@@ -98,6 +101,14 @@ def run_experiments(
     # Initialize ledger
     conn = init_db()
 
+    # Load seed anchors once per run (roles + original seed queries per slot)
+    seeds = load_query_seeds()
+    if not seeds:
+        logger.warning(
+            "No query_seeds.json loaded — mutator will run without role/seed anchors. "
+            "Drift protection disabled for this run."
+        )
+
     try:
         for round_num in range(1, rounds + 1):
             if rounds > 1:
@@ -120,18 +131,26 @@ def run_experiments(
                     query_idx, baseline_query = select_query_to_mutate(queries, agent)
                     param_name = f"{AGENT_QUERY_KEYS.get(agent, agent)}[{query_idx}]"
 
+                    # Look up role + seed anchor for this slot
+                    slot_role = get_slot_role(seeds, param_name)
+                    slot_seed = get_slot_seed_query(seeds, param_name)
+
                     logger.info("Baseline query: '%s'", baseline_query)
+                    if slot_role:
+                        logger.info("Slot role:      %s", slot_role)
 
                     if dry_run:
                         logger.info("[DRY RUN] Would generate variant and run experiment")
                         continue
 
-                    # Generate variant
+                    # Generate variant (anchored to role + seed when available)
                     variant_query = generate_variant(
                         current_query=baseline_query,
                         agent=agent,
                         client=client,
                         all_queries=queries,
+                        role=slot_role,
+                        seed_query=slot_seed,
                     )
                     logger.info("Variant query:  '%s'", variant_query)
 

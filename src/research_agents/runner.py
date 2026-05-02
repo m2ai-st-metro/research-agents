@@ -9,7 +9,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from .config import CADENCE, ST_RECORDS_ROOT, ULTRA_MAGNUS_DB
+from .config import CADENCE, IDEAFORGE_DB, ST_RECORDS_ROOT, ULTRA_MAGNUS_DB
 
 app = typer.Typer(name="research-agents", help="Ambient research intelligence for ST Records.")
 console = Console()
@@ -155,6 +155,79 @@ def ingest(
     from .agents.manual_signal_writer import ingest_signal
     result = ingest_signal(url_or_topic, dry_run=dry_run)
     console.print(result)
+
+
+@app.command("source-report")
+def source_report() -> None:
+    """Show per-source idea quality from IdeaForge's source_metrics table.
+
+    Reads ideaforge.db and prints a table of each signal_source's idea
+    volume, average weighted score, and classified/dismissed hit-rate.
+    Closes the feedback loop so we can see which research-agents are
+    producing ideas that actually pass scoring.
+    """
+    import sqlite3
+
+    if not IDEAFORGE_DB.exists():
+        console.print(f"[red]IdeaForge DB not found at {IDEAFORGE_DB}[/red]")
+        raise typer.Exit(1)
+
+    conn = sqlite3.connect(str(IDEAFORGE_DB))
+    conn.row_factory = sqlite3.Row
+    try:
+        # source_metrics is refreshed by IdeaForge's source_tracker
+        rows = conn.execute(
+            "SELECT source, idea_count, classified_count, dismissed_count, "
+            "avg_weighted_score, approval_rate, weight, updated_at "
+            "FROM source_metrics ORDER BY idea_count DESC"
+        ).fetchall()
+    except sqlite3.OperationalError as e:
+        console.print(f"[red]Could not read source_metrics: {e}[/red]")
+        console.print(
+            "[yellow]Run IdeaForge's source_tracker.refresh_source_metrics() "
+            "to populate it.[/yellow]"
+        )
+        raise typer.Exit(1)
+    finally:
+        conn.close()
+
+    if not rows:
+        console.print("[yellow]No source_metrics rows yet.[/yellow]")
+        return
+
+    table = Table(title=f"Source Quality — {IDEAFORGE_DB}")
+    table.add_column("Source", style="bold")
+    table.add_column("Ideas", justify="right")
+    table.add_column("Classified", justify="right")
+    table.add_column("Dismissed", justify="right")
+    table.add_column("Avg Score", justify="right")
+    table.add_column("Hit Rate", justify="right")
+    table.add_column("Weight", justify="right")
+
+    for r in rows:
+        classified = r["classified_count"] or 0
+        dismissed = r["dismissed_count"] or 0
+        terminal = classified + dismissed
+        hit_rate = (classified / terminal) if terminal > 0 else None
+        avg_score = r["avg_weighted_score"]
+        table.add_row(
+            r["source"],
+            str(r["idea_count"] or 0),
+            str(classified),
+            str(dismissed),
+            f"{avg_score:.2f}" if avg_score is not None else "—",
+            f"{hit_rate:.1%}" if hit_rate is not None else "—",
+            f"{r['weight']:.2f}",
+        )
+
+    console.print(table)
+    if rows:
+        latest = max(r["updated_at"] for r in rows)
+        console.print(f"\n[dim]source_metrics last refreshed: {latest}[/dim]")
+        console.print(
+            "[dim]To refresh: from ideaforge.source_tracker import "
+            "refresh_source_metrics; refresh_source_metrics()[/dim]"
+        )
 
 
 if __name__ == "__main__":

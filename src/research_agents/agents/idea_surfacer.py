@@ -13,7 +13,7 @@ import re
 from datetime import datetime, timedelta
 
 from ..claude_client import get_client
-from ..config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL
+from ..config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL, IDEA_SURFACER_LOOKBACK_DAYS
 from ..signal_writer import get_store  # Must import before contracts (injects sys.path)
 from .ideaforge_writer import write_idea_to_ideaforge
 
@@ -23,8 +23,13 @@ logger = logging.getLogger(__name__)
 
 
 
-def _get_recent_signals(days: int = 7) -> list[ResearchSignal]:
-    """Load research signals from the past N days with relevance >= medium."""
+def _get_recent_signals(days: int | None = None) -> list[ResearchSignal]:
+    """Load research signals from the past N days with relevance >= medium.
+
+    days=None uses IDEA_SURFACER_LOOKBACK_DAYS from config (default 14).
+    """
+    if days is None:
+        days = IDEA_SURFACER_LOOKBACK_DAYS
     store = get_store()
     try:
         # Query unconsumed signals
@@ -40,36 +45,73 @@ def _get_recent_signals(days: int = 7) -> list[ResearchSignal]:
         store.close()
 
 
+def _extract_first_json_object(text: str) -> str | None:
+    """Return the first balanced JSON object in text, stripping markdown fences.
+
+    Handles Nemotron-3's common failure modes: prose preamble then JSON,
+    markdown ```json fences, trailing prose after valid JSON. Uses brace-depth
+    counting rather than greedy regex so nested objects parse correctly and
+    trailing prose is discarded.
+    """
+    # Strip outermost code fences if present (```json ... ``` or ``` ... ```)
+    fence_match = re.search(r'```(?:json)?\s*\n([\s\S]*?)\n?```', text)
+    if fence_match:
+        text = fence_match.group(1)
+
+    start = text.find("{")
+    if start == -1:
+        return None
+
+    # Walk forward tracking brace depth, honoring string literals and escapes
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if escape:
+            escape = False
+            continue
+        if ch == "\\" and in_string:
+            escape = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start:i + 1]
+    return None
+
+
 def _try_parse_ideas_json(text: str) -> list[dict] | None:
     """Try to extract and parse ideas JSON from LLM output.
 
     Returns list of idea dicts on success, None on failure.
     """
-    # Strip markdown fences (may appear after prose preamble)
-    fence_match = re.search(r'```(?:json)?\s*\n([\s\S]*?)```', text)
-    if fence_match:
-        text = fence_match.group(1).strip()
-    else:
-        # No fences — extract the outermost JSON object
-        match = re.search(r'\{[\s\S]*\}', text)
-        if match:
-            text = match.group(0)
+    candidate = _extract_first_json_object(text)
+    if candidate is None:
+        logger.warning(f"No JSON object found in LLM response: {text[:200]}")
+        return None
 
     try:
-        result = json.loads(text)
-        # Handle both {"ideas": [...]} envelope and bare idea object
-        if "ideas" in result:
-            return result["ideas"]
-        elif "title" in result and "description" in result:
-            # Model returned a single idea without the envelope
-            logger.info("Response was a bare idea object — wrapping in list")
-            return [result]
-        else:
-            logger.warning(f"Parsed JSON but unexpected structure: {list(result.keys())}")
-            return None
+        result = json.loads(candidate)
     except json.JSONDecodeError:
-        logger.warning(f"Failed to parse JSON from LLM response: {text[:200]}")
+        logger.warning(f"Failed to parse JSON from LLM response: {candidate[:200]}")
         return None
+
+    # Handle both {"ideas": [...]} envelope and bare idea object
+    if "ideas" in result:
+        return result["ideas"]
+    if "title" in result and "description" in result:
+        logger.info("Response was a bare idea object — wrapping in list")
+        return [result]
+    logger.warning(f"Parsed JSON but unexpected structure: {list(result.keys())}")
+    return None
 
 
 def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> list[dict]:
@@ -108,6 +150,16 @@ def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> l
         f"\nSignal diversity: {unique_sources} distinct sources "
         f"({', '.join(f'{k}: {v}' for k, v in sorted(source_counts.items()))})"
     )
+
+    # Skip the LLM entirely when only one source is contributing — cross-source
+    # corroboration is impossible and historical hit-rate on single-source ideas
+    # is poor. Let signals roll over to the next run.
+    if unique_sources < 2:
+        logger.warning(
+            "Only %d distinct signal source(s); skipping synthesis to preserve "
+            "signals for a run with more diversity.", unique_sources
+        )
+        return []
 
     prompt = f"""You are a skill-foundry idea synthesizer. You identify MCP servers, agent skills, \
 workflow tools, and pipeline components that should exist but don't yet.
@@ -153,6 +205,9 @@ Rules:
 - Only suggest ideas a solo developer can MVP in 2-4 weeks
 - MUST be one of: MCP server, CLI tool, pip package, agent skill, workflow component
 - Each idea MUST have a non-empty problem_statement and target_audience
+- If you produce 2 or more ideas, at least half MUST cite `source_signal_ids`
+  drawn from 2+ distinct signal sources (the `[xxx]` tags on each signal line
+  above are the sources). Single-source ideas must be the exception, not the default.
 - If no clear ideas emerge from the signals, return {{"ideas": []}}
 - Avoid: frontends, mobile apps, enterprise platforms, ideas requiring large teams
 - Maximum 6 ideas per synthesis run"""
@@ -173,9 +228,9 @@ Rules:
     if parsed is not None:
         return parsed
 
-    # --- Retry: LLM returned prose or malformed JSON. Ask once more. ---
-    logger.warning("First LLM response was not valid JSON — retrying with stronger prompt")
-    retry_response = client.chat.completions.create(
+    # --- Retry 1: reinforce JSON-only contract. ---
+    logger.warning("First LLM response was not valid JSON — retry 1 with stronger prompt")
+    retry1_response = client.chat.completions.create(
         model=CLAUDE_MODEL,
         max_tokens=CLAUDE_MAX_TOKENS,
         messages=[
@@ -200,15 +255,53 @@ Rules:
             },
         ],
     )
-
-    retry_text = retry_response.choices[0].message.content.strip()
-    parsed = _try_parse_ideas_json(retry_text)
-
+    retry1_text = retry1_response.choices[0].message.content.strip()
+    parsed = _try_parse_ideas_json(retry1_text)
     if parsed is not None:
-        logger.info("Retry succeeded — parsed JSON on second attempt")
+        logger.info("Retry 1 succeeded — parsed JSON on second attempt")
         return parsed
 
-    logger.warning(f"Retry also failed to produce valid JSON: {retry_text[:200]}")
+    # --- Retry 2: echo the failing output back, ask the model to extract just
+    # the JSON from its own prior response. Nemotron-3 recovers from this when
+    # the first two passes were prose-heavy. Cheap: small context delta. ---
+    logger.warning("Retry 1 still invalid — retry 2 echoing failing output back")
+    retry2_response = client.chat.completions.create(
+        model=CLAUDE_MODEL,
+        max_tokens=CLAUDE_MAX_TOKENS,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are a JSON extraction tool. Output only the JSON object, "
+                    "nothing else. Start with '{' and end with '}'."
+                ),
+            },
+            {
+                "role": "user",
+                "content": (
+                    "The following text was supposed to be a JSON object in the "
+                    'shape {"ideas": [...]}. It failed to parse. Re-emit ONLY '
+                    "the JSON object, stripping any prose, markdown fences, "
+                    "explanations, or trailing text. If no coherent idea data "
+                    'exists in the text, return exactly {"ideas": []}.\n\n'
+                    f"--- TEXT TO EXTRACT FROM ({len(retry1_text)} chars) ---\n"
+                    f"{retry1_text}\n"
+                    "--- END TEXT ---"
+                ),
+            },
+        ],
+    )
+    retry2_text = retry2_response.choices[0].message.content.strip()
+    parsed = _try_parse_ideas_json(retry2_text)
+    if parsed is not None:
+        logger.info("Retry 2 succeeded — extracted JSON from failing output")
+        return parsed
+
+    logger.warning(
+        "All 3 synthesis attempts failed to produce valid JSON. "
+        "Last retry output (first 200 chars): %s",
+        retry2_text[:200],
+    )
     return []
 
 
@@ -225,14 +318,18 @@ def _mark_signals_consumed(signal_ids: list[str]) -> None:
 def run_agent(dry_run: bool = False) -> str:
     """Run the idea surfacer agent.
 
-    1. Load recent research signals (past week, relevance >= medium)
-    2. Synthesize into 0-3 actionable project ideas via Claude
+    1. Load recent research signals (lookback window from config, default 14 days,
+       relevance >= medium)
+    2. Synthesize into 0-6 actionable project ideas via Claude
     3. Write ideas to IdeaForge (status='unscored')
-    4. Mark consumed signals in ContractStore
+    4. Mark consumed signals in ContractStore — ONLY when at least one idea was
+       produced. A 0-idea run leaves signals unconsumed so they can feed the
+       next attempt (guards against single-run Nemotron-3 JSON failures
+       silently discarding a week of research).
 
     Returns summary string.
     """
-    signals = _get_recent_signals(days=7)
+    signals = _get_recent_signals()
     logger.info(f"Found {len(signals)} recent unconsumed signals")
 
     if not signals:
@@ -246,6 +343,15 @@ def run_agent(dry_run: bool = False) -> str:
 
     ideas = _synthesize_ideas(signals)
     logger.info(f"Synthesized {len(ideas)} ideas")
+
+    if not ideas:
+        # Leave signals unconsumed so the next scheduled run can retry.
+        logger.warning(
+            "Synthesis produced 0 ideas from %d signals — NOT marking consumed. "
+            "Signals will be available to the next run.",
+            len(signals),
+        )
+        return f"Synthesized 0 ideas from {len(signals)} signals (signals preserved for retry)"
 
     written = 0
 

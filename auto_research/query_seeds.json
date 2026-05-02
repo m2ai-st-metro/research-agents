@@ -1,0 +1,119 @@
+{
+  "captured_at": "2026-04-19",
+  "captured_from": "research_agents.config",
+  "purpose": "Seed anchor + per-slot role. When AUTO_COMMIT_ENABLED is True, slots drift via accepted mutations. The `role` field keeps each slot anchored to a distinct coverage lane so mutations cannot wander into an adjacent slot's territory or leave the mission. The `seed_query` is the original query captured on `captured_at` — used for drift checks and rollback targets.",
+  "mission": "Skill-foundry intelligence pipeline — surface MCP servers, agent skills, workflow tools, and pipeline components that should exist but don't yet.",
+  "agents": {
+    "tool_monitor": "GitHub repo search — targets MCP/agent/LLM-tooling repos.",
+    "youtube": "YouTube video search — targets agent/MCP tutorial, demo, and review content.",
+    "perplexity": "Perplexity Sonar synthesis — time-bounded questions returning synthesized answers.",
+    "gemini_research": "Gemini grounded search — search instructions returning ranked source results."
+  },
+  "slots": {
+    "TOOL_SEARCH_QUERIES[0]": {
+      "agent": "tool_monitor",
+      "role": "MCP server reference implementations — newly released or updated MCP server repos that implement the protocol itself.",
+      "seed_query": "MCP server reference implementation"
+    },
+    "TOOL_SEARCH_QUERIES[1]": {
+      "agent": "tool_monitor",
+      "role": "MCP-to-service bridges — repos wrapping a specific external service, API, or SaaS as an MCP server.",
+      "seed_query": "MCP bridge service API wrapper"
+    },
+    "TOOL_SEARCH_QUERIES[2]": {
+      "agent": "tool_monitor",
+      "role": "Agent skill & plugin frameworks — reusable capability registries where developers register skills, plugins, or tools for agents.",
+      "seed_query": "agent skill plugin framework"
+    },
+    "TOOL_SEARCH_QUERIES[3]": {
+      "agent": "tool_monitor",
+      "role": "Multi-agent orchestration engines — workflow and pipeline frameworks that coordinate multiple agents in sequence or parallel.",
+      "seed_query": "multi-agent workflow orchestration engine"
+    },
+    "TOOL_SEARCH_QUERIES[4]": {
+      "agent": "tool_monitor",
+      "role": "Tool-use primitives & SDKs — low-level function-calling or tool-use libraries that sit below MCP in the stack.",
+      "seed_query": "LLM function calling tool use library"
+    },
+    "TOOL_SEARCH_QUERIES[5]": {
+      "agent": "tool_monitor",
+      "role": "Language-specific MCP SDKs — Python, TypeScript, or other-language MCP client-server bindings.",
+      "seed_query": "MCP SDK typescript python client binding"
+    },
+    "YOUTUBE_SEARCH_QUERIES[0]": {
+      "agent": "youtube",
+      "role": "MCP server build tutorials — step-by-step 'build your own MCP server' content, hands-on tutorials.",
+      "seed_query": "MCP server build tutorial 2026"
+    },
+    "YOUTUBE_SEARCH_QUERIES[1]": {
+      "agent": "youtube",
+      "role": "Agent framework launches & demos — announcement videos and walkthroughs for newly launched agent frameworks.",
+      "seed_query": "AI agent framework launch demo 2026"
+    },
+    "YOUTUBE_SEARCH_QUERIES[2]": {
+      "agent": "youtube",
+      "role": "Claude ecosystem deep-dives — Anthropic and Claude-specific MCP, skills, and agent content.",
+      "seed_query": "Claude MCP model context protocol deep dive 2026"
+    },
+    "YOUTUBE_SEARCH_QUERIES[3]": {
+      "agent": "youtube",
+      "role": "Agent workflow architecture — videos on designing multi-step agent pipelines and orchestration patterns.",
+      "seed_query": "AI agent workflow architecture pipeline design 2026"
+    },
+    "YOUTUBE_SEARCH_QUERIES[4]": {
+      "agent": "youtube",
+      "role": "Dev-productivity agent tool reviews — comparisons, benchmarks, and demos of coding agents as developer productivity tools.",
+      "seed_query": "AI coding agent review comparison 2026"
+    },
+    "PERPLEXITY_RESEARCH_QUERIES[0]": {
+      "agent": "perplexity",
+      "role": "Weekly MCP release digest — synthesized summary of MCP servers and integrations that shipped in the past week.",
+      "seed_query": "Which MCP servers or Model Context Protocol integrations shipped this week, and what capabilities do they add?"
+    },
+    "PERPLEXITY_RESEARCH_QUERIES[1]": {
+      "agent": "perplexity",
+      "role": "Unmet agent skill demand — developers' explicit requests for tools, skills, or integrations that do not yet exist as shipped products.",
+      "seed_query": "Which agent skills, plugins, or tool-use integrations are developers explicitly requesting that don't yet exist as shipped tools?"
+    },
+    "PERPLEXITY_RESEARCH_QUERIES[2]": {
+      "agent": "perplexity",
+      "role": "Workflow & pipeline tool launches — synthesized list of new agent workflow or pipeline automation tools launched this week.",
+      "seed_query": "Which new workflow or pipeline automation tools for AI agents launched this week?"
+    },
+    "PERPLEXITY_RESEARCH_QUERIES[3]": {
+      "agent": "perplexity",
+      "role": "API wrapping patterns — which external APIs or SaaS services developers are wrapping as MCP or agent tools, and the underlying motivation.",
+      "seed_query": "Which external APIs or SaaS services are developers wrapping as MCP servers or agent tools right now, and what drives the choice?"
+    },
+    "PERPLEXITY_RESEARCH_QUERIES[4]": {
+      "agent": "perplexity",
+      "role": "Ecosystem friction & complaints — active pain points and missing features developers are complaining about in the Claude, ChatGPT, or AI coding agent ecosystems.",
+      "seed_query": "What specific pain points or missing features are developers actively complaining about in the Claude, ChatGPT, or AI coding agent ecosystems this week?"
+    },
+    "GEMINI_RESEARCH_QUERIES[0]": {
+      "agent": "gemini_research",
+      "role": "MCP integration release sources — direct search results for freshly released MCP servers or protocol integrations.",
+      "seed_query": "Search for MCP server or Model Context Protocol integration release announcements published in the last 7 days."
+    },
+    "GEMINI_RESEARCH_QUERIES[1]": {
+      "agent": "gemini_research",
+      "role": "Agent framework release sources — direct search results for new agent frameworks, SDKs, or orchestration libraries.",
+      "seed_query": "Search for AI agent framework, SDK, or orchestration library releases announced in the last 7 days."
+    },
+    "GEMINI_RESEARCH_QUERIES[2]": {
+      "agent": "gemini_research",
+      "role": "Trending agent skill repos — GitHub repositories implementing MCP or agent skills that are gaining momentum (not just newly created).",
+      "seed_query": "Search for GitHub repositories implementing MCP servers or agent skill plugins that gained stars or traction in the last 7 days."
+    },
+    "GEMINI_RESEARCH_QUERIES[3]": {
+      "agent": "gemini_research",
+      "role": "Workflow automation launch sources — direct search results for new agent workflow or pipeline automation tool launches.",
+      "seed_query": "Search for new agent workflow or pipeline automation tool launches published in the last 7 days."
+    },
+    "GEMINI_RESEARCH_QUERIES[4]": {
+      "agent": "gemini_research",
+      "role": "Long-form gap discussions — blog posts, forum threads, and developer discussions about missing MCP integrations or unbuilt agent skills.",
+      "seed_query": "Search for blog posts, forum threads, or developer discussions from the last 7 days about missing MCP integrations or unbuilt agent skills."
+    }
+  }
+}
