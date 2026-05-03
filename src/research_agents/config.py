@@ -54,7 +54,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "MCP server reference implementation",
     "MCP bridge service API wrapper",
     "agent skill ecosystem framework",
-    "multi-agent workflow management system implementation",
+    "multi-agent coordination framework implementation",
     "LLM function calling tool use library",
     "MCP SDK typescript python client binding",
 ]
