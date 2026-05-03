@@ -64,7 +64,7 @@ TOOL_MAX_RESULTS_PER_QUERY = 10
 YOUTUBE_SEARCH_QUERIES: list[str] = [
     "MCP server setup tutorial 2026",
     "AI agent platform introduction demo 2026",
-    "Claude context protocol analysis for AI agents 2026",
+    "Claude context management in AI agent systems 2026",
     "AI agent pipeline design for workflow automation 2026",
     "AI coding assistants review and benchmark 2026",
 ]
