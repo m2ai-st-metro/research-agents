@@ -60,7 +60,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "MCP server reference implementation",
     "MCP bridge service API wrapper",
     "agent skill ecosystem framework",
-    "multi-agent workflow engine implementation",
+    "multi-agent coordination framework implementation",
     "LLM function calling tool use library",
     "MCP SDK typescript python client binding",
 ]
@@ -69,7 +69,7 @@ TOOL_MAX_RESULTS_PER_QUERY = 10
 # --- YouTube Trending Scanner (skill-foundry: agent/MCP tooling content) ---
 YOUTUBE_SEARCH_QUERIES: list[str] = [
     "MCP server setup tutorial 2026",
-    "AI agent framework unveiling demo 2026",
+    "AI agent framework launch presentation 2026",
     "Claude AI agent system context handling strategies 2026",
     "AI workflow orchestration with agent pipelines 2026",
     "AI coding assistants review and benchmark 2026",
