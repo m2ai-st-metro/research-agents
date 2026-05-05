@@ -60,7 +60,7 @@ TOOL_SEARCH_QUERIES: list[str] = [
     "MCP server reference implementation",
     "MCP bridge service API wrapper",
     "agent skill ecosystem framework",
-    "multi-agent coordination framework implementation",
+    "multi-agent workflow engine implementation",
     "LLM function calling tool use library",
     "MCP SDK typescript python client binding",
 ]
@@ -72,7 +72,7 @@ YOUTUBE_SEARCH_QUERIES: list[str] = [
     "AI agent framework unveiling demo 2026",
     "Claude AI agent system context handling strategies 2026",
     "AI workflow orchestration with agent pipelines 2026",
-    "AI coding tools review and performance comparison 2026",
+    "AI coding assistants review and benchmark 2026",
 ]
 YOUTUBE_MAX_RESULTS_PER_QUERY = 10
 YOUTUBE_MIN_RELEVANCE = "medium"  # Only write signals >= this level
