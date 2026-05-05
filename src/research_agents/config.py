@@ -71,7 +71,7 @@ YOUTUBE_SEARCH_QUERIES: list[str] = [
     "MCP server setup tutorial 2026",
     "AI agent framework unveiling demo 2026",
     "Claude AI agent system context handling strategies 2026",
-    "AI workflow orchestration with agent pipelines 2026",
+    "AI agent pipeline orchestration strategies 2026",
     "AI coding assistants review and benchmark 2026",
 ]
 YOUTUBE_MAX_RESULTS_PER_QUERY = 10
@@ -240,7 +240,7 @@ CHATGPT_MIN_RELEVANCE = "medium"
 GEMINI_RESEARCH_MODEL = "gemini-3-flash-preview"
 GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
-    "Search for recent releases and updates of MCP server and integration protocols announced within the last week",
+    "Search for MCP server or Model Context Protocol integration release announcements published in the last 7 days.",
     "Search for updates and new releases of AI agent frameworks, SDKs, and orchestration tools announced in the last 7 days",
     "Search for GitHub repositories showing recent growth in stars or forks for MCP server implementations and AI agent skill plugins over the last week",
     "Search for newly launched agent workflow and pipeline automation tools announced in the past week",
