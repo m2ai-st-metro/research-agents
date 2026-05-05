@@ -34,6 +34,12 @@ def get_st_records_db() -> Path:
 CLAUDE_MODEL = "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B"
 CLAUDE_MAX_TOKENS = 4096
 
+# Optional fallback provider used by idea_surfacer when 3 primary attempts
+# all fail JSON parse. Empty default = preserves today's behavior (no hop).
+# Set to a provider model id (e.g. "mistralai/Mistral-Large-Instruct-2407")
+# to enable a single fallback call after primary exhaustion.
+IDEA_SURFACER_FALLBACK_MODEL = os.environ.get("IDEA_SURFACER_FALLBACK_MODEL", "")
+
 # --- Idea Surfacer ---
 # Lookback window for signal synthesis. Wider window = more cross-source
 # corroboration opportunity. 75-signal cap still in force (see idea_surfacer.py)
