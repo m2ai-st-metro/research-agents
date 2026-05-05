@@ -7,3 +7,4 @@ build/
 .env
 *.lock
 data/firecrawl_usage.jsonl
+.self-healing-pipeline/

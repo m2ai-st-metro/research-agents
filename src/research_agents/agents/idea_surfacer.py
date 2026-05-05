@@ -13,13 +13,28 @@ import re
 from datetime import datetime, timedelta
 
 from ..claude_client import get_client
-from ..config import CLAUDE_MAX_TOKENS, CLAUDE_MODEL, IDEA_SURFACER_LOOKBACK_DAYS
+from ..config import (
+    CLAUDE_MAX_TOKENS,
+    CLAUDE_MODEL,
+    IDEA_SURFACER_FALLBACK_MODEL,
+    IDEA_SURFACER_LOOKBACK_DAYS,
+)
 from ..signal_writer import get_store  # Must import before contracts (injects sys.path)
 from .ideaforge_writer import write_idea_to_ideaforge
 
 from contracts.research_signal import ResearchSignal  # noqa: E402
 
 logger = logging.getLogger(__name__)
+
+
+class TruncatedJSONError(ValueError):
+    """Raised when text contains an opening JSON brace that never closes.
+
+    Distinguishes "no JSON at all" (parser returns None) from "JSON started
+    but the LLM response was cut off mid-string". Callers can branch on this
+    to log accurately and decide whether to retry rather than discarding the
+    response as unparseable prose.
+    """
 
 
 
@@ -46,54 +61,103 @@ def _get_recent_signals(days: int | None = None) -> list[ResearchSignal]:
 
 
 def _extract_first_json_object(text: str) -> str | None:
-    """Return the first balanced JSON object in text, stripping markdown fences.
+    """Return the first parseable balanced JSON object in text.
 
-    Handles Nemotron-3's common failure modes: prose preamble then JSON,
-    markdown ```json fences, trailing prose after valid JSON. Uses brace-depth
-    counting rather than greedy regex so nested objects parse correctly and
-    trailing prose is discarded.
+    Walks ALL `{` positions (after stripping outermost markdown fences). For
+    each candidate, runs a brace-depth scan honoring string literals and
+    escapes; if depth returns to 0 and `json.loads` accepts the slice, that
+    slice wins. Adversarial chain-of-thought prose like "schema looks like
+    {key: value}" no longer hijacks extraction — the next real JSON object
+    in the text gets a chance.
+
+    Behaviors:
+      - Returns first candidate substring that round-trips through json.loads.
+      - Raises TruncatedJSONError if at least one candidate's depth-walk runs
+        off the end of the string without closing AND no later candidate
+        parses (LLM response was cut off mid-JSON).
+      - Returns None if no `{` is present at all.
     """
     # Strip outermost code fences if present (```json ... ``` or ``` ... ```)
     fence_match = re.search(r'```(?:json)?\s*\n([\s\S]*?)\n?```', text)
     if fence_match:
         text = fence_match.group(1)
 
-    start = text.find("{")
-    if start == -1:
+    if "{" not in text:
         return None
 
-    # Walk forward tracking brace depth, honoring string literals and escapes
-    depth = 0
-    in_string = False
-    escape = False
-    for i in range(start, len(text)):
-        ch = text[i]
-        if escape:
-            escape = False
+    saw_truncated_candidate = False
+    n = len(text)
+
+    for start in range(n):
+        if text[start] != "{":
             continue
-        if ch == "\\" and in_string:
-            escape = True
+
+        depth = 0
+        in_string = False
+        escape = False
+        closed_at: int | None = None
+
+        for i in range(start, n):
+            ch = text[i]
+            if escape:
+                escape = False
+                continue
+            if ch == "\\" and in_string:
+                escape = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    closed_at = i
+                    break
+
+        if closed_at is None:
+            # Walked to end of text without depth returning to 0 — truncated.
+            saw_truncated_candidate = True
             continue
-        if ch == '"':
-            in_string = not in_string
+
+        candidate = text[start:closed_at + 1]
+        try:
+            json.loads(candidate)
+        except json.JSONDecodeError:
+            # Stray-brace prose like "{key: value, nested: {inner: thing}}"
+            # closes balanced but isn't real JSON. Try the next `{`.
             continue
-        if in_string:
-            continue
-        if ch == "{":
-            depth += 1
-        elif ch == "}":
-            depth -= 1
-            if depth == 0:
-                return text[start:i + 1]
+        return candidate
+
+    if saw_truncated_candidate:
+        raise TruncatedJSONError(
+            "JSON started but truncated: opening brace found, but no balanced "
+            "close before end of text and no later candidate parsed."
+        )
     return None
 
 
 def _try_parse_ideas_json(text: str) -> list[dict] | None:
     """Try to extract and parse ideas JSON from LLM output.
 
-    Returns list of idea dicts on success, None on failure.
+    Returns list of idea dicts on success, None on failure. Logs distinguish
+    truncation (JSON started but cut off) from no-JSON-at-all so operators
+    can tell a context-window blowout from a prose-only response.
     """
-    candidate = _extract_first_json_object(text)
+    try:
+        candidate = _extract_first_json_object(text)
+    except TruncatedJSONError as exc:
+        logger.warning(
+            "LLM response appears truncated (JSON started but never closed): "
+            "%s | head: %s",
+            exc,
+            text[:200],
+        )
+        return None
+
     if candidate is None:
         logger.warning(f"No JSON object found in LLM response: {text[:200]}")
         return None
@@ -298,10 +362,61 @@ Rules:
         return parsed
 
     logger.warning(
-        "All 3 synthesis attempts failed to produce valid JSON. "
+        "All 3 primary-model synthesis attempts failed to produce valid JSON. "
         "Last retry output (first 200 chars): %s",
         retry2_text[:200],
     )
+
+    # --- Fallback hop: one final attempt against IDEA_SURFACER_FALLBACK_MODEL.
+    # Empty default = no fallback (preserves pre-resilience behavior). When
+    # set, fire ONE call with the fallback model id, reusing retry-2's
+    # "extract JSON from failing output" framing. This mirrors the
+    # metroplex-spec-expander-fallback pattern. ---
+    if IDEA_SURFACER_FALLBACK_MODEL:
+        logger.warning(
+            "Hopping to fallback model %r after primary exhaustion",
+            IDEA_SURFACER_FALLBACK_MODEL,
+        )
+        fallback_response = client.chat.completions.create(
+            model=IDEA_SURFACER_FALLBACK_MODEL,
+            max_tokens=CLAUDE_MAX_TOKENS,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a JSON extraction tool. Output only the JSON object, "
+                        "nothing else. Start with '{' and end with '}'."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        "The following text was supposed to be a JSON object in the "
+                        'shape {"ideas": [...]}. The primary model failed to produce '
+                        "valid JSON across three attempts. Re-emit ONLY the JSON "
+                        "object, stripping any prose, markdown fences, explanations, "
+                        "or trailing text. If no coherent idea data exists in the "
+                        'text, return exactly {"ideas": []}.\n\n'
+                        f"--- TEXT TO EXTRACT FROM ({len(retry2_text)} chars) ---\n"
+                        f"{retry2_text}\n"
+                        "--- END TEXT ---"
+                    ),
+                },
+            ],
+        )
+        fallback_text = fallback_response.choices[0].message.content.strip()
+        parsed = _try_parse_ideas_json(fallback_text)
+        if parsed is not None:
+            logger.info(
+                "Fallback model %r succeeded after primary exhaustion",
+                IDEA_SURFACER_FALLBACK_MODEL,
+            )
+            return parsed
+        logger.warning(
+            "Fallback model %r also failed to produce valid JSON",
+            IDEA_SURFACER_FALLBACK_MODEL,
+        )
+
     return []
 
 
