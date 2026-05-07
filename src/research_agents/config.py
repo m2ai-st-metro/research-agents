@@ -242,7 +242,7 @@ GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for recent releases and announcements of MCP server and Model Context Protocol integrations within the last week",
     "Search for recent announcements and releases of AI agent frameworks, SDKs, and orchestration libraries posted within the last 7 days",
-    "Search for GitHub repositories with recent increases in stars or active forks related to MCP server developments and AI agent skill plugins over the past week",
+    "Search for GitHub repositories showing recent activity or star growth related to Model Context Protocol server enhancements and AI agent skill plugins over the past week",
     "Search for newly launched agent workflow and pipeline automation tools announced in the past week",
     "Search for recent forum debates and technical discussions over the past week focusing on gaps and proposed improvements for MCP integrations and AI agent functionalities",
 ]
