@@ -2,25 +2,25 @@
 # Install: sudo cp cron/research-agents /etc/cron.d/
 
 # Daily at 5 AM UTC: tool-monitor + rss (arxiv retired 2026-04-05, skill-foundry pivot)
-0 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh tool-monitor rss >> /var/log/research-agents/pipeline.log 2>&1
+# 2026-05-08 DISABLED (tech-idea ingestion kill, Option A): 0 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh tool-monitor rss >> /var/log/research-agents/pipeline.log 2>&1
 
 # RETIRED 2026-04-05: domain-watch (healthcare/HIPAA focus, not aligned with skill-foundry mission)
 # 30 5 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh domain-watch >> /var/log/research-agents/pipeline.log 2>&1
 
 # Every 3 days at 10 PM UTC: trend-analyzer (runs before idea-surfacer so trend signal is available)
-0 22 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh trend-analyzer >> /var/log/research-agents/pipeline.log 2>&1
+# 2026-05-08 DISABLED (tech-idea ingestion kill, Option A): 0 22 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh trend-analyzer >> /var/log/research-agents/pipeline.log 2>&1
 
 # Daily at 5:15 AM UTC: youtube scanner (staggered after main daily batch)
-15 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh youtube >> /var/log/research-agents/pipeline.log 2>&1
+# 2026-05-08 DISABLED (tech-idea ingestion kill, Option A): 15 5 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh youtube >> /var/log/research-agents/pipeline.log 2>&1
 
 # Daily at 6 AM UTC: perplexity (web-grounded research, staggered after other daily agents)
-0 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh perplexity >> /var/log/research-agents/pipeline.log 2>&1
+# 2026-05-08 DISABLED (tech-idea ingestion kill, Option A): 0 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh perplexity >> /var/log/research-agents/pipeline.log 2>&1
 
 # Every 3 days at 6:30 AM UTC: chatgpt (strategic market analysis, staggered after domain-watch)
-30 6 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh chatgpt >> /var/log/research-agents/pipeline.log 2>&1
+# 2026-05-08 DISABLED (tech-idea ingestion kill, Option A): 30 6 */3 * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh chatgpt >> /var/log/research-agents/pipeline.log 2>&1
 
 # Daily at 6:15 AM UTC: gemini-research (Google Search grounded, staggered after perplexity)
-15 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh gemini-research >> /var/log/research-agents/pipeline.log 2>&1
+# 2026-05-08 DISABLED (tech-idea ingestion kill, Option A): 15 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh gemini-research >> /var/log/research-agents/pipeline.log 2>&1
 
 # RETIRED 2026-04-05: github-trending (star metrics, tool_monitor covers GitHub)
 # 35 6 * * * apexaipc /home/apexaipc/projects/research-agents/run-agents.sh github-trending >> /var/log/research-agents/pipeline.log 2>&1

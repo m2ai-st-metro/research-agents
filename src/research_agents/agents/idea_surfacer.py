@@ -225,56 +225,74 @@ def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> l
         )
         return []
 
-    prompt = f"""You are a skill-foundry idea synthesizer. You identify MCP servers, agent skills, \
-workflow tools, and pipeline components that should exist but don't yet.
+    prompt = f"""You are a life-domain idea synthesizer. From raw human-life research \
+signals, you identify SCENES — concrete moments in a person's day where coordination, \
+admin, decision-fatigue, or caregiving load is crushing them, and where a patient \
+AI companion could plausibly absorb 60-70% of that load (the "house manager" benchmark: \
+what wealthy households hire a human to handle, the rest of us juggle alone).
 
-The foundry builds:
-- MCP servers (Python + mcp-sdk): proven pattern, 100% build success rate
-- CLI tools and pip packages for developer workflows
-- Agent skills and workflow pipeline components
-- The build pipeline (Metroplex) can autonomously produce Python CLI tools and MCP servers
+You are NOT looking for developer tools, MCP servers, CLI utilities, agent SDKs, or \
+APIs to wrap. You are looking for moments in the lives of middle-income, non-technical \
+people — aging-parent caregivers, parents of newborns or autistic kids, people stuck in \
+insurance phone trees, people navigating chronic illness or menopause — that an AI \
+companion could meaningfully ease.
 
-What the foundry is looking for:
-- MCP servers that wrap APIs no one has wrapped yet
-- Workflow tools that developers keep building from scratch
-- Agent skills that would be reusable across many agent frameworks
-- Pipeline components that connect existing tools in new ways
+Calibration example of a well-formed Scene-shaped idea:
+{{
+    "title": "Wellness Copilot",
+    "description": "An always-available personal health guide that helps a parent triage a sick child at 2 AM, decide whether to call the pediatrician or wait until morning, and keep a running log of symptoms across the week.",
+    "problem_statement": "It's 2 AM. A parent is awake with a feverish toddler, scrolling through three different symptom-checker sites, second-guessing whether 102.3 warrants the ER. They've already had this exact night four times this winter, and tomorrow they'll be expected to function at work. 27% of personal guidance conversations people have with AI today are health-related — the demand is enormous, the trusted answer is missing.",
+    "target_audience": "Middle-income parents of young children, especially first-time parents and single parents, who don't have a doctor in the family and can't afford concierge medicine.",
+    "struggling_user": "I'm awake at 2 AM with a sick kid, terrified of overreacting and terrified of underreacting, and I have nobody to ask except a search engine.",
+    "weight_hint": "~6 nights per winter of lost sleep per parent; one unnecessary ER visit averages $1,200 out-of-pocket; an estimated 40+ hours/year per family lost to symptom-checker rabbit holes.",
+    "agentic_relief": "An AI companion could maintain the child's symptom history, run a structured triage conversation calibrated to the family's pediatrician's actual escalation thresholds, and produce a one-page summary the parent can hand to a clinician. It cannot diagnose, but it can absorb the mental load of remembering, comparing, and deciding when to escalate — the 60-70% of cognitive work that isn't the medical judgment itself.",
+    "tags": ["pediatric", "caregiving", "after-hours-triage"],
+    "source_signal_ids": ["signal-id-1", "signal-id-2"]
+}}
+
+Anti-patterns — REJECT outputs that look like this:
+- "wellness-cli", "health-mcp-server", "symptom-checker-agent-skill" — these are tool names, not Scene names. Use "Wellness Copilot" style.
+- "Many people struggle with healthcare admin..." — generic openers are forbidden. Name the specific 2 AM, the specific person, the specific decision.
+- "Users can leverage AI to streamline..." — corporate-speak. Write like you're describing a real night in a real apartment.
+- Tech tags like "MCP", "CLI", "agent-sdk", "API", "SDK" — replaced by life-domain tags ("caregiving", "insurance-navigation", "newborn-care", "menopause", "chronic-pain", "elder-care", etc.).
+
+Persona defaults (override only if signals demand otherwise):
+- Middle-income (not ultra-wealthy, not destitute)
+- Non-technical (does not write code, does not run CLIs)
+- Time-starved, sleep-deprived, or both
+- If a signal is about ultra-wealthy people, reframe: "what house managers do for the rich, this would do for everyone else."
 
 Research signals from the past week:
 {chr(10).join(signal_summaries)}
 {diversity_note}
 
-IMPORTANT: Ideas that combine signals from MULTIPLE DIFFERENT sources are stronger
-than ideas based on a single source. Prefer cross-source synthesis when possible.
-
-Prioritize ideas where signals reveal a GAP (something missing) over ideas where
-signals describe something that already exists.
+Prefer ideas that combine signals from MULTIPLE DIFFERENT sources — cross-source \
+corroboration means the Scene is real, not a one-off vent post.
 
 For each idea (0-6), provide ALL of these fields:
 
 {{
     "ideas": [
         {{
-            "title": "Clear, specific project name",
-            "description": "What to build and why -- 2-3 sentences covering the skill/tool vision",
-            "problem_statement": "The specific gap this fills. Who needs this and what do they do today as a workaround?",
-            "target_audience": "Exactly who would use this. Be specific: 'developers building Claude MCP integrations' not 'developers'",
-            "tags": ["tag1", "tag2"],
+            "title": "Short concrete name (e.g. 'Wellness Copilot', 'Insurance Navigator'). NOT a tool/CLI/MCP name.",
+            "description": "1-2 sentences in plain English describing what this would do for a person living the scene.",
+            "problem_statement": "2-3 sentences describing the LIVED STRUGGLE. Specific persona, specific moment, specific daily reality. No 'many people'.",
+            "target_audience": "1-2 sentences naming WHO lives this problem. Concrete: 'Middle-income parents juggling work and elementary-school kids' health logistics' — not 'users' or 'parents'.",
+            "struggling_user": "Single sentence in first person from the user's POV — like a quote you'd read in an Atlantic feature.",
+            "weight_hint": "At least one concrete cost number — hours/week, dollars/year, decision count, missed-sleep nights, etc. No 'a lot of time' — give a number even if it's an estimate.",
+            "agentic_relief": "2-3 sentences on what an AI companion could plausibly handle (target ~60-70% of the cognitive/coordination load — the house-manager benchmark). Bounded and specific. No 'AI streamlines everything' magic-handwaving.",
+            "tags": ["life-domain-tag-1", "life-domain-tag-2"],
             "source_signal_ids": ["signal-id-1", "signal-id-2"]
         }}
     ]
 }}
 
 Rules:
-- Only suggest ideas a solo developer can MVP in 2-4 weeks
-- MUST be one of: MCP server, CLI tool, pip package, agent skill, workflow component
-- Each idea MUST have a non-empty problem_statement and target_audience
-- If you produce 2 or more ideas, at least half MUST cite `source_signal_ids`
-  drawn from 2+ distinct signal sources (the `[xxx]` tags on each signal line
-  above are the sources). Single-source ideas must be the exception, not the default.
-- If no clear ideas emerge from the signals, return {{"ideas": []}}
-- Avoid: frontends, mobile apps, enterprise platforms, ideas requiring large teams
-- Maximum 6 ideas per synthesis run"""
+- ALL eight content fields (title, description, problem_statement, target_audience, struggling_user, weight_hint, agentic_relief, tags) MUST be non-empty.
+- Tags MUST be life-domain only — caregiving, pediatric, insurance-navigation, elder-care, autism-parenting, postpartum, sleep-training, chronic-illness, menopause, mental-health, etc. Reject tech tags.
+- If you produce 2+ ideas, at least half MUST cite source_signal_ids drawn from 2+ distinct signal sources.
+- Quality over quantity — return fewer than 3 ideas (or zero) if the signals don't support more. Empty {{"ideas": []}} is acceptable.
+- Maximum 6 ideas per synthesis run."""
 
     client = get_client()
     response = client.chat.completions.create(
@@ -491,6 +509,10 @@ def run_agent(dry_run: bool = False) -> str:
             source_signal_ids=idea_signal_ids,
             problem_statement=idea.get("problem_statement", ""),
             target_audience=idea.get("target_audience", ""),
+            struggling_user=idea.get("struggling_user", ""),
+            weight_hint=idea.get("weight_hint", ""),
+            agentic_relief=idea.get("agentic_relief", ""),
+            scoring_rubric="life_domain",
             signal_source=primary_source,
         )
         logger.info(f"Wrote idea #{idea_id} to IdeaForge: {idea['title']}")

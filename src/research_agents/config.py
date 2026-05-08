@@ -96,16 +96,30 @@ YOUTUBE_SUMMARIZER_MODEL = "gemini-3.1-flash-lite-preview"
 YOUTUBE_SUMMARIZER_MAX_TOKENS = 4096
 GEMINI_API_KEY_ENV = "GEMINI_API_KEY"  # env var name for Gemini API key
 
-# --- Reddit Scanner (skill-foundry: community pain points, missing tools) ---
+# --- Reddit Scanner (Health & Wellness life-domain pool — 2026-05-08 pivot) ---
+# Phase 1 of the Atlantic-article direction. These subs surface lived-struggle
+# signals from ordinary people (sick child at 2 AM, navigating insurance, juggling
+# specialist appointments, caregiving for parents). Output feeds idea_surfacer's
+# life-domain synthesis prompt to produce Scene-Weight-Turn idea cards.
+#
+# Threshold rationale per sub varies — see ingestion-review notes for details.
+# Smaller, denser subs (AgingParents, CaregiverSupport) get Low; larger noisier
+# subs (Menopause, beyondthebump) get Medium.
 REDDIT_SUBREDDITS: list[str] = [
-    "devtools",
-    "selfhosted",
-    "ClaudeAI",
-    "LocalLLaMA",
-    "ChatGPTPro",
+    "AgingParents",        # Caregiving (elderly), ~49K, very high signal density
+    "CaregiverSupport",    # Caregiving general, ~50K, "house-manager equivalent" framing
+    "Autism_Parenting",    # Pediatric/special-needs, ~61K, almost entirely struggle-shaped
+    "beyondthebump",       # Postpartum/pediatric, ~700K
+    "sleeptrain",          # Pediatric/sleep, ~100K, concentrated logistics
+    "HealthInsurance",     # Healthcare-navigation, ~100K, pure systems-friction
+    "ChronicIllness",      # Chronic conditions, ~150K, strong narrative voice
+    "Menopause",           # Women's health, ~300K, growing fast
 ]
-REDDIT_POSTS_PER_SUBREDDIT: int = 10
-REDDIT_MIN_RELEVANCE: str = "high"  # Raised from medium -- too much noise at medium
+# 8 subs × 8 posts = 64 posts/run (was 5 × 10 = 50). Reddit rate limit headroom OK.
+REDDIT_POSTS_PER_SUBREDDIT: int = 8
+REDDIT_MIN_RELEVANCE: str = "medium"  # Lowered from "high" — life-domain content
+                                      # is naturally narrative; high threshold filters
+                                      # too aggressively. Re-tune after first 2 weeks.
 REDDIT_MAX_SIGNALS_PER_RUN: int = 15
 
 # --- Cadences (retired agents removed 2026-04-05; doc-drift fixed 2026-04-20) ---

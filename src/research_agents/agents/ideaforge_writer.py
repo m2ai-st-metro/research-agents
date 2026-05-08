@@ -71,6 +71,10 @@ def write_idea_to_ideaforge(
     source_signal_ids: list[str],
     problem_statement: str = "",
     target_audience: str = "",
+    struggling_user: str = "",
+    weight_hint: str = "",
+    agentic_relief: str = "",
+    scoring_rubric: str = "",
     signal_source: str = "unknown",
     db_path: Path | None = None,
 ) -> int:
@@ -79,13 +83,24 @@ def write_idea_to_ideaforge(
     Maps idea_surfacer output to IdeaForge schema:
       title              -> title
       description        -> description
-      problem_statement  -> problem_statement
+      problem_statement  -> problem_statement (Scene raw material)
       target_audience    -> target_audience
+      struggling_user    -> struggling_user (first-person quote)
+      weight_hint +
+      agentic_relief     -> score_rationale (JSON envelope)
+      scoring_rubric     -> scoring_rubric (if column exists; e.g. 'life_domain')
       source_signal_ids  -> source_signals (JSON array)
-      provenance tag     -> source_subreddits[0] (workaround for provenance)
+      provenance + tags  -> source_subreddits (workaround — no tags column)
       len(signal_ids)    -> signal_count
       now()              -> synthesized_at
       'unscored'         -> status
+
+    Storage decision for weight_hint + agentic_relief:
+      No dedicated columns yet. We pack them into score_rationale as JSON
+      (key 'life_domain') rather than appending to description. This keeps
+      description clean for README Gate prose and gives the scoring stage
+      a structured envelope it can read without parsing free-form text.
+      Lower-risk than a schema migration during this synthesis-prompt swap.
 
     Returns the inserted idea row ID.
     """
@@ -103,25 +118,69 @@ def write_idea_to_ideaforge(
         # (IdeaForge schema has no dedicated tags column)
         provenance = ["research-agents:idea-surfacer"] + tags
 
-        cursor = conn.execute(
-            """INSERT INTO ideas
-            (title, description, problem_statement, target_audience,
-             source_signals, source_subreddits, signal_count,
-             status, synthesized_at, signal_source)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (
-                title,
-                description,
-                problem_statement,
-                target_audience,
-                json.dumps(source_signal_ids),
-                json.dumps(provenance),
-                len(source_signal_ids),
-                "unscored",
-                now,
-                signal_source,
-            ),
-        )
+        # Pack life-domain extras into a structured score_rationale envelope.
+        # Empty fields are still emitted so downstream readers see the shape
+        # consistently (and can detect a schema-skipping LLM run).
+        rationale_payload = {
+            "rubric": scoring_rubric or "unspecified",
+            "weight_hint": weight_hint,
+            "agentic_relief": agentic_relief,
+        }
+        rationale_json = json.dumps(rationale_payload)
+
+        # Defensive: probe for the scoring_rubric column. Another subagent is
+        # adding it in parallel; if the migration hasn't landed, skip that
+        # column rather than crashing the synthesis run.
+        cols = {row[1] for row in conn.execute("PRAGMA table_info(ideas)")}
+        has_rubric_col = "scoring_rubric" in cols
+
+        if has_rubric_col:
+            cursor = conn.execute(
+                """INSERT INTO ideas
+                (title, description, problem_statement, target_audience,
+                 struggling_user, score_rationale, scoring_rubric,
+                 source_signals, source_subreddits, signal_count,
+                 status, synthesized_at, signal_source)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    title,
+                    description,
+                    problem_statement,
+                    target_audience,
+                    struggling_user,
+                    rationale_json,
+                    scoring_rubric or "life_domain",
+                    json.dumps(source_signal_ids),
+                    json.dumps(provenance),
+                    len(source_signal_ids),
+                    "unscored",
+                    now,
+                    signal_source,
+                ),
+            )
+        else:
+            cursor = conn.execute(
+                """INSERT INTO ideas
+                (title, description, problem_statement, target_audience,
+                 struggling_user, score_rationale,
+                 source_signals, source_subreddits, signal_count,
+                 status, synthesized_at, signal_source)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    title,
+                    description,
+                    problem_statement,
+                    target_audience,
+                    struggling_user,
+                    rationale_json,
+                    json.dumps(source_signal_ids),
+                    json.dumps(provenance),
+                    len(source_signal_ids),
+                    "unscored",
+                    now,
+                    signal_source,
+                ),
+            )
         conn.commit()
         return cursor.lastrowid or 0
     finally:
