@@ -215,15 +215,17 @@ def _synthesize_ideas(signals: list[ResearchSignal], dry_run: bool = False) -> l
         f"({', '.join(f'{k}: {v}' for k, v in sorted(source_counts.items()))})"
     )
 
-    # Skip the LLM entirely when only one source is contributing — cross-source
-    # corroboration is impossible and historical hit-rate on single-source ideas
-    # is poor. Let signals roll over to the next run.
+    # Soft diversity check: with the 2026-05-08 life-domain pivot, Reddit is the
+    # only active life-domain ingestion source. The cross-source corroboration
+    # rule no longer applies as a hard gate -- within-Reddit subreddit diversity
+    # is the equivalent signal. The prompt-level "prefer 2+ distinct sources"
+    # rule still nudges multi-source synthesis whenever diversity exists.
     if unique_sources < 2:
-        logger.warning(
-            "Only %d distinct signal source(s); skipping synthesis to preserve "
-            "signals for a run with more diversity.", unique_sources
+        logger.info(
+            "Single-source synthesis (%d sources, %d signals) — life-domain "
+            "Reddit-only era. Proceeding without cross-source corroboration.",
+            unique_sources, len(signals)
         )
-        return []
 
     prompt = f"""You are a life-domain idea synthesizer. From raw human-life research \
 signals, you identify SCENES — concrete moments in a person's day where coordination, \

@@ -160,20 +160,24 @@ def assess_relevance_ollama(
     if client is None:
         client = get_ollama_client()
 
-    prompt = f"""Assess the relevance of this research signal to an AI skill foundry.
+    prompt = f"""Assess whether this signal describes a real human-life struggle that an AI companion could plausibly help with.
 
-The foundry builds MCP servers, agent skills, workflow tools, and pipeline components.
-Signals are HIGHLY relevant if they reveal:
-- MCP ecosystem gaps (integrations or servers that don't exist yet)
-- Recurring workflow patterns that lack dedicated tooling
-- API surfaces that should be wrapped as MCP servers but aren't
-- Agent infrastructure patterns (skills, pipelines, orchestration components)
-- Developer pain points with AI agent frameworks or tool-use SDKs
+You are filtering signals for a life-domain idea pipeline (Atlantic-magazine framing, post-2026-05-08 pivot). The pipeline produces ideas like the Wellness Copilot — agentic relief for the cognitive/coordination/admin load that wealthy households outsource to a house manager and the rest of us juggle alone.
+
+Signals are HIGHLY relevant if they describe:
+- Lived daily struggles: caregiving (kids, aging parents, special-needs), health navigation (insurance, specialist coordination, symptom triage), chronic-condition logistics, postpartum/sleep, women's-health transitions, mental-load and decision-fatigue moments
+- Specific personas in concrete situations: a parent at 2 AM with a sick child, someone fighting a claim denial, a caregiver burning out
+- Measurable cost: hours lost per week, dollars out-of-pocket, missed work, mental load
+- Coordination/scheduling/decision problems an AI agent could plausibly absorb 60-70% of
+
+Signals are MEDIUM relevant if they are general life-domain content with usable Scene material but lack a sharp persona or quantified cost.
 
 Signals are LOW relevance if they are:
-- General AI/ML research without skill/tooling implications
-- Market analysis, funding rounds, or business model discussion
-- Healthcare-specific or domain-specific without agent/skill relevance
+- Promotional/influencer content, product launches, marketing
+- Pure clinical/professional discussion (medical school, nursing-board content)
+- Crisis/self-harm content (out of scope for AI-relief idea generation)
+- Developer/AI-tooling/MCP/CLI/SDK content (the old direction; we are not building dev tools anymore)
+- Generic news, market analysis, funding rounds
 
 Signal:
 - Title: {title}
@@ -183,14 +187,14 @@ Signal:
 Respond with JSON only:
 {{
     "relevance": "high" | "medium" | "low",
-    "relevance_rationale": "Why this is/isn't relevant (1-2 sentences)",
-    "tags": ["tag1", "tag2"],
-    "domain": "primary domain (e.g. mcp-servers, agent-skills, workflow-tools, developer-tools, etc.) or null"
+    "relevance_rationale": "Why this is/isn't a usable life-domain Scene (1-2 sentences)",
+    "tags": ["caregiving", "insurance-navigation", "newborn-care", "menopause", "chronic-pain", "elder-care", etc.],
+    "domain": "primary life-domain category (caregiving, healthcare-navigation, pediatric, chronic-illness, women-health, mental-load, etc.) or null"
 }}"""
 
     try:
         result = client.generate_json(
-            system="You are a research signal relevance assessor. Output valid JSON only.",
+            system="You are a life-domain signal relevance assessor for an AI companion idea pipeline. Output valid JSON only.",
             prompt=prompt,
         )
     except (ValueError, httpx.HTTPError) as e:
