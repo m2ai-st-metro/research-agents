@@ -49,7 +49,9 @@ CREATE TABLE IF NOT EXISTS ideas (
     scored_at TIMESTAMP,
     exported_at TIMESTAMP,
     ultra_magnus_id INTEGER,
-    signal_source TEXT DEFAULT 'unknown'
+    signal_source TEXT DEFAULT 'unknown',
+    agentic_relief TEXT,
+    weight_hint TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_ideas_status ON ideas(status);
 CREATE INDEX IF NOT EXISTS idx_ideas_weighted_score ON ideas(weighted_score);
@@ -86,8 +88,8 @@ def write_idea_to_ideaforge(
       problem_statement  -> problem_statement (Scene raw material)
       target_audience    -> target_audience
       struggling_user    -> struggling_user (first-person quote)
-      weight_hint +
-      agentic_relief     -> score_rationale (JSON envelope)
+      weight_hint        -> weight_hint (dedicated column, R-A 1.6 2026-05-12)
+      agentic_relief     -> agentic_relief (dedicated column, R-A 1.6 2026-05-12)
       scoring_rubric     -> scoring_rubric (if column exists; e.g. 'life_domain')
       source_signal_ids  -> source_signals (JSON array)
       provenance + tags  -> source_subreddits (workaround — no tags column)
@@ -95,12 +97,14 @@ def write_idea_to_ideaforge(
       now()              -> synthesized_at
       'unscored'         -> status
 
-    Storage decision for weight_hint + agentic_relief:
-      No dedicated columns yet. We pack them into score_rationale as JSON
-      (key 'life_domain') rather than appending to description. This keeps
-      description clean for README Gate prose and gives the scoring stage
-      a structured envelope it can read without parsing free-form text.
-      Lower-risk than a schema migration during this synthesis-prompt swap.
+    Storage decision for weight_hint + agentic_relief (revised 2026-05-12):
+      Dedicated columns. The previous "pack into score_rationale JSON
+      envelope" workaround was R2 RED in the pivot drift audit — the
+      life-domain scorer overwrites score_rationale with its 5-factor
+      breakdown, dropping both fields before the Builder can read them.
+      Dedicated columns the scorer never touches make the data-flow
+      survive scoring. Falls back to the legacy score_rationale envelope
+      when the migration hasn't landed (older ideaforge.db snapshots).
 
     Returns the inserted idea row ID.
     """
@@ -118,9 +122,10 @@ def write_idea_to_ideaforge(
         # (IdeaForge schema has no dedicated tags column)
         provenance = ["research-agents:idea-surfacer"] + tags
 
-        # Pack life-domain extras into a structured score_rationale envelope.
-        # Empty fields are still emitted so downstream readers see the shape
-        # consistently (and can detect a schema-skipping LLM run).
+        # Legacy fallback envelope: synth-only, populated only when the
+        # dedicated agentic_relief/weight_hint columns are missing. Keeps
+        # older ideaforge.db snapshots from losing both fields entirely
+        # before they get the R-A 1.6 migration.
         rationale_payload = {
             "rubric": scoring_rubric or "unspecified",
             "weight_hint": weight_hint,
@@ -128,13 +133,43 @@ def write_idea_to_ideaforge(
         }
         rationale_json = json.dumps(rationale_payload)
 
-        # Defensive: probe for the scoring_rubric column. Another subagent is
-        # adding it in parallel; if the migration hasn't landed, skip that
-        # column rather than crashing the synthesis run.
+        # Defensive: probe the live schema. The scoring_rubric column was
+        # added by an earlier migration; the agentic_relief + weight_hint
+        # columns were added by R-A 1.6 (2026-05-12). Either may be absent
+        # on older snapshots — fall back to the legacy column set rather
+        # than crashing.
         cols = {row[1] for row in conn.execute("PRAGMA table_info(ideas)")}
         has_rubric_col = "scoring_rubric" in cols
+        has_relief_cols = "agentic_relief" in cols and "weight_hint" in cols
 
-        if has_rubric_col:
+        if has_rubric_col and has_relief_cols:
+            cursor = conn.execute(
+                """INSERT INTO ideas
+                (title, description, problem_statement, target_audience,
+                 struggling_user, score_rationale, scoring_rubric,
+                 agentic_relief, weight_hint,
+                 source_signals, source_subreddits, signal_count,
+                 status, synthesized_at, signal_source)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    title,
+                    description,
+                    problem_statement,
+                    target_audience,
+                    struggling_user,
+                    rationale_json,
+                    scoring_rubric or "life_domain",
+                    agentic_relief,
+                    weight_hint,
+                    json.dumps(source_signal_ids),
+                    json.dumps(provenance),
+                    len(source_signal_ids),
+                    "unscored",
+                    now,
+                    signal_source,
+                ),
+            )
+        elif has_rubric_col:
             cursor = conn.execute(
                 """INSERT INTO ideas
                 (title, description, problem_statement, target_audience,
