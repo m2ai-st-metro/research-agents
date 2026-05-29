@@ -95,7 +95,7 @@ def orchestrator_db(tmp_path: Path) -> Path:
         [
             ("m-1", "st-a", "research", "worker", "completed", 0.33,
              "Agent failed to locate the content.", "llm"),
-            ("m-1", "st-b", "coding", "galvatron", "completed", 0.46,
+            ("m-1", "st-b", "coding", "kup", "completed", 0.46,
              "Architectural analysis was off-target.", "llm"),
             ("m-1", "st-c", "general", "soundwave", "completed", 0.80,
              "Excellent output.", "llm"),

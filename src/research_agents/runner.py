@@ -9,7 +9,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from .config import CADENCE, IDEAFORGE_DB, ST_RECORDS_ROOT, ULTRA_MAGNUS_DB
+from .config import CADENCE, IDEAFORGE_DB, ST_RECORDS_ROOT
 
 app = typer.Typer(name="research-agents", help="Ambient research intelligence for ST Records.")
 console = Console()
@@ -106,7 +106,6 @@ def status() -> None:
 
     table.add_row("ST Records root", str(ST_RECORDS_ROOT))
     table.add_row("ST Records DB", str(ST_RECORDS_ROOT / "data" / "persona_metrics.db"))
-    table.add_row("Ultra-Magnus DB", str(ULTRA_MAGNUS_DB))
 
     for agent_name, cadence in CADENCE.items():
         table.add_row(f"  {agent_name} cadence", cadence)
