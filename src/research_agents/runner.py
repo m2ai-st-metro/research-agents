@@ -22,10 +22,7 @@ AGENTS: dict[str, str] = {
     "youtube": "research_agents.agents.youtube_scanner",
     "rss": "research_agents.agents.rss_scanner",
     "trend-analyzer": "research_agents.agents.trend_analyzer",
-    "perplexity": "research_agents.agents.perplexity_agent",
-    "chatgpt": "research_agents.agents.chatgpt_agent",
     "gemini-research": "research_agents.agents.gemini_research_agent",
-    "reddit": "research_agents.agents.reddit_scanner",
     "orchestrator-reflector": "research_agents.agents.orchestrator_reflector",
 }
 
@@ -34,6 +31,11 @@ AGENTS: dict[str, str] = {
 # "domain-watch": "research_agents.agents.domain_watcher",  # healthcare/HIPAA focus
 # "github-trending": "research_agents.agents.github_trending",  # star metrics, tool_monitor covers GitHub
 # "product-hunt": "research_agents.agents.producthunt_scanner",  # product launch noise
+
+# Retired/parked 2026-06-12 (Soundwave handover cleanup). Modules kept in src/ for resurrection.
+# "reddit": "research_agents.agents.reddit_scanner",        # Reddit 403-blocks unauthenticated hot.json; needs OAuth rewrite
+# "perplexity": "research_agents.agents.perplexity_agent",  # OpenRouter paid; never scheduled. Re-add only if spend is budgeted
+# "chatgpt": "research_agents.agents.chatgpt_agent",        # OpenAI paid; ceiling-NDR problem. Re-add only if spend is budgeted
 
 
 def _setup_logging(verbose: bool = False) -> None:

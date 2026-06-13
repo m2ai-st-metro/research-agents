@@ -57,7 +57,8 @@ EXPERIMENT_AGENTS: list[str] = [
     "youtube",
     # "rss" excluded — RSS_FEEDS is a list of {name, url, parser} dicts,
     # not search queries. Mutations change feed names, not search behavior.
-    "perplexity",
+    # "perplexity" retired 2026-06-12 (Soundwave handover): removed from runner AGENTS registry,
+    # paid OpenRouter agent, never scheduled. Keep configs consistent (anti-drift: retired in one config = retired in all).
     # "chatgpt" disabled — ceiling NDR problem (baseline 1.0, can't improve).
     # Replaced by ClaudeClaw scheduled task: Nate Newsletter Digester (task 3cd0ba31).
     "gemini_research",
