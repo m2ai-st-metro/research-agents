@@ -67,3 +67,43 @@
 2026-06-21 02:58:54 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
 2026-06-21 02:59:47 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
 2026-06-21 03:00:43 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:01:55 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:03:55 WARNING  auto_research.ollama_client: Ollama request failed (attempt 1/3): timed out — retrying in 3s
+2026-06-21 03:05:59 WARNING  auto_research.ollama_client: Ollama request failed (attempt 2/3): timed out — retrying in 6s
+2026-06-21 03:08:05 WARNING  auto_research.mini_pipeline: Failed to synthesize ideas from 10 signals: Ollama unavailable after 3 attempts: timed out
+2026-06-21 03:08:05 INFO     __main__: Variant:  10 signals found, 10 relevant, 0 ideas, NDR=0.0% (930.0s)
+2026-06-21 03:08:05 INFO     __main__: Result: Regression: NDR dropped -100.0%
+2026-06-21 03:08:10 INFO     __main__: ============================================================
+2026-06-21 03:08:10 INFO     __main__: Experimenting on agent: gemini_research
+2026-06-21 03:08:10 INFO     __main__: ============================================================
+2026-06-21 03:08:10 INFO     __main__: Baseline query: 'Search for forum threads and community discussions from the last week focusing on challenges and recommendations for improving the integration and functionality of Model Context Protocol and AI agent '
+2026-06-21 03:08:10 INFO     __main__: Slot role:      Long-form gap discussions — blog posts, forum threads, and developer discussions about missing MCP integrations or unbuilt agent skills.
+2026-06-21 03:09:43 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:09:43 INFO     __main__: Variant query:  'Search for recent technical discussions and expert opinions on missing MCP features and integration gaps in AI agent platforms on developer blogs and forums.'
+2026-06-21 03:09:43 INFO     __main__: Running baseline experiment...
+2026-06-21 03:09:43 WARNING  google_genai._api_client: Both GOOGLE_API_KEY and GEMINI_API_KEY are set. Using GOOGLE_API_KEY.
+2026-06-21 03:09:43 INFO     google_genai.models: AFC is enabled with max remote calls: 10.
+2026-06-21 03:10:13 INFO     httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-06-21 03:11:45 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:12:40 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:13:31 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:14:32 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:15:35 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:17:35 WARNING  auto_research.ollama_client: Ollama request failed (attempt 1/3): timed out — retrying in 3s
+2026-06-21 03:19:38 WARNING  auto_research.ollama_client: Ollama request failed (attempt 2/3): timed out — retrying in 6s
+2026-06-21 03:21:13 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:22:25 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:23:00 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:23:35 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:23:35 INFO     __main__: Baseline: 5 signals found, 5 relevant, 3 ideas, NDR=100.0% (832.8s)
+2026-06-21 03:23:38 INFO     __main__: Running variant experiment...
+2026-06-21 03:23:38 WARNING  google_genai._api_client: Both GOOGLE_API_KEY and GEMINI_API_KEY are set. Using GOOGLE_API_KEY.
+2026-06-21 03:23:38 INFO     google_genai.models: AFC is enabled with max remote calls: 10.
+2026-06-21 03:23:48 INFO     httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-06-21 03:24:54 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:25:46 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:26:35 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:27:23 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:28:09 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-06-21 03:30:10 WARNING  auto_research.ollama_client: Ollama request failed (attempt 1/3): timed out — retrying in 3s
+2026-06-21 03:32:01 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
