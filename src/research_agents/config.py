@@ -250,7 +250,7 @@ GEMINI_RESEARCH_MODEL = "gemini-3-flash-preview"
 GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for recent announcements and deployments of MCP server and Model Context Protocol integrations over the past week",
-    "Search for newly released AI agent tools including frameworks and SDKs with updates and enhancements from the last week",
+    "Search for recent AI agent framework and SDK launches featuring innovative features and improvements from the last week",
     "Search for GitHub repositories showing recent star growth and activity related to advancements in Model Context Protocol and AI agent skill implementations over the last week",
     "Search for recent introductions and deployments of AI agent workflow and pipeline automation tools released in the last week",
     "Search for forum threads and community discussions from the last week focusing on challenges and recommendations for improving the integration and functionality of Model Context Protocol and AI agent ",
