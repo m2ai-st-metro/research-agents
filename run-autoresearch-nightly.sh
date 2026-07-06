@@ -12,7 +12,7 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOCK_FILE="/tmp/autoresearch-nightly.lock"
 LOG_PREFIX="[AutoResearch]"
-ALIENPC_OLLAMA="http://10.0.0.35:11434"
+ALIENPC_OLLAMA="http://10.0.0.24:11434"  # fallback only; overridden by OLLAMA_BASE_URL from ~/.env.shared below
 ROUNDS=20
 NOTIFY_SCRIPT="/home/apexaipc/projects/claudeclaw/scripts/notify.sh"
 MISSES_LOG="/home/apexaipc/logs/research-agents/autoresearch-misses.log"
@@ -47,6 +47,8 @@ if [[ -f "$HOME/.env.shared" ]]; then
     source "$HOME/.env.shared"
     set +a
 fi
+# Env is sourced AFTER the default above, so re-derive (single source of truth in ~/.env.shared).
+ALIENPC_OLLAMA="${OLLAMA_BASE_URL:-$ALIENPC_OLLAMA}"
 
 log "Starting nightly AutoResearch run"
 

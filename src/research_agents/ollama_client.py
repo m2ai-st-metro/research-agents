@@ -19,7 +19,7 @@ from .config import OLLAMA_BASE_URL, OLLAMA_MODEL, OLLAMA_TIMEOUT
 logger = logging.getLogger(__name__)
 
 # AlienPC fallback config
-_ALIENPC_URL = "http://10.0.0.35:11434"
+_ALIENPC_URL = "http://10.0.0.24:11434"
 _ALIENPC_MODEL = "qwen2.5:14b"
 
 # Module-level singleton (lazy init)
@@ -113,7 +113,7 @@ def get_ollama_client() -> OllamaClient:
 
     Priority:
     1. Primary (default: ProBook localhost, qwen2.5:7b-instruct)
-    2. AlienPC (10.0.0.35, qwen2.5:14b) — used if primary is unavailable
+    2. AlienPC (10.0.0.24, qwen2.5:14b) — used if primary is unavailable
     """
     global _client
     if _client is not None:

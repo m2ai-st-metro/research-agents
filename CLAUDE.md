@@ -62,7 +62,7 @@ be resurrected without a rewrite if the mission shifts.
 
 ## Infrastructure
 
-- **Ollama default: AlienPC GPU** (`http://10.0.0.35:11434`, qwen2.5:14b, RTX 5080)
+- **Ollama default: AlienPC GPU** (`http://10.0.0.24:11434`, qwen2.5:14b, RTX 5080)
 - ProBook CPU is fallback only (~124s/assessment vs ~7s on GPU)
 - If AlienPC is off, override: `OLLAMA_BASE_URL=http://localhost:11434 OLLAMA_MODEL=qwen2.5:7b-instruct`
 - Firecrawl enrichment enabled for tool-monitor README scraping

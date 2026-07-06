@@ -46,7 +46,7 @@ IDEA_SURFACER_LOOKBACK_DAYS = int(os.environ.get("IDEA_SURFACER_LOOKBACK_DAYS", 
 # Default: AlienPC GPU (qwen2.5:14b, RTX 5080, ~7s per assessment)
 # Fallback: ProBook localhost (qwen2.5:7b-instruct, CPU, ~124s per assessment -- too slow)
 # If AlienPC is off, set OLLAMA_BASE_URL=http://localhost:11434 OLLAMA_MODEL=qwen2.5:7b-instruct
-OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://10.0.0.35:11434")
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://10.0.0.24:11434")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:14b")
 OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))
 
