@@ -1,0 +1,76 @@
+START 2026-07-07T02:13:19-05:00  model=qwen2.5:14b  base=http://10.0.0.24:11434
+2026-07-07 02:13:20 INFO     httpx: HTTP Request: GET http://10.0.0.24:11434/api/tags "HTTP/1.1 200 OK"
+2026-07-07 02:13:20 INFO     __main__: 
+2026-07-07 02:13:20 INFO     __main__: ###  ROUND 1 / 2  ###
+2026-07-07 02:13:20 INFO     __main__: 
+2026-07-07 02:13:20 INFO     __main__: ============================================================
+2026-07-07 02:13:20 INFO     __main__: Experimenting on agent: tool_monitor
+2026-07-07 02:13:20 INFO     __main__: ============================================================
+2026-07-07 02:13:20 INFO     __main__: Baseline query: 'LLM function calling tool use library'
+2026-07-07 02:13:20 INFO     __main__: Slot role:      Tool-use primitives & SDKs — low-level function-calling or tool-use libraries that sit below MCP in the stack.
+2026-07-07 02:13:20 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:20 INFO     __main__: Variant query:  'language model function invocation toolkit library'
+2026-07-07 02:13:20 INFO     __main__: Running baseline experiment...
+2026-07-07 02:13:20 INFO     httpx: HTTP Request: GET https://api.github.com/search/repositories?q=LLM+function+calling+tool+use+library+pushed%3A%3E2026-01-01&sort=updated&per_page=10 "HTTP/1.1 200 OK"
+2026-07-07 02:13:23 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:32 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:33 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:35 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:36 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:36 INFO     __main__: Baseline: 1 signals found, 1 relevant, 3 ideas, NDR=100.0% (15.8s)
+2026-07-07 02:13:39 INFO     __main__: Running variant experiment...
+2026-07-07 02:13:39 INFO     httpx: HTTP Request: GET https://api.github.com/search/repositories?q=language+model+function+invocation+toolkit+library+pushed%3A%3E2026-01-01&sort=updated&per_page=10 "HTTP/1.1 200 OK"
+2026-07-07 02:13:39 INFO     __main__: Variant:  0 signals found, 0 relevant, 0 ideas, NDR=0.0% (0.3s)
+2026-07-07 02:13:39 INFO     __main__: Result: Baseline has only 1 signals (min: 3)
+2026-07-07 02:13:44 INFO     __main__: ============================================================
+2026-07-07 02:13:44 INFO     __main__: Experimenting on agent: youtube
+2026-07-07 02:13:44 INFO     __main__: ============================================================
+2026-07-07 02:13:44 INFO     __main__: Baseline query: 'MCP server creation guide 2026'
+2026-07-07 02:13:44 INFO     __main__: Slot role:      MCP server build tutorials — step-by-step 'build your own MCP server' content, hands-on tutorials.
+2026-07-07 02:13:45 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:45 INFO     __main__: Variant query:  'MCP server setup tutorial 2026'
+2026-07-07 02:13:45 INFO     __main__: Running baseline experiment...
+2026-07-07 02:13:45 INFO     httpx: HTTP Request: GET https://www.youtube.com/results?search_query=MCP+server+creation+guide+2026 "HTTP/1.1 200 OK"
+2026-07-07 02:13:48 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:50 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:53 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:55 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:13:58 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:00 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:02 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:05 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:07 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:10 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:18 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:20 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:21 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:23 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:23 INFO     __main__: Baseline: 10 signals found, 10 relevant, 3 ideas, NDR=100.0% (38.0s)
+2026-07-07 02:14:26 INFO     __main__: Running variant experiment...
+2026-07-07 02:14:26 INFO     httpx: HTTP Request: GET https://www.youtube.com/results?search_query=MCP+server+setup+tutorial+2026 "HTTP/1.1 200 OK"
+2026-07-07 02:14:29 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:31 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:33 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:36 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:38 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:40 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:43 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:45 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:48 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:51 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:14:59 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:15:00 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:15:02 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:15:03 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:15:03 INFO     __main__: Variant:  10 signals found, 10 relevant, 3 ideas, NDR=66.7% (37.5s)
+2026-07-07 02:15:03 INFO     __main__: Result: NDR improved -33.3% but avg score dropped (5.3 -> 5.1). Guardrail triggered.
+2026-07-07 02:15:08 INFO     __main__: ============================================================
+2026-07-07 02:15:08 INFO     __main__: Experimenting on agent: gemini_research
+2026-07-07 02:15:08 INFO     __main__: ============================================================
+2026-07-07 02:15:08 INFO     __main__: Baseline query: 'Search for recent announcements and deployments of MCP server and Model Context Protocol integrations over the past week'
+2026-07-07 02:15:08 INFO     __main__: Slot role:      MCP integration release sources — direct search results for freshly released MCP servers or protocol integrations.
+2026-07-07 02:15:09 INFO     httpx: HTTP Request: POST http://10.0.0.24:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-07 02:15:09 INFO     __main__: Variant query:  'Search for updates and rollouts of MCP server and Model Context Protocol integrations from the last week'
+2026-07-07 02:15:09 INFO     __main__: Running baseline experiment...
+2026-07-07 02:15:09 WARNING  google_genai._api_client: Both GOOGLE_API_KEY and GEMINI_API_KEY are set. Using GOOGLE_API_KEY.
+2026-07-07 02:15:09 INFO     google_genai.models: AFC is enabled with max remote calls: 10.
