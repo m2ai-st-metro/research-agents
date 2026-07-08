@@ -121,3 +121,71 @@
 2026-07-08 02:58:25 INFO     __main__: Running baseline experiment...
 2026-07-08 02:58:25 INFO     httpx: HTTP Request: GET https://api.github.com/search/repositories?q=MCP+SDK+typescript+python+client+binding+pushed%3A%3E2026-01-01&sort=updated&per_page=10 "HTTP/1.1 200 OK"
 2026-07-08 02:59:07 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:00:22 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:01:16 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:01:36 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:01:36 INFO     __main__: Baseline: 1 signals found, 1 relevant, 2 ideas, NDR=100.0% (192.0s)
+2026-07-08 03:01:39 INFO     __main__: Running variant experiment...
+2026-07-08 03:01:40 INFO     httpx: HTTP Request: GET https://api.github.com/search/repositories?q=MCP+client-server+TypeScript+Python+integration+examples+pushed%3A%3E2026-01-01&sort=updated&per_page=10 "HTTP/1.1 200 OK"
+2026-07-08 03:01:40 INFO     __main__: Variant:  0 signals found, 0 relevant, 0 ideas, NDR=0.0% (0.3s)
+2026-07-08 03:01:40 INFO     __main__: Result: Baseline has only 1 signals (min: 3)
+2026-07-08 03:01:45 INFO     __main__: ============================================================
+2026-07-08 03:01:45 INFO     __main__: Experimenting on agent: youtube
+2026-07-08 03:01:45 INFO     __main__: ============================================================
+2026-07-08 03:01:45 INFO     __main__: Baseline query: 'AI coding assistants review and productivity impact 2026'
+2026-07-08 03:01:45 INFO     __main__: Slot role:      Dev-productivity agent tool reviews — comparisons, benchmarks, and demos of coding agents as developer productivity tools.
+2026-07-08 03:02:35 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:02:35 INFO     __main__: Variant query:  'AI coding agent benchmarking and developer productivity 2026'
+2026-07-08 03:02:35 INFO     __main__: Running baseline experiment...
+2026-07-08 03:02:35 INFO     httpx: HTTP Request: GET https://www.youtube.com/results?search_query=AI+coding+assistants+review+and+productivity+impact+2026 "HTTP/1.1 200 OK"
+2026-07-08 03:03:19 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:03:48 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:04:21 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:04:58 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:05:28 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:06:03 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:06:41 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:07:14 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:07:41 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:08:16 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:10:16 WARNING  auto_research.ollama_client: Ollama request failed (attempt 1/3): timed out — retrying in 3s
+2026-07-08 03:11:52 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:12:42 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:13:03 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:13:23 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:13:23 INFO     __main__: Baseline: 10 signals found, 10 relevant, 3 ideas, NDR=100.0% (648.7s)
+2026-07-08 03:13:26 INFO     __main__: Running variant experiment...
+2026-07-08 03:13:27 INFO     httpx: HTTP Request: GET https://www.youtube.com/results?search_query=AI+coding+agent+benchmarking+and+developer+productivity+2026 "HTTP/1.1 200 OK"
+2026-07-08 03:14:07 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:14:35 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:15:08 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:15:43 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:16:14 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:16:47 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:17:22 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:17:56 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:18:25 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:18:56 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:20:56 WARNING  auto_research.ollama_client: Ollama request failed (attempt 1/3): timed out — retrying in 3s
+2026-07-08 03:22:05 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:22:58 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:23:19 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:23:40 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:23:40 INFO     __main__: Variant:  10 signals found, 10 relevant, 3 ideas, NDR=100.0% (613.4s)
+2026-07-08 03:23:40 INFO     __main__: Result: No change in non-dismiss rate
+2026-07-08 03:23:45 INFO     __main__: ============================================================
+2026-07-08 03:23:45 INFO     __main__: Experimenting on agent: gemini_research
+2026-07-08 03:23:45 INFO     __main__: ============================================================
+2026-07-08 03:23:45 INFO     __main__: Baseline query: 'Search for recent introductions and deployments of AI agent workflow and pipeline automation tools released in the last week'
+2026-07-08 03:23:45 INFO     __main__: Slot role:      Workflow automation launch sources — direct search results for new agent workflow or pipeline automation tool launches.
+2026-07-08 03:24:43 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:24:43 INFO     __main__: Variant query:  'Search for recent announcements and launches of cutting-edge AI agent workflow automation platforms released in the last 7 days'
+2026-07-08 03:24:43 INFO     __main__: Running baseline experiment...
+2026-07-08 03:24:43 WARNING  google_genai._api_client: Both GOOGLE_API_KEY and GEMINI_API_KEY are set. Using GOOGLE_API_KEY.
+2026-07-08 03:24:43 INFO     google_genai.models: AFC is enabled with max remote calls: 10.
+2026-07-08 03:25:02 INFO     httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent "HTTP/1.1 200 OK"
+2026-07-08 03:25:51 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:26:22 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:26:59 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:27:36 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2026-07-08 03:28:12 INFO     httpx: HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
