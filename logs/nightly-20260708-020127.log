@@ -1,0 +1,9 @@
+2026-07-08 02:01:28 INFO     httpx: HTTP Request: GET http://localhost:11434/api/tags "HTTP/1.1 200 OK"
+2026-07-08 02:01:28 INFO     __main__: 
+2026-07-08 02:01:28 INFO     __main__: ###  ROUND 1 / 2  ###
+2026-07-08 02:01:28 INFO     __main__: 
+2026-07-08 02:01:28 INFO     __main__: ============================================================
+2026-07-08 02:01:28 INFO     __main__: Experimenting on agent: tool_monitor
+2026-07-08 02:01:28 INFO     __main__: ============================================================
+2026-07-08 02:01:28 INFO     __main__: Baseline query: 'MCP SDK typescript python client binding'
+2026-07-08 02:01:28 INFO     __main__: Slot role:      Language-specific MCP SDKs — Python, TypeScript, or other-language MCP client-server bindings.
