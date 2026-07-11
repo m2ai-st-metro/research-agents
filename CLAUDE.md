@@ -23,7 +23,15 @@ Skill-foundry intelligence pipeline for ST Metro. 9 agents scan for MCP ecosyste
 - Idea surfacer writes to IdeaForge `ideaforge.db` (status='unscored')
 - IdeaForge scores + classifies (skill-fit weighted) -> Metroplex triages
 
-## Agent Registry (7 scheduled + 4 on-demand/utility)
+## Agent Registry (1 scheduled + on-demand/utility)
+
+> **Scheduling reality (corrected 2026-07-11, Q-20260711-0013):** only **idea-surfacer**
+> is actually scheduled today (crontab: daily 12:00 + 23:00). Every other producer below
+> was retired from crontab on 2026-06-12 (Reddit 403s, AlienPC Ollama unreachable) or
+> earlier — the Cadence column shows the HISTORICAL schedule, not current state. Last
+> real research_signals emit: 2026-05-26. The idea-surfacer has been synthesizing
+> "0 recent unconsumed signals" since 2026-05-27 because its supply is dark. See
+> ~/vault/projects/st-metro-loop-map-analysis-2026-07-11.md (G4) for the refill decision.
 
 | Agent | LLM | Focus | Cadence |
 |-------|-----|-------|---------|
