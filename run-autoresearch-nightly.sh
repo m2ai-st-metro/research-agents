@@ -14,7 +14,7 @@ LOCK_FILE="/tmp/autoresearch-nightly.lock"
 LOG_PREFIX="[AutoResearch]"
 ALIENPC_OLLAMA="http://10.0.0.24:11434"  # fallback only; overridden by OLLAMA_BASE_URL from ~/.env.shared below
 ROUNDS=20
-NOTIFY_SCRIPT="/home/apexaipc/projects/claudeclaw/scripts/notify.sh"
+NOTIFY_SCRIPT="/home/apexaipc/projects/claudeclaw-os/scripts/notify.sh"
 MISSES_LOG="/home/apexaipc/logs/research-agents/autoresearch-misses.log"
 
 log() {
@@ -24,6 +24,8 @@ log() {
 notify() {
     if [[ -x "$NOTIFY_SCRIPT" ]]; then
         "$NOTIFY_SCRIPT" "$1" 2>/dev/null || true
+    else
+        log "WARN: NOTIFY_SCRIPT not found or not executable at $NOTIFY_SCRIPT; skipping notification"
     fi
 }
 
@@ -94,8 +96,16 @@ export OLLAMA_BASE_URL="$ALIENPC_OLLAMA"
 export OLLAMA_MODEL="qwen2.5:14b"
 export OLLAMA_TIMEOUT="300"
 
-RESULT=$(python -m auto_research.runner --rounds "$ROUNDS" 2>&1)
+# Run in a new session (setsid) with SIGHUP ignored (nohup) so the process
+# survives SSH session death or manual-run terminal closure. Output is
+# captured via a temp file because nohup redirects stdout when no tty.
+RUNNER_LOG=$(mktemp /tmp/autoresearch-runner-XXXXXX.log)
+setsid nohup python -m auto_research.runner --rounds "$ROUNDS" > "$RUNNER_LOG" 2>&1 &
+RUNNER_PID=$!
+wait "$RUNNER_PID"
 EXIT_CODE=$?
+RESULT=$(cat "$RUNNER_LOG")
+rm -f "$RUNNER_LOG"
 
 echo "$RESULT"
 
