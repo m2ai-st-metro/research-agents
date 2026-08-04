@@ -96,13 +96,12 @@ export OLLAMA_BASE_URL="$ALIENPC_OLLAMA"
 export OLLAMA_MODEL="qwen2.5:14b"
 export OLLAMA_TIMEOUT="300"
 
-# Run in a new session (setsid) with SIGHUP ignored (nohup) so the process
-# survives SSH session death or manual-run terminal closure. Output is
-# captured via a temp file because nohup redirects stdout when no tty.
 RUNNER_LOG=$(mktemp /tmp/autoresearch-runner-XXXXXX.log)
-setsid nohup python -m auto_research.runner --rounds "$ROUNDS" > "$RUNNER_LOG" 2>&1 &
-RUNNER_PID=$!
-wait "$RUNNER_PID"
+# setsid --wait: runner gets its own session (survives launcher/SSH death, no
+# SIGHUP) while setsid itself blocks and propagates the runner's real exit code.
+# The previous `setsid nohup ... & wait $!` waited on the transient setsid
+# parent, so EXIT_CODE/RESULT reflected the wrapper, not the runner.
+setsid --wait python -m auto_research.runner --rounds "$ROUNDS" > "$RUNNER_LOG" 2>&1
 EXIT_CODE=$?
 RESULT=$(cat "$RUNNER_LOG")
 rm -f "$RUNNER_LOG"
@@ -116,8 +115,8 @@ if [[ $EXIT_CODE -ne 0 ]]; then
 fi
 
 # --- Step 3: Extract summary for notification ---
-WINNER_COUNT=$(echo "$RESULT" | grep -c "WINNER" || echo "0")
-EXPERIMENT_COUNT=$(echo "$RESULT" | grep -c "Experimenting on agent" || echo "0")
+WINNER_COUNT=$(echo "$RESULT" | grep -c "WINNER" || true)
+EXPERIMENT_COUNT=$(echo "$RESULT" | grep -c "Experimenting on agent" || true)
 
 if [[ "$WINNER_COUNT" -gt 0 ]]; then
     WINNER_LINES=$(echo "$RESULT" | grep "WINNER" | sed 's/.*WINNER/WINNER/' | head -3)
