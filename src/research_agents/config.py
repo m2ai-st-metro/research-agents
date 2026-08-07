@@ -63,7 +63,7 @@ TOOL_MAX_RESULTS_PER_QUERY = 10
 
 # --- YouTube Trending Scanner (skill-foundry: agent/MCP tooling content) ---
 YOUTUBE_SEARCH_QUERIES: list[str] = [
-    "MCP server construction guide 2026",
+    "MCP server setup tutorial 2026",
     "exploring advanced features in AI agent framework launches 2026",
     "Claude ecosystem analysis autonomous agent capabilities 2026 advancements",
     "AI driven workflow orchestration with autonomous agents 2026",
