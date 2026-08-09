@@ -52,7 +52,7 @@ OLLAMA_TIMEOUT = int(os.environ.get("OLLAMA_TIMEOUT", "120"))
 
 # --- Tool/Library Monitor (skill-foundry: MCP ecosystem gaps, agent tooling) ---
 TOOL_SEARCH_QUERIES: list[str] = [
-    "MCP server reference codebases",
+    "MCP server implementation repositories",
     "MCP bridge service API wrapper",
     "agent skill repository framework",
     "multi-agent workflow management system implementation",
