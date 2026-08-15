@@ -253,6 +253,6 @@ GEMINI_RESEARCH_QUERIES: list[str] = [
     "Search for recent releases and updates of AI agent frameworks and SDKs emphasizing新增功能和性能优化在最近一周内的变化和发展",
     "Search for trending GitHub repositories with recent star growth and active contributions to Model Context Protocol and AI agent skill development in the past week",
     "Search for newly launched AI agent workflow and pipeline automation tools and solutions announced in the last 7 days",
-    "Search for recent forum threads and developer discussions highlighting gaps and proposed improvements in Model Context Protocol integration and AI agent skillsets",
+    "Search for recent discussions and forum threads focusing on identified gaps and suggested enhancements in Model Context Protocol implementation and AI agent capabilities",
 ]
 GEMINI_RESEARCH_MIN_RELEVANCE = "medium"
