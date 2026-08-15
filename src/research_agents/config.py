@@ -249,7 +249,7 @@ CHATGPT_MIN_RELEVANCE = "medium"
 GEMINI_RESEARCH_MODEL = "gemini-3-flash-preview"
 GEMINI_RESEARCH_MAX_TOKENS = 4096
 GEMINI_RESEARCH_QUERIES: list[str] = [
-    "Search for newly released updates and integrations of MCP server and Model Context Protocol in the last 7 days",
+    "Search for recent releases and integrations of MCP server and Model Context Protocol updates from official sources in the past week",
     "Search for latest releases and enhancements of AI agent frameworks and SDKs focusing on新增功能和性能改进在最近7天内的更新和发展",
     "Search for trending GitHub repositories with recent star growth and active contributions to Model Context Protocol and AI agent skill development in the past week",
     "Search for newly launched AI agent workflow and pipeline automation tools and solutions announced in the last 7 days",
